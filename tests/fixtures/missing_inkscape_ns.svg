@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg"
+     viewBox="0 0 500 300"
+     width="100%" height="100%">
+  <!-- Standard SVG without xmlns:inkscape namespace declaration -->
+  <g id="layer-background">
+    <rect width="500" height="300" fill="#0a0e17" />
+  </g>
+</svg>

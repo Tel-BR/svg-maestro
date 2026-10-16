@@ -390,6 +390,49 @@ class TestRefinementVerbs(unittest.TestCase):
         self.assertEqual(proc.returncode, 0, f"CLI critique failed: {proc.stderr}")
         self.assertIn("SVG Maestro Design Critique", proc.stdout)
 
+    def test_non_destructive_derived_output_default(self):
+        """CLI without --output or --in-place must create <stem>_<verb>.svg and leave input unchanged."""
+        test_file = os.path.join(self.temp_dir, "original_card.svg")
+        with open(test_file, "w", encoding="utf-8") as f:
+            f.write(STATIC_SVG_TEMPLATE)
+
+        cmd = [
+            sys.executable,
+            os.path.join(SCRIPTS_DIR, "refinement_verbs.py"),
+            "bolder",
+            "--input", test_file
+        ]
+        proc = subprocess.run(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, encoding="utf-8")
+        self.assertEqual(proc.returncode, 0, f"Command failed: {proc.stderr}")
+
+        derived_file = os.path.join(self.temp_dir, "original_card_bolder.svg")
+        self.assertTrue(os.path.exists(derived_file), "Derived file was not created")
+
+        # Original file must remain unchanged
+        with open(test_file, "r", encoding="utf-8") as f:
+            original_content = f.read()
+        self.assertEqual(original_content, STATIC_SVG_TEMPLATE, "Original file was modified unexpectedly")
+
+    def test_in_place_overwrite_when_explicit(self):
+        """CLI with --in-place must explicitly overwrite the input file."""
+        test_file = os.path.join(self.temp_dir, "inplace_card.svg")
+        with open(test_file, "w", encoding="utf-8") as f:
+            f.write(STATIC_SVG_TEMPLATE)
+
+        cmd = [
+            sys.executable,
+            os.path.join(SCRIPTS_DIR, "refinement_verbs.py"),
+            "bolder",
+            "--input", test_file,
+            "--in-place"
+        ]
+        proc = subprocess.run(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, encoding="utf-8")
+        self.assertEqual(proc.returncode, 0, f"Command failed: {proc.stderr}")
+
+        with open(test_file, "r", encoding="utf-8") as f:
+            modified_content = f.read()
+        self.assertNotEqual(modified_content, STATIC_SVG_TEMPLATE, "File was not modified in-place")
+
 
 if __name__ == "__main__":
     unittest.main()

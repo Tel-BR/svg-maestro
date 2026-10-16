@@ -1,63 +1,108 @@
-# SVG Maestro 🎨✨
+# SVG Maestro
 
-[English](README.md) | 🌐 **Português (Brasil)**
+[English](README.md) | **Português (Brasil)**
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
-[![Python: 3.8+](https://img.shields.io/badge/python-3.8+-blue.svg)](scripts/validate_svg.py)
-[![Inkscape: Fully Compatible](https://img.shields.io/badge/Inkscape-Compatible-brightgreen.svg)](docs/SPEC.md)
+[![Python: 3.9+](https://img.shields.io/badge/python-3.9+-blue.svg)](scripts/validate_svg.py)
+[![Inkscape: Compatível com Camadas](https://img.shields.io/badge/Inkscape-Camadas%20Compat%C3%ADveis-brightgreen.svg)](docs/SPEC.md)
+[![Status: Beta v0.1.0-beta.1](https://img.shields.io/badge/status-v0.1.0--beta.1-orange.svg)](https://github.com/Tel-BR/svg-maestro/releases)
 
-**SVG Maestro** é um sistema de design e orquestração de movimento vetorial de código aberto para agentes de inteligência artificial (Antigravity, Claude, Codex). Ele funde a **disciplina arquitetural de Matt Pocock** (eliciação de briefing, fatias verticais e validação mecânica) com a **alta direção de arte do Impeccable** (modos de superfície, verbos criativos de refinamento e regras inegociáveis de qualidade visual), gerando layouts matemáticos em SVG, cartões de telemetria para dashboards e overlays para streaming no OBS Studio que são 100% editáveis no Inkscape.
-
----
-
-## 🏛️ Os Três Pilares Fundamentais
-
-### 1. Direção de Arte & Geometria Matemática (Dual-Engine)
-- **Zero-Bias Policy**: Sem templates ou clipart genérico. Toda arte é criada do zero a partir de sequências de Fibonacci, Proporção Áurea ($\phi \approx 1.618$), malhas isométricas de $30^\circ$ e tangências euclidianas.
-- **Modos de Superfície**:
-  - `Operate`: Alta densidade e escaneabilidade para dashboards web e cartões do Power BI.
-  - `Experience`: Iluminação néon vibrante, alto contraste e animações em loop a 60fps para overlays de streaming no OBS Studio.
-  - `Persuade`: Proporções monumentais e narrativa visual para ilustrações hero e branding.
-- **Craft Floor**: Piso inegociável de qualidade que proíbe expressamente "clipart genérico de IA", gradientes lodosos e curvas mal conectadas.
-- **Autonomia Total**: Opera 100% independente do zero. Opcionalmente conecta-se aos tokens de `DESIGN.md` ou `PRODUCT.md` caso o projeto já utilize a skill `impeccable`.
-
-### 2. Compatibilidade Total com Inkscape
-- Conformidade estrita com namespaces (`xmlns:inkscape`, `xmlns:sodipodi`).
-- Camadas semânticas nativas do Inkscape (`inkscape:groupmode="layer"` e `inkscape:label`).
-- Higiene rigorosa em `<defs>` com identificadores semânticos descritivos.
-
-### 3. Animação Vetorial Nativa à Prova de Mutação (Wrapper Pattern)
-- **Wrapper Pattern**: Encapsula elementos animados em invólucros dedicados (`<g class="anim-wrapper-...">`), protegendo os nós estáticos (`<g inkscape:label="...">`) contra colisões de transformação durante edições manuais no Inkscape.
-- **Tier 1 (CSS Universal)**: `@keyframes` com `transform-box: fill-box` e `transform-origin: center` obrigatórios para estabilidade entre navegadores e OBS.
-- **Tier 2 (SMIL Vector Motion)**: Morphing de caminhos vetoriais e animação sobre guias de movimento.
-- **Filtros Vetoriais FX**: Filtros nativos acelerados por hardware (`feTurbulence`, `feDisplacementMap`, `feDropShadow`) para distorções orgânicas e néon.
+**SVG Maestro** é um sistema de design e orquestração de movimento vetorial para agentes de IA de programação (Antigravity, Claude Code, Codex, Cursor). Ele une disciplina arquitetural (briefing estruturado, fatiamento vertical em tickets, validação autônoma) com direção de arte expressiva (modos de superfície, verbos de refinamento não-destrutivos, tipografia desacoplada) para produzir layouts matemáticos em SVG, cartões de telemetria para dashboards e overlays para streaming no OBS Studio estruturados para o Inkscape.
 
 ---
 
-## 🌐 Internacionalização (i18n)
+## Início Rápido
 
-- **Agente Poliglota**: O agente conduz o briefing interativo e as críticas no idioma nativo do usuário, mantendo os atributos XML e classes em inglês canônico para interoperabilidade global.
-- **Tipografia Desacoplada**: Textos nunca são convertidos em curvas vetoriais (`path`). Permanecem como tags semânticas `<text>` na camada `layer-typography`, com suporte nativo a tags multilíngues `<switch>` e `systemLanguage`.
-
----
-
-## ⚡ Verbos de Refinamento Criativo
-
-Itere sobre os vetores gerados usando comandos expressivos de direção de arte:
-- `/svg-maestro brief`: Dispara a entrevista interativa via `ask_question` cobrindo as 4 dimensões canônicas (Superfície/Viewport, Modo, Movimento e Destino), gerando um `BRIEF.md` vinculativo.
-- `/svg-maestro bolder`: Intensifica traços, saturação de gradientes e contraste de néon.
-- `/svg-maestro quieter`: Suaviza luzes, reduz saturação e refina linhas para um estilo mais discreto.
-- `/svg-maestro distill`: Remove elementos decorativos secundários, deixando apenas as linhas geométricas essenciais.
-- `/svg-maestro delight`: Adiciona micro-detalhes de movimento (varreduras de radar, anéis orbitais, brilhos de borda).
-- `/svg-maestro animate`: Transforma vetores estáticos do Inkscape em ativos animados aplicando o Wrapper Pattern.
-- `/svg-maestro critique`: Avaliação em dois eixos cobrindo Padrões Técnicos (Inkscape/linter) e Excelência Estética.
-
-### 📋 Motor de Briefing Interativo (`scripts/briefing.py`)
-
-Gere os prompts de eliciação para o `ask_question` e valide contratos de design vinculativos:
+Gere, valide e refine um cartão de telemetria em três comandos:
 
 ```bash
-# Gerar payload localizado para ask_question
+# 1. Gerar um cartão de telemetria no modo Operate
+python scripts/dashboard_pipeline.py card \
+  --output card.svg \
+  --theme dark_slate \
+  --kpi-value "$1,284,500" \
+  --kpi-label "FLUXO DO SISTEMA"
+
+# 2. Validar integridade estrutural e conformidade com o Inkscape
+python scripts/validate_svg.py card.svg
+
+# 3. Aplicar refinamento criativo não-destrutivo (grava em card_bolder.svg)
+python scripts/refinement_verbs.py bolder --input card.svg
+```
+
+---
+
+## Instalação e Uso em Agentes
+
+### Antigravity (Google)
+```bash
+git clone https://github.com/Tel-BR/svg-maestro.git ~/.gemini/config/skills/svg-maestro
+```
+
+### Claude Code (Anthropic)
+```bash
+git clone https://github.com/Tel-BR/svg-maestro.git ~/.claude/skills/svg-maestro
+```
+
+### Codex, Cursor ou Agentes Customizados
+Referencie [`SKILL.md`](SKILL.md) diretamente no prompt de sistema do seu agente ou conjunto de skills do workspace.
+
+---
+
+## Status do Projeto e Limites Conhecidos
+
+> [!NOTE]
+> O SVG Maestro está atualmente em fase **Beta (`v0.1.0-beta.1`)**. Contratos centrais e regras de validação estão ativos, mas parâmetros de linha de comando e limiares heurísticos estão sujeitos a ajustes com base no feedback da comunidade.
+
+- **Avaliação de Contraste**: A crítica de paleta verifica a separação tonal entre chassis escuros e acentos luminosos usando limiares perceptuais HLS. Ela não calcula a razão euclidiana de luminância relativa por caractere de texto ($L_1 / L_2 \ge 7:1$). Os temas de alto contraste fornecidos servem como base inicial.
+- **Saída DAX para Power BI**: O gerador DAX formata o SVG como uma Data URI padrão (`data:image/svg+xml;utf8,...`), escapando códigos hexadecimais `#` para `%23` e aspas duplas para `""`. Não se trata de uma codificação de URI RFC 3986 completa. Recomenda-se validar no visual de imagem do Power BI Desktop em seu ambiente.
+- **Namespaces do Inkscape**: A hierarquia de camadas (`inkscape:groupmode="layer"`) e IDs da tag `<defs>` são otimizados especificamente para o Inkscape. Outros aplicativos vetoriais (Illustrator, Figma) importam esses grupos como nós `<g>` convencionais sem metadados nativos de camada.
+- **Portabilidade de Animação**: Animações CSS embutidas declaram estritamente `transform-box: fill-box` e `transform-origin: center` para renderização estável em navegadores e no OBS Studio. Visualizadores de imagem rasterizada ou renderizadores de markdown simplificados que desabilitam CSS exibirão o SVG de forma estática em seu estado base.
+
+---
+
+## Capacidades Centrais
+
+### 1. Geometria Matemática e Modos de Superfície
+Todos os vetores são construídos com princípios geométricos (sequências de Fibonacci, Proporção Áurea $\phi \approx 1.618$, projeções isométricas), sem uso de clipart externo:
+- **`Operate`**: Alta densidade de dados e legibilidade técnica para telemetria web e cartões do Power BI.
+- **`Experience`**: Alto contraste e animações fluidas em CSS keyframes para overlays no OBS Studio.
+- **`Persuade`**: Proporções euclidianas imponentes para identidade de marca e artes hero.
+
+### 2. Compatibilidade com Inkscape e o Wrapper Pattern
+- **Camadas Semânticas**: Grupos de elementos organizados em camadas nativas (`Background`, `Geometric Structure`, `Accents & Lighting`, `Typography & Labels`).
+- **Higiene de `<defs>`**: IDs expressivos e humanos (`id="grad-neon-cyan"`, `id="filter-cyber-glow"`), sem hashes aleatórios opacos.
+- **Wrapper Pattern**: Regras de animação visam exclusivamente grupos `<g class="anim-wrapper-...">`, protegendo a geometria estática contra conflitos de transformação durante edições manuais no Inkscape.
+
+### 3. Verbos de Refinamento Não-Destrutivos (`scripts/refinement_verbs.py`)
+Direcione vetores existentes com comandos expressivos de design sem manipulação manual de coordenadas:
+- **`bolder`**: Aumenta espessura de traços (1.4x-1.8x), saturação de gradientes e intensidade de brilho.
+- **`quieter`**: Desatura cores, suaviza iluminação e reduz espessura de linhas (0.6x-0.75x).
+- **`distill`**: Remove detalhes decorativos secundários preservando hierarquia geométrica e métricas.
+- **`delight`**: Adiciona micro-movimentos sutis (varreduras de radar, anéis orbitais) encapsulados em Wrappers.
+- **`animate`**: Converte SVGs estáticos em ativos animados envolvendo elementos centrais em grupos de animação e injetando regras CSS `@keyframes`.
+- **`critique`**: Emite relatório estruturado em dois eixos avaliando Padrões Técnicos (linter, camadas, higiene de defs) e Excelência Estética (proporções, harmonia de cores, desacoplamento tipográfico).
+
+```bash
+# Não-destrutivo por padrão: cria card_bolder.svg
+python scripts/refinement_verbs.py bolder --input card.svg
+
+# Especificar arquivo de saída customizado
+python scripts/refinement_verbs.py quieter --input card.svg --output card_minimal.svg
+
+# Sobrescrita in-place explícita
+python scripts/refinement_verbs.py distill --input card.svg --in-place
+
+# Executar crítica de design em dois eixos
+python scripts/refinement_verbs.py critique --input card.svg
+python scripts/refinement_verbs.py critique --input card.svg --json
+```
+
+### 4. Motor de Briefing Interativo (`scripts/briefing.py`)
+Conduz eliciação estruturada cobrindo as 4 dimensões canônicas (Superfície/Viewport, Modo, Movimento e Destino), gerando um `BRIEF.md` vinculativo:
+
+```bash
+# Gerar payload localizado para questionário
 python scripts/briefing.py questions --lang pt --json
 
 # Sintetizar documento vinculativo de briefing
@@ -70,16 +115,25 @@ python scripts/briefing.py create \
   --output BRIEF.md \
   --lang pt
 
-# Validar completude do briefing antes de gerar o código SVG
+# Validar completude do briefing antes de gerar código
 python scripts/briefing.py validate BRIEF.md --json
 ```
 
-### 🎥 Pipeline de Overlays de Streaming para OBS (`scripts/obs_pipeline.py`)
+### 5. Tipografia Multilíngue e Suporte a `<switch>`
+O SVG Maestro desacopla textos da geometria, mantendo rótulos como nós `<text>` semânticos em camada dedicada:
+- **Sem Caminhos Contornados**: O texto permanece editável na ferramenta de texto do Inkscape. Traçados vetoriais em camadas de tipografia geram aviso `OUTLINED_TEXT_WARNING`.
+- **Contrato de `<switch>`**: Idiomas específicos (`systemLanguage="pt"`, `systemLanguage="es"`) antecedem o elemento final de fallback em inglês.
+- **Exemplo de Referência**: Veja `examples/i18n/multilingual_card.svg`.
 
-Gere overlays de streaming modulares com viewport transparente no modo `Experience`:
+---
+
+## Pipelines
+
+### Overlays de Streaming para OBS (`scripts/obs_pipeline.py`)
+Gera overlays com viewport transparente no modo `Experience`:
 
 ```bash
-# Gerar kit completo de overlays (moldura de webcam 16:9 + banner de alerta)
+# Gerar kit completo de streaming (webcam 16:9 + banner de alertas)
 python scripts/obs_pipeline.py generate-all --output-dir examples/obs/ --theme cyan_magenta
 
 # Gerar moldura de webcam customizada
@@ -87,178 +141,104 @@ python scripts/obs_pipeline.py webcam \
   --output examples/obs/webcam_frame_16_9.svg \
   --theme cyan_magenta \
   --cam-label "CAM 01 // AO VIVO" \
-  --status-label "REC ● 1080P 60FPS"
+  --status-label "REC ● 1080P"
 
-# Gerar banner de notificação de alerta customizado
+# Gerar banner de alertas customizado
 python scripts/obs_pipeline.py alert \
   --output examples/obs/alert_banner.svg \
   --theme cyan_magenta \
   --type "NOVO INSCRITO" \
-  --user "CYBER_PHANTOM" \
-  --detail "TIER 3 // 12 MESES SEGUIDOS"
+  --user "CYBER_PHANTOM"
 ```
 
-Temas visuais disponíveis: `cyan_magenta`, `amber_gold`, `matrix_green` e `crimson_hazard`.
+Temas disponíveis: `cyan_magenta`, `amber_gold`, `matrix_green`, `crimson_hazard`.
 
-### 📊 Pipeline de Widgets de Dashboard e Power BI DAX (`scripts/dashboard_pipeline.py`)
-
-Gere cartões de métricas modulares e densos em dados no modo `Operate`, respeitando proporções áureas ($\phi \approx 1.618$), com indicadores de varredura radar brilhantes, sparklines de tendência, tipografia desacoplada e snippets de medidas DAX codificados em URL para visuais de imagem do Power BI:
+### Widgets de Dashboard e DAX para Power BI (`scripts/dashboard_pipeline.py`)
+Gera cartões de telemetria no modo `Operate` e converte em medidas DAX para visuais de imagem do Power BI:
 
 ```bash
-# Gerar kit completo de dashboard (cartão SVG + medida DAX para Power BI)
+# Gerar kit de dashboard completo (SVG + medida DAX)
 python scripts/dashboard_pipeline.py generate-all --output-dir examples/dashboard/ --theme dark_slate
 
-# Gerar cartão de telemetria SVG standalone customizado
-python scripts/dashboard_pipeline.py card \
-  --output examples/dashboard/telemetry_card.svg \
-  --theme dark_slate \
-  --kpi-value "$1,284,500" \
-  --kpi-change "+14.2% ↑" \
-  --kpi-label "TOTAL SYSTEM THROUGHPUT"
-
-# Converter qualquer SVG em medida DAX para visual Image URL do Power BI
+# Converter qualquer SVG em medida DAX para Power BI
 python scripts/dashboard_pipeline.py dax \
   --input examples/dashboard/telemetry_card.svg \
   --output examples/dashboard/telemetry_card.dax \
-  --measure-name TelemetryCard
+  --measure-name TelemetriaCard
 ```
 
-Temas visuais disponíveis: `dark_slate`, `obsidian_amber`, `matrix_emerald` e `deep_violet`.
-
-### 🎨 Verbos de Refinamento de Direção de Arte (`scripts/refinement_verbs.py`)
-
-Esculpa e refine interativamente os gráficos vetoriais gerados através de comandos expressivos de direção de arte, sem necessidade de microgerenciar coordenadas:
-
-- **`bolder`**: Amplifica a espessura de traços (1.4x-1.8x), realça contrastes de gradientes e intensifica filtros de brilho luminescente.
-- **`quieter`**: Dessatura cores, suaviza iluminação/brilhos e reduz espessuras de linha (0.6x-0.75x) para uma estética sóbria e elegante.
-- **`distill`**: Remove formas decorativas secundárias (tics de grade micro, floreios secundários, ruído ornamental), preservando a hierarquia euclidiana e métricas essenciais.
-- **`delight`**: Injeta microinterações sutis (anéis de radar orbitais ou pulsações orgânicas), estritamente encapsuladas pelo Wrapper Pattern com `transform-box: fill-box; transform-origin: center;`.
-- **`animate`**: Transforma um SVG estático em um ativo com movimento ao identificar geometrias focais, envelopando-as em grupos `<g class="anim-wrapper-...">` e injetando regras CSS `@keyframes` com `transform-box: fill-box; transform-origin: center;`.
-- **`critique`**: Emite uma auditoria estruturada em dois eixos avaliando (1) Padrões Técnicos (conformidade com linter, camadas Inkscape, higiene de defs, Wrapper Pattern) e (2) Craft Estético (proporções, harmonia cromática, tipografia desacoplada e banimento do Craft Floor).
-
-```bash
-# Refinar um SVG existente
-python scripts/refinement_verbs.py bolder --input card.svg --output card_bolder.svg
-python scripts/refinement_verbs.py quieter --input card.svg
-python scripts/refinement_verbs.py distill --input widget.svg -o widget_distilled.svg
-python scripts/refinement_verbs.py delight --input overlay.svg
-python scripts/refinement_verbs.py animate --input static_card.svg
-
-# Executar Crítica de Design em Dois Eixos
-python scripts/refinement_verbs.py critique --input card.svg
-python scripts/refinement_verbs.py critique --input card.svg --json
-```
-
-### 🌐 Tipografia Multilíngue e Internacionalização (`<switch>`)
-
-O SVG Maestro impõe desacoplamento estrito de tipografia, impedindo a conversão destrutiva de texto em curvas/vetores estáticos (`path`) e habilitando gráficos vetoriais multilíngues nativos avaliados diretamente pelo navegador através de `<switch>` e `systemLanguage`:
-
-- **Tipografia Desacoplada**: Textos residem estritamente como nós semânticos `<text>` na camada `layer-typography`, permanecendo 100% editáveis com a ferramenta de texto do Inkscape. Traçados ou caminhos vetoriais em camadas de tipografia disparam o aviso `OUTLINED_TEXT_WARNING`.
-- **Contrato Sequencial de `<switch>`**: Alternativas para idiomas específicos (como `systemLanguage="pt"`, `systemLanguage="es"`) são declaradas no início, seguidas de um elemento de fallback incondicionado (inglês) como último filho.
-- **Ativo de Referência**: Veja `examples/i18n/multilingual_card.svg` para um cartão de telemetria em produção demonstrando troca automática de idioma entre português, espanhol e inglês como fallback.
+Temas disponíveis: `dark_slate`, `obsidian_amber`, `matrix_emerald`, `deep_violet`.
 
 ---
 
-## 🚀 Validação Autônoma em Loop Fechado
+## Validação Autônoma em Ciclo Fechado
 
-O sistema inclui o linter autônomo sem dependências externas (`validate_svg.py`):
+O SVG Maestro inclui um linter de validação com zero dependências externas (`validate_svg.py`):
 
 ```bash
-python scripts/validate_svg.py caminho/para/vetor.svg
+python scripts/validate_svg.py caminho/do/vetor.svg
 ```
 
-Para consumo automatizado por agentes de IA:
+Para consumo programático por agentes de IA:
 
 ```bash
-python scripts/validate_svg.py caminho/para/vetor.svg --json
+python scripts/validate_svg.py caminho/do/vetor.svg --json
 ```
 
 ---
 
-## ❓ Preciso ter a skill Impeccable instalada?
-
-**Não! O SVG Maestro é 100% autossuficiente.**
-
-- **Modo Autônomo (Padrão):** Gera todas as proporções matemáticas, geometrias euclidianas e paletas harmônicas (com contraste WCAG AAA) a partir de primeiros princípios.
-- **Modo Integrado (Opcional):** Se o seu repositório já contiver `DESIGN.md` ou `PRODUCT.md`, o SVG Maestro herda automaticamente esses tokens para casar com a identidade visual da sua aplicação.
-
----
-
-## 📦 Instalação e Uso em Agentes de IA
-
-### No Antigravity (Google)
-```bash
-git clone https://github.com/Tel-BR/svg-maestro.git ~/.gemini/config/skills/svg-maestro
-```
-
-### No Claude Code (Anthropic)
-```bash
-git clone https://github.com/Tel-BR/svg-maestro.git ~/.claude/skills/svg-maestro
-```
-
-### No Codex, Cursor ou Outros Ambientes
-Aponte o arquivo [`SKILL.md`](SKILL.md) como especificação no prompt de sistema ou habilidades do workspace.
-
----
-
-## 📂 Estrutura do Repositório
+## Estrutura do Repositório
 
 ```
 svg-maestro/
-├── CONTEXT.md                  # Glossário de termos e conceitos de domínio
-├── SKILL.md                    # Especificação da Skill para agentes
+├── .github/workflows/ci.yml    # Workflow de integração contínua (CI)
+├── CONTEXT.md                  # Glossário formal de domínio
+├── SKILL.md                    # Especificação da skill para agentes
 ├── README.md                   # Documentação canônica em inglês
 ├── README.pt-BR.md             # Documentação localizada em português
 ├── CONTRIBUTING.md             # Guia de contribuição da comunidade
-├── LICENSE                     # Licença MIT permissiva
+├── LICENSE                     # Licença permissiva MIT
 ├── scripts/
-│   ├── briefing.py             # Motor de briefing interativo e elicitação
-│   ├── dashboard_pipeline.py   # Pipeline de cartões de telemetria e Power BI DAX
-│   ├── obs_pipeline.py         # Gerador e pipeline de overlays para OBS
-│   ├── refinement_verbs.py     # Verbos de refinamento de arte e motor de crítica
-│   └── validate_svg.py         # Linter autônomo zero-dependency em Python
+│   ├── briefing.py             # Motor de briefing interativo e eliciação
+│   ├── dashboard_pipeline.py   # Cartões de telemetria e pipeline DAX
+│   ├── obs_pipeline.py         # Gerador de overlays para OBS Studio
+│   ├── refinement_verbs.py     # Verbos de refinamento e motor de crítica
+│   └── validate_svg.py         # Linter de validação vetorial em Python puro
 ├── examples/
-│   ├── dashboard/              # Cartões de métricas prontos e snippet DAX
+│   ├── dashboard/              # Cartões de telemetria e trecho DAX
 │   │   ├── telemetry_card.svg
 │   │   └── telemetry_card.dax
-│   ├── i18n/                   # Ativos vetoriais multilíngues (<switch> + systemLanguage)
+│   ├── i18n/                   # Ativos multilíngues (<switch> + systemLanguage)
 │   │   └── multilingual_card.svg
-│   └── obs/                    # Overlays de streaming prontos para produção
+│   └── obs/                    # Overlays para streaming
 │       ├── webcam_frame_16_9.svg
 │       └── alert_banner.svg
 ├── templates/
 │   └── BRIEF.template.md       # Modelo canônico de briefing
 ├── docs/
-│   ├── SPEC.md                 # Especificação técnica do sistema
-│   ├── tickets/                # Tickets verticais executáveis (ready-for-agent)
-│   │   ├── 01-core-linter-test-suite.md
-│   │   ├── 02-interactive-briefing-module.md
-│   │   ├── 03-obs-streaming-overlays-pipeline.md
-│   │   ├── 04-dashboard-widgets-and-powerbi-dax-pipeline.md
-│   │   ├── 05-art-direction-refinement-verbs.md
-│   │   └── 06-multilingual-typography-and-i18n.md
-│   └── adr/                    # Registros de Decisões de Arquitetura (ADRs 0001 - 0008)
+│   ├── SPEC.md                 # Especificação do sistema
+│   ├── tickets/                # Tickets executáveis (01 - 06)
+│   └── adr/                    # Registros de decisões de arquitetura (ADRs 0001 - 0008)
 └── tests/
-    ├── fixtures/               # Fixtures abrangentes para validação de linter
-    ├── test_briefing.py        # Suíte de testes do motor de briefing
-    ├── test_dashboard_pipeline.py # Suíte de testes do dashboard e pipeline DAX
-    ├── test_i18n.py            # Suíte de testes de tipografia multilíngue e <switch>
-    ├── test_linter.py          # Suíte de testes do linter
-    ├── test_obs_overlays.py    # Suíte de testes dos overlays de OBS
-    ├── test_refinement_verbs.py # Suíte de testes dos verbos de refinamento e crítica
-    └── test_card.svg           # Fixture de teste canônica
+    ├── fixtures/               # Matriz de fixtures para validação
+    ├── test_briefing.py        # Suite de testes do motor de briefing
+    ├── test_dashboard_pipeline.py # Suite de testes do pipeline de dashboards e DAX
+    ├── test_i18n.py            # Suite de testes de tipografia e i18n
+    ├── test_linter.py          # Suite de testes do linter central
+    ├── test_obs_overlays.py    # Suite de testes de overlays do OBS
+    ├── test_refinement_verbs.py # Suite de testes de verbos e crítica
+    └── test_card.svg           # Fixture canônica de cartão
 ```
 
 ---
 
-## 🙏 Créditos e Reconhecimento
+## Créditos e Agradecimentos
 
-**SVG Maestro** apoia-se no trabalho de pioneiros:
-- Inspirado no ecossistema de fluxos de trabalho de **Matt Pocock** (`grilling`, `domain-modeling`, `to-spec`, `to-tickets`, `tdd`).
-- Inspirado na skill de design **Impeccable** por sua filosofia radical de direção de arte, modos de superfície e verbos de refinamento criativo.
+- Inspirado no ecossistema de engenharia com agentes de **Matt Pocock** (`grilling`, `domain-modeling`, `to-spec`, `to-tickets`, `tdd`).
+- Inspirado na skill **Impeccable** por sua filosofia de modos de superfície e verbos de refinamento criativo.
 
 ---
 
-## 📜 Licença
+## Licença
 
-Distribuído sob a **Licença MIT**. Consulte o arquivo [LICENSE](LICENSE) para detalhes. Uso totalmente livre para fins pessoais, acadêmicos e comerciais.
+Distribuído sob a **Licença MIT**. Veja [LICENSE](LICENSE) para mais detalhes.

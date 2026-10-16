@@ -70,7 +70,8 @@ def serialize_svg(root: ET.Element) -> str:
     for prefix, uri in REGISTERED_NAMESPACES.items():
         ET.register_namespace(prefix, uri)
 
-    ET.indent(root, space="  ")
+    if hasattr(ET, "indent"):
+        ET.indent(root, space="  ")
     raw = ET.tostring(root, encoding="utf-8").decode("utf-8")
 
     # Ensure root <svg> has exact required namespace declarations for Inkscape and validator
@@ -813,7 +814,7 @@ def critique(svg_content: str) -> Dict[str, Any]:
                     luminous_accents += 1
 
         if dark_shades > 0 and luminous_accents > 0:
-            highlights.append("Strong WCAG AAA luminance contrast between chassis and luminous accents")
+            highlights.append("High visual contrast heuristic between chassis and luminous accents")
             if has_gradients:
                 aesthetic_breakdown["color_harmony_and_contrast"]["notes"] = "Harmonious palette with deep darks, luminous accents, and smooth gradient ramps"
             else:
@@ -996,13 +997,31 @@ def apply_verb(verb: str, svg_content: str, **kwargs) -> str:
     return refined_svg
 
 
-def apply_verb_file(verb: str, input_path: str, output_path: Optional[str] = None, **kwargs) -> str:
-    """Apply a refinement verb to an SVG file and write the result."""
+def apply_verb_file(
+    verb: str,
+    input_path: str,
+    output_path: Optional[str] = None,
+    in_place: bool = False,
+    **kwargs
+) -> str:
+    """Apply a refinement verb to an SVG file and write the result.
+
+    Safety:
+    - If output_path is provided, writes to output_path.
+    - If in_place is True, overwrites input_path directly.
+    - Otherwise, writes to a safe derived path: <input_stem>_<verb>.svg.
+    """
     with open(input_path, "r", encoding="utf-8") as f:
         content = f.read()
 
     refined = apply_verb(verb, content, **kwargs)
-    dest_path = output_path or input_path
+    if output_path:
+        dest_path = output_path
+    elif in_place:
+        dest_path = input_path
+    else:
+        base, ext = os.path.splitext(input_path)
+        dest_path = f"{base}_{verb}{ext}"
 
     with open(dest_path, "w", encoding="utf-8") as f:
         f.write(refined)
@@ -1032,8 +1051,8 @@ def main():
         epilog="""
 Examples:
   python scripts/refinement_verbs.py bolder --input card.svg --output card_bolder.svg
-  python scripts/refinement_verbs.py quieter --input card.svg
-  python scripts/refinement_verbs.py distill --input widget.svg -o widget_distilled.svg
+  python scripts/refinement_verbs.py quieter --input card.svg  # writes to card_quieter.svg
+  python scripts/refinement_verbs.py distill --input widget.svg --in-place  # overwrites widget.svg
   python scripts/refinement_verbs.py delight --input overlay.svg
   python scripts/refinement_verbs.py animate --input static_card.svg
   python scripts/refinement_verbs.py critique --input card.svg
@@ -1044,7 +1063,8 @@ Examples:
     parser.add_argument("verb", choices=["bolder", "quieter", "distill", "delight", "animate", "critique"],
                         help="Creative refinement verb to execute")
     parser.add_argument("-i", "--input", required=True, help="Input SVG file path")
-    parser.add_argument("-o", "--output", help="Output SVG file path (default: overwrite input in-place)")
+    parser.add_argument("-o", "--output", help="Output SVG file path (default: <input>_<verb>.svg)")
+    parser.add_argument("--in-place", action="store_true", help="Overwrite the input SVG file directly instead of creating a derived file")
     parser.add_argument("--json", action="store_true", help="Output critique results as JSON")
     parser.add_argument("--factor", type=float, help="Scale factor for bolder or quieter verbs")
 
@@ -1068,8 +1088,15 @@ Examples:
         kwargs["factor"] = args.factor
 
     try:
-        dest_path = args.output or args.input
-        apply_verb_file(args.verb, args.input, output_path=dest_path, **kwargs)
+        if args.output:
+            dest_path = args.output
+        elif args.in_place:
+            dest_path = args.input
+        else:
+            base, ext = os.path.splitext(args.input)
+            dest_path = f"{base}_{args.verb}{ext}"
+
+        apply_verb_file(args.verb, args.input, output_path=dest_path, in_place=args.in_place, **kwargs)
         print(f"[OK] Refinement verb '{args.verb}' successfully applied.")
         print(f"     Output saved to: {dest_path}")
         sys.exit(0)

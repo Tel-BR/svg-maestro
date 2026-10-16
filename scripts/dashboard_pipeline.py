@@ -3,7 +3,7 @@
 SVG Maestro - Dashboard Widgets & Power BI DAX Pipeline (Operate Mode)
 Programmatic vector engine and generator for modular telemetry cards and metric cards
 in Operate mode, featuring golden ratio proportions, radar sweep indicators, sparklines,
-Inkscape semantic layers, and automatic URL-encoded DAX measure generation for Power BI.
+Inkscape semantic layers, and automatic Power BI SVG Data URI measure generation.
 """
 
 import os
@@ -459,7 +459,7 @@ def convert_svg_to_dax_measure(
     If dynamic_vars is supplied, maps target string literals in the SVG (e.g. '$1,284,500')
     to DAX measure expressions or variable references (e.g. '_KpiValue' or '[KPI_Value]').
     """
-    # 1. URL encode '#' to '%23'
+    # 1. Escape '#' to '%23' for Power BI Data URI compatibility
     dax_svg = svg_content.replace("#", "%23")
 
     # 2. Escape double quotes for DAX string literal

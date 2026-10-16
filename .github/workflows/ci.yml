@@ -1,0 +1,37 @@
+name: CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  test:
+    name: Test (Python ${{ matrix.python-version }} on ${{ matrix.os }})
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+        python-version: ['3.9', '3.10', '3.11', '3.12']
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Run unit test suite
+        run: |
+          python -m unittest discover tests
+
+      - name: Validate example SVGs
+        run: |
+          python scripts/validate_svg.py examples/dashboard/telemetry_card.svg
+          python scripts/validate_svg.py examples/obs/webcam_frame_16_9.svg
+          python scripts/validate_svg.py examples/obs/alert_banner.svg
+          python scripts/validate_svg.py examples/i18n/multilingual_card.svg

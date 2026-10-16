@@ -100,6 +100,31 @@ python scripts/obs_pipeline.py alert \
 
 Temas visuais disponíveis: `cyan_magenta`, `amber_gold`, `matrix_green` e `crimson_hazard`.
 
+### 📊 Pipeline de Widgets de Dashboard e Power BI DAX (`scripts/dashboard_pipeline.py`)
+
+Gere cartões de métricas modulares e densos em dados no modo `Operate`, respeitando proporções áureas ($\phi \approx 1.618$), com indicadores de varredura radar brilhantes, sparklines de tendência, tipografia desacoplada e snippets de medidas DAX codificados em URL para visuais de imagem do Power BI:
+
+```bash
+# Gerar kit completo de dashboard (cartão SVG + medida DAX para Power BI)
+python scripts/dashboard_pipeline.py generate-all --output-dir examples/dashboard/ --theme dark_slate
+
+# Gerar cartão de telemetria SVG standalone customizado
+python scripts/dashboard_pipeline.py card \
+  --output examples/dashboard/telemetry_card.svg \
+  --theme dark_slate \
+  --kpi-value "$1,284,500" \
+  --kpi-change "+14.2% ↑" \
+  --kpi-label "TOTAL SYSTEM THROUGHPUT"
+
+# Converter qualquer SVG em medida DAX para visual Image URL do Power BI
+python scripts/dashboard_pipeline.py dax \
+  --input examples/dashboard/telemetry_card.svg \
+  --output examples/dashboard/telemetry_card.dax \
+  --measure-name TelemetryCard
+```
+
+Temas visuais disponíveis: `dark_slate`, `obsidian_amber`, `matrix_emerald` e `deep_violet`.
+
 ---
 
 ## 🚀 Validação Autônoma em Loop Fechado
@@ -156,9 +181,13 @@ svg-maestro/
 ├── LICENSE                     # Licença MIT permissiva
 ├── scripts/
 │   ├── briefing.py             # Motor de briefing interativo e elicitação
+│   ├── dashboard_pipeline.py   # Pipeline de cartões de telemetria e Power BI DAX
 │   ├── obs_pipeline.py         # Gerador e pipeline de overlays para OBS
 │   └── validate_svg.py         # Linter autônomo zero-dependency em Python
 ├── examples/
+│   ├── dashboard/              # Cartões de métricas prontos e snippet DAX
+│   │   ├── telemetry_card.svg
+│   │   └── telemetry_card.dax
 │   └── obs/                    # Overlays de streaming prontos para produção
 │       ├── webcam_frame_16_9.svg
 │       └── alert_banner.svg
@@ -175,6 +204,7 @@ svg-maestro/
 └── tests/
     ├── fixtures/               # Fixtures abrangentes para validação de linter
     ├── test_briefing.py        # Suíte de testes do motor de briefing
+    ├── test_dashboard_pipeline.py # Suíte de testes do dashboard e pipeline DAX
     ├── test_linter.py          # Suíte de testes do linter
     ├── test_obs_overlays.py    # Suíte de testes dos overlays de OBS
     └── test_card.svg           # Fixture de teste canônica

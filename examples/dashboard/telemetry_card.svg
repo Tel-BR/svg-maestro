@@ -1,0 +1,290 @@
+<svg xmlns="http://www.w3.org/2000/svg"
+     xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+     xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+     xmlns:xlink="http://www.w3.org/1999/xlink"
+     viewBox="0 0 800 494"
+     width="100%" height="100%">
+  <defs>
+    <!-- Card Chassis Gradients -->
+    <linearGradient id="grad-card-chassis" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#0e1726" />
+      <stop offset="100%" stop-color="#0a0e17" />
+    </linearGradient>
+    <linearGradient id="grad-telemetry-primary" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#00f0ff" />
+      <stop offset="100%" stop-color="#0077aa" />
+    </linearGradient>
+    <linearGradient id="grad-telemetry-secondary" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#00ff88" />
+      <stop offset="100%" stop-color="#009955" />
+    </linearGradient>
+    <linearGradient id="grad-sparkline-area" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#00f0ff" stop-opacity="0.32" />
+      <stop offset="50%" stop-color="#0077aa" stop-opacity="0.10" />
+      <stop offset="100%" stop-color="#0a0e17" stop-opacity="0.0" />
+    </linearGradient>
+    <linearGradient id="grad-radar-sweep" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#00f0ff" stop-opacity="0.80" />
+      <stop offset="100%" stop-color="#00f0ff" stop-opacity="0.0" />
+    </linearGradient>
+
+    <!-- Technical Glow Filters -->
+    <filter id="filter-telemetry-glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="3" result="blur-glow" />
+      <feMerge>
+        <feMergeNode in="blur-glow" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+    <filter id="filter-radar-glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="2.5" result="blur-radar" />
+      <feMerge>
+        <feMergeNode in="blur-radar" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+    <filter id="filter-subtle-glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="1.5" result="blur-subtle" />
+      <feMerge>
+        <feMergeNode in="blur-subtle" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+  </defs>
+
+  <style>
+    /* SVG Maestro Universal CSS Transform Contract */
+    .anim-radar-sweep {
+      transform-box: fill-box;
+      transform-origin: center;
+      animation: radar-sweep 5s linear infinite;
+    }
+    @keyframes radar-sweep {
+      0% {
+        transform: rotate(0deg);
+      }
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+
+    .anim-radar-blip {
+      transform-box: fill-box;
+      transform-origin: center;
+      animation: radar-blip 2.2s ease-in-out infinite;
+    }
+    @keyframes radar-blip {
+      0%, 100% {
+        opacity: 0.25;
+        transform: scale(0.8);
+      }
+      50% {
+        opacity: 1;
+        transform: scale(1.25);
+      }
+    }
+
+    .anim-spark-pulse {
+      transform-box: fill-box;
+      transform-origin: center;
+      animation: spark-pulse 2s ease-in-out infinite;
+    }
+    @keyframes spark-pulse {
+      0% {
+        transform: scale(0.7);
+        opacity: 0.9;
+      }
+      50% {
+        transform: scale(1.6);
+        opacity: 0.15;
+      }
+      100% {
+        transform: scale(0.7);
+        opacity: 0.9;
+      }
+    }
+
+    .anim-beacon {
+      transform-box: fill-box;
+      transform-origin: center;
+      animation: beacon-pulse 1.8s ease-in-out infinite;
+    }
+    @keyframes beacon-pulse {
+      0%, 100% {
+        opacity: 0.4;
+        transform: scale(0.9);
+      }
+      50% {
+        opacity: 1;
+        transform: scale(1.1);
+      }
+    }
+  </style>
+
+  <!-- ========================================== -->
+  <!-- LAYER 1: Card Background & Chassis        -->
+  <!-- ========================================== -->
+  <g inkscape:groupmode="layer" id="layer-background" inkscape:label="Card Background &amp; Chassis">
+    <!-- Main Card Body -->
+    <rect x="0" y="0" width="800" height="494" rx="16" fill="url(#grad-card-chassis)" stroke="#1b2940" stroke-width="2" />
+
+    <!-- Inner Geometric Hairline Border -->
+    <rect x="12" y="12" width="776" height="470" rx="12" fill="none" stroke="#152238" stroke-width="1" stroke-dasharray="6 6" />
+
+    <!-- Corner Technical Brackets -->
+    <path d="M 16 36 L 16 16 L 36 16" fill="none" stroke="#00f0ff" stroke-width="1.5" opacity="0.65" />
+    <path d="M 784 36 L 784 16 L 764 16" fill="none" stroke="#00f0ff" stroke-width="1.5" opacity="0.65" />
+    <path d="M 16 458 L 16 478 L 36 478" fill="none" stroke="#00f0ff" stroke-width="1.5" opacity="0.65" />
+    <path d="M 784 458 L 784 478 L 764 478" fill="none" stroke="#00f0ff" stroke-width="1.5" opacity="0.65" />
+
+    <!-- Header Divider Rule -->
+    <line x1="30" y1="75" x2="770" y2="75" stroke="#152238" stroke-width="1.5" />
+
+    <!-- Status Badge Container Base -->
+    <rect x="646" y="28" width="118" height="28" rx="14" fill="#0e1726" stroke="#00f0ff" stroke-width="1" opacity="0.85" />
+
+    <!-- KPI Change Pill Base -->
+    <rect x="40" y="196" width="94" height="26" rx="6" fill="#08221b" stroke="#00ff88" stroke-width="1" />
+  </g>
+
+  <!-- ========================================== -->
+  <!-- LAYER 2: Data Grid & Technical Markings    -->
+  <!-- ========================================== -->
+  <g inkscape:groupmode="layer" id="layer-grid" inkscape:label="Data Grid &amp; Markings">
+    <!-- Header Crosshair Marker -->
+    <line x1="395" y1="38" x2="405" y2="38" stroke="#142138" stroke-width="1" />
+    <line x1="400" y1="33" x2="400" y2="43" stroke="#142138" stroke-width="1" />
+
+    <!-- Radar Range Rings (Center: x=670, y=155) -->
+    <circle cx="670" cy="155" r="18" fill="none" stroke="#152238" stroke-width="1" />
+    <circle cx="670" cy="155" r="36" fill="none" stroke="#152238" stroke-width="1" />
+    <circle cx="670" cy="155" r="54" fill="none" stroke="#1b2940" stroke-width="1.2" stroke-dasharray="4 4" />
+
+    <!-- Radar Reticle Crosshairs -->
+    <line x1="610" y1="155" x2="730" y2="155" stroke="#152238" stroke-width="1" stroke-dasharray="2 4" />
+    <line x1="670" y1="95" x2="670" y2="215" stroke="#152238" stroke-width="1" stroke-dasharray="2 4" />
+    <line x1="632" y1="117" x2="708" y2="193" stroke="#0e1726" stroke-width="0.8" stroke-dasharray="2 4" />
+    <line x1="632" y1="193" x2="708" y2="117" stroke="#0e1726" stroke-width="0.8" stroke-dasharray="2 4" />
+
+    <!-- Outer Radar Ring Cardinal Tick Marks -->
+    <line x1="670" y1="98" x2="670" y2="103" stroke="#00f0ff" stroke-width="1.5" />
+    <line x1="670" y1="207" x2="670" y2="212" stroke="#00f0ff" stroke-width="1.5" />
+    <line x1="613" y1="155" x2="618" y2="155" stroke="#00f0ff" stroke-width="1.5" />
+    <line x1="722" y1="155" x2="727" y2="155" stroke="#00f0ff" stroke-width="1.5" />
+
+    <!-- Sparkline Grid Lines (Horizontal Levels: y=285, 330, 375, 420) -->
+    <line x1="75" y1="285" x2="760" y2="285" stroke="#142138" stroke-width="1" stroke-dasharray="4 4" />
+    <line x1="75" y1="330" x2="760" y2="330" stroke="#142138" stroke-width="1" stroke-dasharray="4 4" />
+    <line x1="75" y1="375" x2="760" y2="375" stroke="#142138" stroke-width="1" stroke-dasharray="4 4" />
+    <line x1="75" y1="420" x2="760" y2="420" stroke="#142138" stroke-width="1" stroke-dasharray="4 4" />
+
+    <!-- Sparkline Vertical Time Grid Columns -->
+    <line x1="160" y1="280" x2="160" y2="425" stroke="#0e1726" stroke-width="1" stroke-dasharray="2 4" />
+    <line x1="280" y1="280" x2="280" y2="425" stroke="#0e1726" stroke-width="1" stroke-dasharray="2 4" />
+    <line x1="400" y1="280" x2="400" y2="425" stroke="#0e1726" stroke-width="1" stroke-dasharray="2 4" />
+    <line x1="520" y1="280" x2="520" y2="425" stroke="#0e1726" stroke-width="1" stroke-dasharray="2 4" />
+    <line x1="640" y1="280" x2="640" y2="425" stroke="#0e1726" stroke-width="1" stroke-dasharray="2 4" />
+    <line x1="760" y1="280" x2="760" y2="425" stroke="#0e1726" stroke-width="1" stroke-dasharray="2 4" />
+
+    <!-- Baseline Axis Rule -->
+    <line x1="75" y1="425" x2="760" y2="425" stroke="#1b2940" stroke-width="1.5" />
+  </g>
+
+  <!-- ========================================== -->
+  <!-- LAYER 3: Telemetry Visuals & Data Curves   -->
+  <!-- ========================================== -->
+  <g inkscape:groupmode="layer" id="layer-telemetry" inkscape:label="Telemetry &amp; Visuals">
+    <!-- Live Status Beacon Pulse Dot -->
+    <g class="anim-beacon">
+      <g id="geom-status-beacon" inkscape:label="Live Status Beacon">
+        <circle cx="662" cy="42" r="4" fill="#00ff88" filter="url(#filter-subtle-glow)" />
+      </g>
+    </g>
+
+    <!-- Radar Sweep Assembly (Wrapper Pattern) -->
+    <g class="anim-radar-sweep">
+      <g id="geom-radar-sweep" inkscape:label="Radar Sweep Beam">
+        <!-- Symmetric invisible anchor bounding box for perfect center-point rotation -->
+        <circle cx="670" cy="155" r="54" fill="none" stroke="none" opacity="0" pointer-events="none" />
+        <!-- Radar beam wedge arc -->
+        <path d="M 670 155 L 724 155 A 54 54 0 0 1 711 193 Z" fill="url(#grad-radar-sweep)" opacity="0.8" />
+        <line x1="670" y1="155" x2="724" y2="155" stroke="#00f0ff" stroke-width="1.8" filter="url(#filter-radar-glow)" />
+      </g>
+    </g>
+
+    <!-- Radar Detected Target Blip (Wrapper Pattern) -->
+    <g class="anim-radar-blip">
+      <g id="geom-radar-blip" inkscape:label="Radar Target Blip">
+        <circle cx="695" cy="132" r="3.5" fill="#00ff88" filter="url(#filter-subtle-glow)" />
+      </g>
+    </g>
+
+    <!-- Sparkline Area Gradient Fill -->
+    <path d="M 80 395 C 105 385, 130 380, 155 398 C 180 416, 205 375, 230 365 C 255 355, 280 345, 305 355 C 330 365, 355 335, 380 325 C 405 315, 430 340, 455 330 C 480 320, 505 305, 530 315 C 555 325, 580 295, 605 285 C 630 275, 655 300, 680 280 C 705 260, 730 255, 760 245 L 760 425 L 80 425 Z" fill="url(#grad-sparkline-area)" />
+
+    <!-- Sparkline Continuous Vector Trendline -->
+    <path d="M 80 395 C 105 385, 130 380, 155 398 C 180 416, 205 375, 230 365 C 255 355, 280 345, 305 355 C 330 365, 355 335, 380 325 C 405 315, 430 340, 455 330 C 480 320, 505 305, 530 315 C 555 325, 580 295, 605 285 C 630 275, 655 300, 680 280 C 705 260, 730 255, 760 245" fill="none" stroke="url(#grad-telemetry-primary)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" filter="url(#filter-telemetry-glow)" />
+
+    <!-- Sparkline Data Inflection Nodes -->
+    <circle cx="80" cy="395" r="2.5" fill="#00f0ff" opacity="0.8" />
+    <circle cx="230" cy="365" r="2.5" fill="#00f0ff" opacity="0.8" />
+    <circle cx="380" cy="325" r="2.5" fill="#00f0ff" opacity="0.8" />
+    <circle cx="530" cy="315" r="2.5" fill="#00f0ff" opacity="0.8" />
+    <circle cx="605" cy="285" r="2.5" fill="#00f0ff" opacity="0.8" />
+    <circle cx="680" cy="280" r="2.5" fill="#00f0ff" opacity="0.8" />
+
+    <!-- Sparkline Endpoint Pulse Ring Assembly (Wrapper Pattern) -->
+    <g class="anim-spark-pulse">
+      <g id="geom-spark-pulse" inkscape:label="Sparkline Endpoint Pulse">
+        <!-- Symmetric invisible anchor bounding box -->
+        <circle cx="760" cy="245" r="16" fill="none" stroke="none" opacity="0" pointer-events="none" />
+        <circle cx="760" cy="245" r="7" stroke="#00f0ff" stroke-width="1.5" fill="none" filter="url(#filter-subtle-glow)" />
+      </g>
+    </g>
+    <circle cx="760" cy="245" r="4" fill="#00f0ff" />
+  </g>
+
+  <!-- ========================================== -->
+  <!-- LAYER 4: Typography & Metric Readouts      -->
+  <!-- ========================================== -->
+  <g inkscape:groupmode="layer" id="layer-typography" inkscape:label="Typography &amp; Metrics">
+    <!-- Header Category & Sublabel -->
+    <text x="40" y="48" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="12" font-weight="700" letter-spacing="2" fill="#8ca0be">OPERATE // METRIC TELEMETRY</text>
+
+    <!-- Header Status Indicator Text -->
+    <text x="676" y="46" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="11" font-weight="700" fill="#00ff88" letter-spacing="0.8">ONLINE 99.9%</text>
+
+    <!-- Primary Metric Title / Label -->
+    <text x="40" y="116" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="12" font-weight="600" letter-spacing="1.5" fill="#8ca0be">TOTAL SYSTEM THROUGHPUT</text>
+
+    <!-- Primary KPI Value Readout -->
+    <text x="40" y="176" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="56" font-weight="800" letter-spacing="-1.5" fill="#ffffff">$1,284,500</text>
+
+    <!-- KPI Change % Readout -->
+    <text x="87" y="213" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="12" font-weight="700" fill="#00ff88" text-anchor="middle">+14.2% ↑</text>
+
+    <!-- Baseline Comparison Subtitle -->
+    <text x="144" y="213" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="12" font-weight="500" fill="#526582">vs 30-day baseline</text>
+
+    <!-- Radar Telemetry Readout -->
+    <text x="670" y="230" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="10" font-weight="700" letter-spacing="1.2" fill="#00f0ff" text-anchor="middle">ACTIVE SCAN: 4.2 GHz</text>
+
+    <!-- Timeline Title & Sublabel -->
+    <text x="40" y="260" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="11" font-weight="700" letter-spacing="1.5" fill="#8ca0be">TELEMETRY TIMELINE // 24-HOUR TREND</text>
+    <text x="760" y="260" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="11" font-weight="600" fill="#526582" text-anchor="end">PEAK: $1.42M ● VOL: NOMINAL</text>
+
+    <!-- Sparkline Y-Axis Scale Labels -->
+    <text x="68" y="289" font-family="'JetBrains Mono', 'Segoe UI Mono', Consolas, monospace" font-size="10" fill="#526582" text-anchor="end">100k</text>
+    <text x="68" y="334" font-family="'JetBrains Mono', 'Segoe UI Mono', Consolas, monospace" font-size="10" fill="#526582" text-anchor="end">75k</text>
+    <text x="68" y="379" font-family="'JetBrains Mono', 'Segoe UI Mono', Consolas, monospace" font-size="10" fill="#526582" text-anchor="end">50k</text>
+    <text x="68" y="424" font-family="'JetBrains Mono', 'Segoe UI Mono', Consolas, monospace" font-size="10" fill="#526582" text-anchor="end">25k</text>
+
+    <!-- Sparkline X-Axis Timeline Markers -->
+    <text x="80" y="445" font-family="'JetBrains Mono', 'Segoe UI Mono', Consolas, monospace" font-size="10" fill="#526582">00:00</text>
+    <text x="216" y="445" font-family="'JetBrains Mono', 'Segoe UI Mono', Consolas, monospace" font-size="10" fill="#526582" text-anchor="middle">06:00</text>
+    <text x="352" y="445" font-family="'JetBrains Mono', 'Segoe UI Mono', Consolas, monospace" font-size="10" fill="#526582" text-anchor="middle">12:00</text>
+    <text x="488" y="445" font-family="'JetBrains Mono', 'Segoe UI Mono', Consolas, monospace" font-size="10" fill="#526582" text-anchor="middle">18:00</text>
+    <text x="624" y="445" font-family="'JetBrains Mono', 'Segoe UI Mono', Consolas, monospace" font-size="10" fill="#526582" text-anchor="middle">22:00</text>
+    <text x="760" y="445" font-family="'JetBrains Mono', 'Segoe UI Mono', Consolas, monospace" font-size="10" fill="#526582" text-anchor="end">NOW</text>
+  </g>
+</svg>

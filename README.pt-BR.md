@@ -125,6 +125,13 @@ O SVG Maestro desacopla textos da geometria, mantendo rótulos como nós `<text>
 - **Contrato de `<switch>`**: Idiomas específicos (`systemLanguage="pt"`, `systemLanguage="es"`) antecedem o elemento final de fallback em inglês.
 - **Exemplo de Referência**: Veja `examples/i18n/multilingual_card.svg`.
 
+### 6. Roteador Navegador: `/ask-maestro`
+Inspirado diretamente na metodologia `/ask-matt` de Matt Pocock, o `/ask-maestro` atua como bússola operacional para usuários e agentes de IA:
+- **Fluxo Principal (Main Flow)**: Rota determinística da entrevista estruturada (`/svg-maestro brief` $\to$ `BRIEF.md`) à construção em 3 pilares, validação em ciclo fechado com linter (`validate_svg.py`), verbos de direção de arte e entrega.
+- **Vias de Acesso (On-Ramps)**: Portas de entrada dedicadas para reparos em SVGs existentes (como `transform-box` ausente), importações externas (Figma/Inkscape), pacotes multi-asset (fatiamento em tickets tracer-bullet) e visualizações DAX para Power BI.
+- **Higiene de Contexto**: Protege a **Smart Zone** do modelo (~150k tokens), exigindo contextos limpos por componente ao gerar marcações XML ricas em coordenadas.
+- **Interação Poliglota**: Conduz briefings, diagnósticos e triagens no idioma nativo do usuário (como o Português), mantendo todo código XML e atributos em inglês canônico.
+
 ---
 
 ## Pipelines

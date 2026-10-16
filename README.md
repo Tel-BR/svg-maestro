@@ -124,6 +124,13 @@ SVG Maestro decouples text from geometry, keeping labels as semantic `<text>` no
 - **`<switch>` Contract**: Specific locales (`systemLanguage="pt"`, `systemLanguage="es"`) precede the default English fallback element as the final child.
 - **Reference Example**: See `examples/i18n/multilingual_card.svg`.
 
+### 6. The Navigator Router: `/ask-maestro`
+Modeled directly after Matt Pocock's `/ask-matt` router, `/ask-maestro` acts as an architectural compass for users and AI agents:
+- **The Main Flow**: Deterministic path from structured interview (`/svg-maestro brief` $\to$ `BRIEF.md`) to 3-pillar build, closed-loop linter (`validate_svg.py`), refinement verbs, and production handoff.
+- **On-Ramps**: Dedicated entry points for existing SVG repairs (missing `transform-box`), foreign asset imports (Figma/Inkscape), multi-asset streaming kits (tracer-bullet ticket slicing), and Power BI DAX generation.
+- **Context Hygiene**: Protects the LLM's **smart zone** (~150k tokens) by enforcing single-asset context windows when generating verbose vector XML.
+- **Polyglot Interaction**: Greets, interviews, and troubleshoots in the user's conversational language (e.g. Portuguese) while keeping all XML tokens and code strictly in canonical English.
+
 ---
 
 ## Pipelines

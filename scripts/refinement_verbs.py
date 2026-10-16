@@ -926,40 +926,40 @@ def format_critique_markdown(report: Dict[str, Any], target_name: str = "Target 
     aest = report["aesthetic_craft"]
 
     md = []
-    md.append(f"# 🏛️ SVG Maestro Design Critique Report")
+    md.append(f"# SVG Maestro Design Critique Report")
     md.append(f"")
     md.append(f"**Target**: `{target_name}`  ")
     md.append(f"**Composite Score**: **{report['composite_score']} / 100** — **Grade**: `[{report['composite_grade']}]`  ")
-    md.append(f"**Contract Status**: {'✅ VALID (0 Errors, 0 Warnings)' if report['valid'] else '⚠️ LINTER FINDINGS DETECTED'}")
+    md.append(f"**Contract Status**: {'[PASS] VALID (0 Errors, 0 Warnings)' if report['valid'] else '[WARN] Linter findings detected'}")
     md.append(f"")
     md.append(f"---")
     md.append(f"")
-    md.append(f"## 🛠️ Axis 1: Technical Standards — {tech['score']}/100 `[{tech['grade']}]`")
+    md.append(f"## Axis 1: Technical Standards — {tech['score']}/100 `[{tech['grade']}]`")
     for key, data in tech["breakdown"].items():
         title = key.replace("_", " ").title()
         md.append(f"- **{title}**: `{data['score']}/{data['max']}` — {data['notes']}")
     md.append(f"")
 
-    md.append(f"## 🎨 Axis 2: Aesthetic Craft — {aest['score']}/100 `[{aest['grade']}]`")
+    md.append(f"## Axis 2: Aesthetic Craft — {aest['score']}/100 `[{aest['grade']}]`")
     for key, data in aest["breakdown"].items():
         title = key.replace("_", " ").title()
         md.append(f"- **{title}**: `{data['score']}/{data['max']}` — {data['notes']}")
     md.append(f"")
 
     if report["highlights"]:
-        md.append(f"### ✨ Highlights")
+        md.append(f"### Highlights")
         for h in report["highlights"]:
             md.append(f"- {h}")
         md.append(f"")
 
     if report["recommendations"]:
-        md.append(f"### 💡 Recommendations")
+        md.append(f"### Recommendations")
         for r in report["recommendations"]:
             md.append(f"- {r}")
         md.append(f"")
 
     if report["suggested_verbs"]:
-        md.append(f"### ⚡ Suggested Refinement Verbs")
+        md.append(f"### Suggested Refinement Verbs")
         for v in report["suggested_verbs"]:
             md.append(f"- `/svg-maestro {v}`")
         md.append(f"")

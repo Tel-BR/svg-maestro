@@ -469,14 +469,14 @@ def generate_brief_markdown(
 - **Universal Transform Contract**: Any CSS transform animation must include `transform-box: fill-box;` and `transform-origin: center;`.
 - **Decoupled Typography**: Text elements must remain semantic `<text>` nodes in `layer-typography`. Never outline or bake text into vector paths.
 - **Craft Floor Non-Negotiable Bans**:
-  * 🚫 Banned: Generic AI clipart (no cartoon gears, floating lightbulbs, or mascots).
-  * 🚫 Banned: Muddy gradients (no gray/brown dirty transition steps).
-  * 🚫 Banned: Broken tangencies or unaligned anchor points.
+  * **Banned: Generic AI clipart** (no cartoon gears, floating lightbulbs, or mascots).
+  * **Banned: Muddy gradients** (no gray/brown dirty transition steps).
+  * **Banned: Broken tangencies** or unaligned anchor points.
 
 {verif_header}
 - [ ] Validated with `scripts/validate_svg.py <file.svg> --json` (0 errors, 0 strict warnings).
 - [ ] Layer hierarchy verified in Inkscape.
-- [ ] Motion evaluated at 60fps in handoff environment ({h_spec.name}).
+- [ ] Motion evaluated smoothly in handoff environment ({h_spec.name}).
 {notes_section}"""
     return md
 

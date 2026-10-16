@@ -27,9 +27,9 @@ Select the visual mode matching the surface:
 - **`Persuade` (Hero Banners & Branding)**: Prioritize monumental Euclidean scale, emotional resonance, and golden ratio harmony.
 
 #### The Craft Floor (Non-Negotiable Quality Bans)
-- 🚫 **Banned: AI Clipart**: No generic lightbulbs, floating gears, or cartoon mascots. Rely strictly on Euclidean geometry, technical isometric lines, and mathematical constructs.
-- 🚫 **Banned: Muddy Gradients**: No three-stop gradients transitioning through muddy gray or brown midpoints. Use perceptually balanced color ramps.
-- 🚫 **Banned: Broken Tangencies**: No abrupt bezier curves, overlapping open paths, or misaligned anchor points that degrade when zoomed.
+- **Banned: AI Clipart**: No generic lightbulbs, floating gears, or cartoon mascots. Rely strictly on Euclidean geometry, technical isometric lines, and mathematical constructs.
+- **Banned: Muddy Gradients**: No three-stop gradients transitioning through muddy gray or brown midpoints. Use perceptually balanced color ramps.
+- **Banned: Broken Tangencies**: No abrupt bezier curves, overlapping open paths, or misaligned anchor points that degrade when zoomed.
 
 ---
 

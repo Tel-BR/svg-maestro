@@ -1,4 +1,4 @@
-# Contribuindo com o SVG Maestro 🎨🤝
+# Contribuindo com o SVG Maestro
 
 Obrigado pelo interesse em contribuir com o **SVG Maestro**! Este projeto é de código aberto e tem como objetivo fornecer aos agentes de IA a melhor infraestrutura para gerar vetores geométricos, acessíveis e editáveis no Inkscape.
 

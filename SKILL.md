@@ -113,13 +113,38 @@ Separate animation groups from static content groups:
 ## ⚡ The Commands & Workflow
 
 ### 1. Discovery: `/svg-maestro brief`
-Whenever a user request is underspecified (lacking clear dimensions, mood, or motion requirements), **DO NOT guess or emit code immediately**. Trigger the **Interactive Briefing Protocol** using the `ask_question` tool covering:
-1. **Surface & Viewport**: Card, 16:9 Webcam Overlay, Alert Banner, or Full Hero.
-2. **Surface Mode & Palette**: Operate (Clean Data), Experience (Cyber Neon / High Contrast), or Persuade.
-3. **Motion Profile**: Continuous line tracing, radar spin/pulse, morphing, or static.
-4. **Handoff Target**: Inkscape manual editing, OBS Studio Browser Source, Web DOM, or Power BI DAX.
+Whenever a user request is underspecified (lacking clear dimensions, mood, or motion requirements), **DO NOT guess or emit code immediately**. Trigger the **Interactive Briefing Protocol** using the `ask_question` tool covering the 4 core dimensions:
+1. **Surface Viewport**: 16:9 Webcam Overlay (1920x1080), Telemetry Card (800x500), Alert Banner (1200x300), Square Widget (600x600), or Monumental Hero Canvas (1920x1080).
+2. **Surface Mode**: Operate (Data density & crisp legibility), Experience (Cyber neon & ambient motion), or Persuade (Monumental Euclidean scale & emotional resonance).
+3. **Motion Profile**: Ambient Radar Spin / Breathing Pulse (Tier 1 CSS), Continuous Line Tracing (Tier 1 CSS), SMIL Path Morphing (Tier 2 SMIL), or Static (Zero animation).
+4. **Handoff Target**: OBS Studio Browser Source, Inkscape Manual Vector, Web DOM / HTML, or Power BI DAX String.
 
-Synthesize the answers into a concise `BRIEF.md` (or conversational summary) before generating code.
+#### Elicitation Helper & Automated Setup:
+You can generate the exact localized `ask_question` tool payload via CLI:
+```bash
+python <path-to-skill>/scripts/briefing.py questions --lang <en|pt> --json
+```
+
+#### Binding Brief Synthesis:
+Once the user selects their options, serialize the agreed constraints into a binding `BRIEF.md` in the workspace:
+```bash
+python <path-to-skill>/scripts/briefing.py create \
+  --name "Asset Name" \
+  --viewport "webcam_16_9" \
+  --mode "experience" \
+  --motion "radar_pulse" \
+  --handoff "obs_browser_source" \
+  --output BRIEF.md \
+  --lang en
+```
+Alternatively, copy and populate `templates/BRIEF.template.md`.
+
+#### Pre-Generation Brief Validation:
+Before generating SVG code, subsequent passes verify that all 4 core dimensions exist:
+```bash
+python <path-to-skill>/scripts/briefing.py validate BRIEF.md --json
+```
+If validation passes (exit code 0), treat `BRIEF.md` as the authoritative source of design truth for viewport dimensions, layers, motion profiles, and color tokens.
 
 ### 2. Multi-Asset Kit Slicing: When to use Tickets
 - **Single Asset**: If the brief describes a single SVG component, generate it immediately within the current context window.

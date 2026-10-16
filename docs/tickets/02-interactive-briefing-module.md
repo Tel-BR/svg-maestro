@@ -4,10 +4,10 @@
 
 **Blocked by:** None (can start immediately).
 
-**Status:** ready-for-agent
+**Status:** closed
 
-- [ ] Automated routine triggers `ask_question` whenever a design request lacks core dimensions
-- [ ] Multiple-choice options provide recommended defaults for Surface Viewport, Surface Mode, Motion Profile, and Handoff Target
-- [ ] Agent conducts interview in the user's conversational language (e.g. Portuguese or English)
-- [ ] Briefing generates a structured `BRIEF.md` capturing all agreed constraints
-- [ ] Subsequent generation passes read `BRIEF.md` as the authoritative source of design truth
+- [x] Automated routine triggers `ask_question` whenever a design request lacks core dimensions
+- [x] Multiple-choice options provide recommended defaults for Surface Viewport, Surface Mode, Motion Profile, and Handoff Target
+- [x] Agent conducts interview in the user's conversational language (e.g. Portuguese or English)
+- [x] Briefing generates a structured `BRIEF.md` capturing all agreed constraints
+- [x] Subsequent generation passes read `BRIEF.md` as the authoritative source of design truth

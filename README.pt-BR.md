@@ -44,13 +44,35 @@
 ## ⚡ Verbos de Refinamento Criativo
 
 Itere sobre os vetores gerados usando comandos expressivos de direção de arte:
-- `/svg-maestro brief`: Dispara a entrevista interativa via `ask_question`.
+- `/svg-maestro brief`: Dispara a entrevista interativa via `ask_question` cobrindo as 4 dimensões canônicas (Superfície/Viewport, Modo, Movimento e Destino), gerando um `BRIEF.md` vinculativo.
 - `/svg-maestro bolder`: Intensifica traços, saturação de gradientes e contraste de néon.
 - `/svg-maestro quieter`: Suaviza luzes, reduz saturação e refina linhas para um estilo mais discreto.
 - `/svg-maestro distill`: Remove elementos decorativos secundários, deixando apenas as linhas geométricas essenciais.
 - `/svg-maestro delight`: Adiciona micro-detalhes de movimento (varreduras de radar, anéis orbitais, brilhos de borda).
 - `/svg-maestro animate`: Transforma vetores estáticos do Inkscape em ativos animados aplicando o Wrapper Pattern.
 - `/svg-maestro critique`: Avaliação em dois eixos cobrindo Padrões Técnicos (Inkscape/linter) e Excelência Estética.
+
+### 📋 Motor de Briefing Interativo (`scripts/briefing.py`)
+
+Gere os prompts de eliciação para o `ask_question` e valide contratos de design vinculativos:
+
+```bash
+# Gerar payload localizado para ask_question
+python scripts/briefing.py questions --lang pt --json
+
+# Sintetizar documento vinculativo de briefing
+python scripts/briefing.py create \
+  --name "Moldura Stream" \
+  --viewport "webcam_16_9" \
+  --mode "experience" \
+  --motion "radar_pulse" \
+  --handoff "obs_browser_source" \
+  --output BRIEF.md \
+  --lang pt
+
+# Validar completude do briefing antes de gerar o código SVG
+python scripts/briefing.py validate BRIEF.md --json
+```
 
 ---
 

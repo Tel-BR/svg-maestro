@@ -44,13 +44,34 @@
 ## ⚡ Creative Refinement Verbs
 
 Iterate on generated vectors using expressive creative verbs:
-- `/svg-maestro brief`: Triggers the interactive elicitation interview via `ask_question`.
+- `/svg-maestro brief`: Triggers the interactive elicitation interview via `ask_question` across 4 core dimensions (Surface Viewport, Surface Mode, Motion Profile, Handoff Target), generating a binding `BRIEF.md`.
 - `/svg-maestro bolder`: Intensifies stroke weights, gradient saturation, and neon contrast.
 - `/svg-maestro quieter`: Softens luminescence, reduces saturation, and refines lines for an understated look.
 - `/svg-maestro distill`: Strips secondary clutter, keeping only essential geometric lines and data readouts.
 - `/svg-maestro delight`: Adds micro-motion touches (orbital radar sweeps, edge glows, pulsing rings).
 - `/svg-maestro animate`: Converts static Inkscape SVGs into motion-enabled assets using the Wrapper Pattern.
 - `/svg-maestro critique`: Two-axis review evaluating Technical Standards (Inkscape/linter) and Aesthetic Craft.
+
+### 📋 Interactive Briefing Engine (`scripts/briefing.py`)
+
+Generate `ask_question` elicitation prompts and validate binding design contracts:
+
+```bash
+# Generate localized elicitation payload for ask_question
+python scripts/briefing.py questions --lang en --json
+
+# Synthesize binding design brief
+python scripts/briefing.py create \
+  --name "Stream Frame" \
+  --viewport "webcam_16_9" \
+  --mode "experience" \
+  --motion "radar_pulse" \
+  --handoff "obs_browser_source" \
+  --output BRIEF.md
+
+# Validate brief completeness before SVG code generation
+python scripts/briefing.py validate BRIEF.md --json
+```
 
 ---
 

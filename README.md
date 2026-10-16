@@ -124,6 +124,30 @@ python scripts/dashboard_pipeline.py dax \
 
 Available visual themes: `dark_slate`, `obsidian_amber`, `matrix_emerald`, and `deep_violet`.
 
+### 🎨 Art Direction Refinement Verbs (`scripts/refinement_verbs.py`)
+
+Iteratively sculpt and refine generated vector graphics using expressive creative direction commands rather than micromanaging coordinates:
+
+- **`bolder`**: Amplifies stroke weights (1.4x-1.8x), enhances gradient contrasts, and intensifies luminescent glow filters.
+- **`quieter`**: Desaturates colors, softens lighting/glows, and reduces stroke weights (0.6x-0.75x) for an understated, elegant look.
+- **`distill`**: Strips secondary decorative shapes (micro grid tics, secondary accent embellishments, decorative noise) while preserving core Euclidean hierarchy and metrics.
+- **`delight`**: Injects subtle micro-motion accents (orbital radar rings or breathing pulses), strictly encapsulated using the Wrapper Pattern with `transform-box: fill-box; transform-origin: center;`.
+- **`animate`**: Converts a static SVG into a motion asset by identifying central geometry or accents, wrapping target elements in `<g class="anim-wrapper-...">` and injecting CSS `@keyframes` with `transform-box: fill-box; transform-origin: center;`.
+- **`critique`**: Emits a structured two-axis review scoring (1) Technical Standards (linter compliance, Inkscape layers, defs hygiene, Wrapper Pattern) and (2) Aesthetic Craft (proportions, color harmony, typography decoupling, Craft Floor bans).
+
+```bash
+# Refine an existing SVG asset
+python scripts/refinement_verbs.py bolder --input card.svg --output card_bolder.svg
+python scripts/refinement_verbs.py quieter --input card.svg
+python scripts/refinement_verbs.py distill --input widget.svg -o widget_distilled.svg
+python scripts/refinement_verbs.py delight --input overlay.svg
+python scripts/refinement_verbs.py animate --input static_card.svg
+
+# Run Two-Axis Design Critique
+python scripts/refinement_verbs.py critique --input card.svg
+python scripts/refinement_verbs.py critique --input card.svg --json
+```
+
 ---
 
 ## 🚀 Autonomous Closed-Loop Validation

@@ -150,14 +150,30 @@ If validation passes (exit code 0), treat `BRIEF.md` as the authoritative source
 - **Single Asset**: If the brief describes a single SVG component, generate it immediately within the current context window.
 - **Multi-Asset Kit (e.g. Streaming Pack or Dashboard Suite)**: Break the project into vertical tracer-bullet tickets. Implement each asset in an isolated context pass, maintaining consistent palettes and running the linter against each file.
 
-### 3. Creative Refinement Verbs
-Allow the user to steer and refine existing SVG assets with expressive creative commands:
-- **`bolder`**: Boost stroke weights, amplify gradient saturation and glow contrasts, and make geometric accents more assertive.
-- **`quieter`**: Tone down saturation, reduce glow opacities, and refine line weights for a calmer, understated look.
-- **`distill`**: Strip secondary decorative elements, preserving only the essential Euclidean geometry and metrics.
-- **`delight`**: Inject micro-interaction touches (e.g. an orbital radar ring, a subtle neon corner accent, or a breathing glow).
-- **`animate`**: Convert a static SVG into a motion-enabled asset by wrapping selected nodes in the Wrapper Pattern and injecting keyframe CSS.
-- **`critique`**: Perform a two-axis design critique evaluating (1) Technical Standards (Inkscape layers, linter compliance, 60fps stability) and (2) Aesthetic Craft (proportions, visual rhythm, WCAG AAA contrast, Craft Floor adherence).
+### 3. Creative Refinement Verbs (`scripts/refinement_verbs.py`)
+Allow the user to steer and refine existing SVG assets with expressive creative commands without micromanaging coordinates:
+- **`bolder`**: Boost stroke weights (1.4x-1.8x), amplify gradient saturation and glow contrasts, and make geometric accents more assertive.
+- **`quieter`**: Tone down saturation, soften filter glows, and refine line weights (0.6x-0.75x) for a calmer, understated look.
+- **`distill`**: Strip secondary decorative elements (micro grid tics, secondary accent embellishments, decorative noise), preserving core Euclidean geometry and metrics.
+- **`delight`**: Inject micro-interaction touches (e.g. an orbital radar ring, a subtle neon corner accent, or a breathing glow) strictly encapsulated using the Wrapper Pattern with `transform-box: fill-box; transform-origin: center;`.
+- **`animate`**: Convert a static SVG into a motion asset by identifying central geometry or accents, wrapping target elements in `<g class="anim-wrapper-...">`, and injecting CSS keyframe rules with `transform-box: fill-box; transform-origin: center;`.
+- **`critique`**: Perform a structured two-axis design critique evaluating (1) Technical Standards (Inkscape layers, linter compliance, 60fps stability, Wrapper Pattern) and (2) Aesthetic Craft (proportions, visual rhythm, WCAG AAA contrast, Craft Floor adherence).
+
+#### CLI Invocation:
+```bash
+# Apply creative refinement verbs
+python <path-to-skill>/scripts/refinement_verbs.py bolder --input <file.svg> [--output <file_bolder.svg>]
+python <path-to-skill>/scripts/refinement_verbs.py quieter --input <file.svg> [--output <file_quieter.svg>]
+python <path-to-skill>/scripts/refinement_verbs.py distill --input <file.svg> [--output <file_distilled.svg>]
+python <path-to-skill>/scripts/refinement_verbs.py delight --input <file.svg> [--output <file_delighted.svg>]
+python <path-to-skill>/scripts/refinement_verbs.py animate --input <static_file.svg> [--output <animated_file.svg>]
+
+# Run Two-Axis Design Critique
+python <path-to-skill>/scripts/refinement_verbs.py critique --input <file.svg>
+python <path-to-skill>/scripts/refinement_verbs.py critique --input <file.svg> --json
+```
+
+*Contract Guarantee*: All refined SVGs output by `refinement_verbs.py` automatically pass `validate_svg.py` with 0 errors and 0 warnings (`valid: true`).
 
 ---
 

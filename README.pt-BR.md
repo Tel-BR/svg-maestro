@@ -125,6 +125,30 @@ python scripts/dashboard_pipeline.py dax \
 
 Temas visuais disponíveis: `dark_slate`, `obsidian_amber`, `matrix_emerald` e `deep_violet`.
 
+### 🎨 Verbos de Refinamento de Direção de Arte (`scripts/refinement_verbs.py`)
+
+Esculpa e refine interativamente os gráficos vetoriais gerados através de comandos expressivos de direção de arte, sem necessidade de microgerenciar coordenadas:
+
+- **`bolder`**: Amplifica a espessura de traços (1.4x-1.8x), realça contrastes de gradientes e intensifica filtros de brilho luminescente.
+- **`quieter`**: Dessatura cores, suaviza iluminação/brilhos e reduz espessuras de linha (0.6x-0.75x) para uma estética sóbria e elegante.
+- **`distill`**: Remove formas decorativas secundárias (tics de grade micro, floreios secundários, ruído ornamental), preservando a hierarquia euclidiana e métricas essenciais.
+- **`delight`**: Injeta microinterações sutis (anéis de radar orbitais ou pulsações orgânicas), estritamente encapsuladas pelo Wrapper Pattern com `transform-box: fill-box; transform-origin: center;`.
+- **`animate`**: Transforma um SVG estático em um ativo com movimento ao identificar geometrias focais, envelopando-as em grupos `<g class="anim-wrapper-...">` e injetando regras CSS `@keyframes` com `transform-box: fill-box; transform-origin: center;`.
+- **`critique`**: Emite uma auditoria estruturada em dois eixos avaliando (1) Padrões Técnicos (conformidade com linter, camadas Inkscape, higiene de defs, Wrapper Pattern) e (2) Craft Estético (proporções, harmonia cromática, tipografia desacoplada e banimento do Craft Floor).
+
+```bash
+# Refinar um SVG existente
+python scripts/refinement_verbs.py bolder --input card.svg --output card_bolder.svg
+python scripts/refinement_verbs.py quieter --input card.svg
+python scripts/refinement_verbs.py distill --input widget.svg -o widget_distilled.svg
+python scripts/refinement_verbs.py delight --input overlay.svg
+python scripts/refinement_verbs.py animate --input static_card.svg
+
+# Executar Crítica de Design em Dois Eixos
+python scripts/refinement_verbs.py critique --input card.svg
+python scripts/refinement_verbs.py critique --input card.svg --json
+```
+
 ---
 
 ## 🚀 Validação Autônoma em Loop Fechado

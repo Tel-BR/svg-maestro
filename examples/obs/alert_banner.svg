@@ -1,0 +1,256 @@
+<svg xmlns="http://www.w3.org/2000/svg"
+     xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+     xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+     xmlns:xlink="http://www.w3.org/1999/xlink"
+     viewBox="0 0 1200 300"
+     width="100%" height="100%">
+  <defs>
+    <!-- Chassis Gradients -->
+    <linearGradient id="grad-alert-chassis" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#060a14" stop-opacity="0.95" />
+      <stop offset="100%" stop-color="#0d1627" stop-opacity="0.90" />
+    </linearGradient>
+    <linearGradient id="grad-alert-border" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#00f0ff" />
+      <stop offset="50%" stop-color="#ff007f" />
+      <stop offset="100%" stop-color="#ffb703" />
+    </linearGradient>
+    <linearGradient id="grad-badge-glow" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#ff007f" />
+      <stop offset="100%" stop-color="#0077cc" />
+    </linearGradient>
+
+    <!-- Glow Filters -->
+    <filter id="filter-trace-glow" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="4.5" result="blur-t" />
+      <feMerge>
+        <feMergeNode in="blur-t" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+    <filter id="filter-badge-glow" x="-40%" y="-40%" width="180%" height="180%">
+      <feGaussianBlur stdDeviation="6" result="blur-b" />
+      <feMerge>
+        <feMergeNode in="blur-b" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+    <filter id="filter-neon-glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="3.5" result="blur-n" />
+      <feMerge>
+        <feMergeNode in="blur-n" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+  </defs>
+
+  <style>
+    /* Continuous Line Tracing Motion */
+    .anim-line-trace {
+      stroke-dasharray: 240 760;
+      animation: trace-perimeter-kf 4s linear infinite;
+    }
+
+    .anim-line-trace-reverse {
+      stroke-dasharray: 180 520;
+      animation: trace-reverse-kf 3s linear infinite;
+    }
+
+    /* Wrapper Pattern Animated Elements */
+    .anim-badge-pulse {
+      animation: badge-pulse-kf 2.4s ease-in-out infinite alternate;
+      transform-box: fill-box;
+      transform-origin: center;
+    }
+
+    .anim-badge-ring {
+      animation: badge-spin-kf 9s linear infinite;
+      transform-box: fill-box;
+      transform-origin: center;
+    }
+
+    .anim-status-pip {
+      animation: pip-blink-kf 1.2s ease-in-out infinite alternate;
+      transform-box: fill-box;
+      transform-origin: center;
+    }
+
+    .anim-meter-wave {
+      animation: meter-wave-kf 1.5s ease-in-out infinite alternate;
+      transform-box: fill-box;
+      transform-origin: center;
+    }
+
+    @keyframes trace-perimeter-kf {
+      0% {
+        stroke-dashoffset: 0;
+      }
+      100% {
+        stroke-dashoffset: -2000;
+      }
+    }
+
+    @keyframes trace-reverse-kf {
+      0% {
+        stroke-dashoffset: 0;
+      }
+      100% {
+        stroke-dashoffset: 1400;
+      }
+    }
+
+    @keyframes badge-pulse-kf {
+      0% {
+        transform: scale(0.96);
+        opacity: 0.85;
+      }
+      100% {
+        transform: scale(1.04);
+        opacity: 1.0;
+      }
+    }
+
+    @keyframes badge-spin-kf {
+      0% {
+        transform: rotate(0deg);
+      }
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+
+    @keyframes pip-blink-kf {
+      0% {
+        opacity: 0.30;
+        transform: scale(0.85);
+      }
+      100% {
+        opacity: 1.0;
+        transform: scale(1.15);
+      }
+    }
+
+    @keyframes meter-wave-kf {
+      0% {
+        transform: scaleY(0.40);
+      }
+      100% {
+        transform: scaleY(1.0);
+      }
+    }
+  </style>
+
+  <!-- Layer 1: Background Chassis Backplate (Floating with Transparent Canvas) -->
+  <g inkscape:groupmode="layer" id="layer-background" inkscape:label="Chassis Backplate">
+    <!-- Main Chamfered Banner Chassis Plate -->
+    <path d="M 136,32 L 1064,32 L 1100,68 L 1100,232 L 1064,268 L 136,268 L 100,232 L 100,68 Z"
+          fill="url(#grad-alert-chassis)" stroke="#142542" stroke-width="1.5" />
+
+    <!-- Left Badge Recessed Backplate -->
+    <polygon points="112,68 144,36 264,36 264,264 144,264 112,232"
+             fill="#060a14" fill-opacity="0.9" stroke="#142542" stroke-width="1" />
+
+    <!-- Background Tech Grid Texture -->
+    <path d="M 300,50 L 1050,50 M 300,250 L 1050,250
+             M 400,32 L 400,268 M 600,32 L 600,268 M 800,32 L 800,268 M 1000,32 L 1000,268"
+          stroke="#142542" stroke-width="0.75" stroke-opacity="0.6" stroke-dasharray="4 8" />
+  </g>
+
+  <!-- Layer 2: Frame Chassis & Continuous Tracing Rails -->
+  <g inkscape:groupmode="layer" id="layer-frame" inkscape:label="Chassis Frame">
+    <!-- Static Structural Frame Border -->
+    <path d="M 136,32 L 1064,32 L 1100,68 L 1100,232 L 1064,268 L 136,268 L 100,232 L 100,68 Z"
+          fill="none" stroke="#142542" stroke-width="2.5" />
+
+    <!-- CONTINUOUS LINE TRACING PATH 1: Outer Chamfered Perimeter -->
+    <path class="anim-line-trace"
+          d="M 140,36 L 1060,36 L 1094,70 L 1094,230 L 1060,264 L 140,264 L 106,230 L 106,70 Z"
+          fill="none" stroke="url(#grad-alert-border)" stroke-width="3.5"
+          stroke-linecap="round" stroke-linejoin="round"
+          filter="url(#filter-trace-glow)" />
+
+    <!-- CONTINUOUS LINE TRACING PATH 2: Lower Energy Rail -->
+    <path class="anim-line-trace-reverse"
+          d="M 284,248 L 1030,248 L 1060,218"
+          fill="none" stroke="#00f0ff" stroke-width="2"
+          stroke-linecap="round" filter="url(#filter-neon-glow)" />
+
+    <!-- Chassis Mounting Brackets & Notches -->
+    <polygon points="100,68 116,68 100,84" fill="#ffb703" />
+    <polygon points="1100,68 1084,68 1100,84" fill="#ff007f" />
+    <polygon points="100,232 116,232 100,216" fill="#ff007f" />
+    <polygon points="1100,232 1084,232 1100,216" fill="#00f0ff" />
+  </g>
+
+  <!-- Layer 3: Accents & Lighting (Emblem & Status Pips via Wrapper Pattern) -->
+  <g inkscape:groupmode="layer" id="layer-accents" inkscape:label="Accents and Lighting">
+    <!-- Animated Rotating Outer Telemetry Ring -->
+    <g class="anim-badge-ring" id="wrapper-badge-ring">
+      <g id="geom-badge-ring" inkscape:label="Rotating Ring">
+        <circle cx="188" cy="150" r="62" fill="none" stroke="#00f0ff" stroke-width="1.5" stroke-dasharray="16 12 4 12" />
+        <circle cx="188" cy="88" r="3" fill="#ffb703" />
+        <circle cx="188" cy="212" r="3" fill="#ffb703" />
+      </g>
+    </g>
+
+    <!-- Animated Breathing Cyber Badge Emblem -->
+    <g class="anim-badge-pulse" id="wrapper-alert-badge">
+      <g id="geom-alert-badge" inkscape:label="Cyber Emblem">
+        <!-- Outer Glowing Hexagon Shield -->
+        <polygon points="188,96 234,123 234,177 188,204 142,177 142,123"
+                 fill="url(#grad-badge-glow)" fill-opacity="0.30"
+                 stroke="#ff007f" stroke-width="3" filter="url(#filter-badge-glow)" />
+
+        <!-- Inner Precision Diamond -->
+        <polygon points="188,110 218,150 188,190 158,150"
+                 fill="none" stroke="#00f0ff" stroke-width="2" />
+
+        <!-- Central Radiant Star Glyph -->
+        <path d="M 188,134 L 192,145 L 204,150 L 192,155 L 188,166 L 184,155 L 172,150 L 184,145 Z"
+              fill="#ffffff" filter="url(#filter-neon-glow)" />
+      </g>
+    </g>
+
+    <!-- Animated Status Beacon Pip -->
+    <g class="anim-status-pip" id="wrapper-status-pip">
+      <g id="geom-status-pip" inkscape:label="Status Beacon">
+        <circle cx="288" cy="86" r="6.5" fill="#ffb703" filter="url(#filter-neon-glow)" />
+        <circle cx="288" cy="86" r="3" fill="#ffffff" />
+      </g>
+    </g>
+
+    <!-- Animated Right Waveform Meter -->
+    <g id="cluster-alert-meter">
+      <g class="anim-meter-wave" id="wrapper-meter-1">
+        <g id="geom-meter-1" inkscape:label="Wave Bar 1">
+          <rect x="1020" y="130" width="4" height="40" rx="2" fill="#00f0ff" filter="url(#filter-neon-glow)" />
+        </g>
+      </g>
+      <g class="anim-meter-wave" id="wrapper-meter-2">
+        <g id="geom-meter-2" inkscape:label="Wave Bar 2">
+          <rect x="1030" y="120" width="4" height="60" rx="2" fill="#ff007f" filter="url(#filter-neon-glow)" />
+        </g>
+      </g>
+      <g class="anim-meter-wave" id="wrapper-meter-3">
+        <g id="geom-meter-3" inkscape:label="Wave Bar 3">
+          <rect x="1040" y="135" width="4" height="30" rx="2" fill="#ffb703" filter="url(#filter-neon-glow)" />
+        </g>
+      </g>
+    </g>
+  </g>
+
+  <!-- Layer 4: Typography & Alert Copy (Decoupled Semantic Text) -->
+  <g inkscape:groupmode="layer" id="layer-typography" inkscape:label="Typography and Labels">
+    <!-- Alert Subheader / Event Type -->
+    <text x="310" y="92" fill="#ffb703" font-family="'JetBrains Mono', 'Segoe UI', monospace" font-size="16" font-weight="800" letter-spacing="4">NEW SUBSCRIBER</text>
+
+    <!-- Primary Username Readout -->
+    <text x="310" y="168" fill="#ffffff" font-family="'JetBrains Mono', 'Segoe UI', sans-serif" font-size="44" font-weight="900" letter-spacing="2">CYBER_PHANTOM</text>
+
+    <!-- Detail Message / Tier Readout -->
+    <text x="310" y="214" fill="#00f0ff" font-family="'JetBrains Mono', 'Segoe UI', monospace" font-size="18" font-weight="600" letter-spacing="2">TIER 3 // 12 MONTH STREAK</text>
+
+    <!-- Channel / Watermark ID -->
+    <text x="1050" y="92" text-anchor="end" fill="#8ca0be" font-family="'JetBrains Mono', monospace" font-size="12" letter-spacing="2">SYS.ALERT // CH-09</text>
+  </g>
+</svg>

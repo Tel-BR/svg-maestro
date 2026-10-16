@@ -4,11 +4,11 @@
 
 **Blocked by:** 01: Core Linter Test Suite & Fixture Matrix, 02: Interactive Briefing Module (`ask_question` Protocol).
 
-**Status:** ready-for-agent
+**Status:** closed
 
-- [ ] Agent generates standalone 16:9 webcam frame SVG with transparent center and animated corner accents
-- [ ] Agent generates modular alert banner SVG with continuous line tracing motion
-- [ ] Every overlay adheres to the Wrapper Pattern so moving or resizing shapes in Inkscape does not break CSS animations
-- [ ] All elements are organized into semantic Inkscape layers (`inkscape:groupmode="layer"`)
-- [ ] Generated files pass automated linter validation with zero errors
-- [ ] Overlays render crisply with transparency when imported as browser sources in streaming software
+- [x] Agent generates standalone 16:9 webcam frame SVG with transparent center and animated corner accents
+- [x] Agent generates modular alert banner SVG with continuous line tracing motion
+- [x] Every overlay adheres to the Wrapper Pattern so moving or resizing shapes in Inkscape does not break CSS animations
+- [x] All elements are organized into semantic Inkscape layers (`inkscape:groupmode="layer"`)
+- [x] Generated files pass automated linter validation with zero errors
+- [x] Overlays render crisply with transparency when imported as browser sources in streaming software

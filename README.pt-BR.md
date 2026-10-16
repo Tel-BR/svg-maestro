@@ -74,6 +74,32 @@ python scripts/briefing.py create \
 python scripts/briefing.py validate BRIEF.md --json
 ```
 
+### 🎥 Pipeline de Overlays de Streaming para OBS (`scripts/obs_pipeline.py`)
+
+Gere overlays de streaming modulares com viewport transparente no modo `Experience`:
+
+```bash
+# Gerar kit completo de overlays (moldura de webcam 16:9 + banner de alerta)
+python scripts/obs_pipeline.py generate-all --output-dir examples/obs/ --theme cyan_magenta
+
+# Gerar moldura de webcam customizada
+python scripts/obs_pipeline.py webcam \
+  --output examples/obs/webcam_frame_16_9.svg \
+  --theme cyan_magenta \
+  --cam-label "CAM 01 // AO VIVO" \
+  --status-label "REC ● 1080P 60FPS"
+
+# Gerar banner de notificação de alerta customizado
+python scripts/obs_pipeline.py alert \
+  --output examples/obs/alert_banner.svg \
+  --theme cyan_magenta \
+  --type "NOVO INSCRITO" \
+  --user "CYBER_PHANTOM" \
+  --detail "TIER 3 // 12 MESES SEGUIDOS"
+```
+
+Temas visuais disponíveis: `cyan_magenta`, `amber_gold`, `matrix_green` e `crimson_hazard`.
+
 ---
 
 ## 🚀 Validação Autônoma em Loop Fechado
@@ -129,7 +155,13 @@ svg-maestro/
 ├── CONTRIBUTING.md             # Guia de contribuição da comunidade
 ├── LICENSE                     # Licença MIT permissiva
 ├── scripts/
+│   ├── briefing.py             # Motor de briefing interativo e elicitação
+│   ├── obs_pipeline.py         # Gerador e pipeline de overlays para OBS
 │   └── validate_svg.py         # Linter autônomo zero-dependency em Python
+├── examples/
+│   └── obs/                    # Overlays de streaming prontos para produção
+│       ├── webcam_frame_16_9.svg
+│       └── alert_banner.svg
 ├── docs/
 │   ├── SPEC.md                 # Especificação técnica do sistema
 │   ├── tickets/                # Tickets verticais executáveis (ready-for-agent)
@@ -141,6 +173,10 @@ svg-maestro/
 │   │   └── 06-multilingual-typography-and-i18n.md
 │   └── adr/                    # Registros de Decisões de Arquitetura (ADRs 0001 - 0008)
 └── tests/
+    ├── fixtures/               # Fixtures abrangentes para validação de linter
+    ├── test_briefing.py        # Suíte de testes do motor de briefing
+    ├── test_linter.py          # Suíte de testes do linter
+    ├── test_obs_overlays.py    # Suíte de testes dos overlays de OBS
     └── test_card.svg           # Fixture de teste canônica
 ```
 

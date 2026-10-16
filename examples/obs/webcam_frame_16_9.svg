@@ -1,0 +1,341 @@
+<svg xmlns="http://www.w3.org/2000/svg"
+     xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+     xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+     xmlns:xlink="http://www.w3.org/1999/xlink"
+     viewBox="0 0 1920 1080"
+     width="100%" height="100%">
+  <defs>
+    <!-- Gradients -->
+    <linearGradient id="grad-cyber-primary" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#00f0ff" />
+      <stop offset="100%" stop-color="#0077cc" />
+    </linearGradient>
+    <linearGradient id="grad-cyber-secondary" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#ff007f" />
+      <stop offset="100%" stop-color="#99004d" />
+    </linearGradient>
+    <linearGradient id="grad-cyber-accent" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#ffb703" />
+      <stop offset="100%" stop-color="#00f0ff" />
+    </linearGradient>
+    <linearGradient id="grad-chassis-top" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#060a14" stop-opacity="0.95" />
+      <stop offset="100%" stop-color="#0d1627" stop-opacity="0.85" />
+    </linearGradient>
+    <linearGradient id="grad-chassis-bottom" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#0d1627" stop-opacity="0.85" />
+      <stop offset="100%" stop-color="#060a14" stop-opacity="0.95" />
+    </linearGradient>
+    <linearGradient id="grad-chassis-wing" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#060a14" stop-opacity="0.92" />
+      <stop offset="100%" stop-color="#0d1627" stop-opacity="0.80" />
+    </linearGradient>
+
+    <!-- Glow Filters -->
+    <filter id="filter-primary-glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="4" result="blur-p" />
+      <feMerge>
+        <feMergeNode in="blur-p" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+    <filter id="filter-secondary-glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="4" result="blur-s" />
+      <feMerge>
+        <feMergeNode in="blur-s" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+    <filter id="filter-hud-glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="2" result="blur-h" />
+      <feMerge>
+        <feMergeNode in="blur-h" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+  </defs>
+
+  <style>
+    /* SVG Maestro Universal CSS Transform Contract */
+    .anim-corner-pulse {
+      animation: pulse-corner-kf 3s ease-in-out infinite alternate;
+      transform-box: fill-box;
+      transform-origin: center;
+    }
+
+    .anim-rec-beacon {
+      animation: blink-rec-kf 1.2s ease-in-out infinite alternate;
+      transform-box: fill-box;
+      transform-origin: center;
+    }
+
+    .anim-radar-spin {
+      animation: spin-radar-kf 10s linear infinite;
+      transform-box: fill-box;
+      transform-origin: center;
+    }
+
+    .anim-audio-bar-1 {
+      animation: audio-bounce-kf1 0.9s ease-in-out infinite alternate;
+      transform-box: fill-box;
+      transform-origin: center;
+    }
+
+    .anim-audio-bar-2 {
+      animation: audio-bounce-kf2 1.3s ease-in-out infinite alternate;
+      transform-box: fill-box;
+      transform-origin: center;
+    }
+
+    .anim-audio-bar-3 {
+      animation: audio-bounce-kf3 1.1s ease-in-out infinite alternate;
+      transform-box: fill-box;
+      transform-origin: center;
+    }
+
+    @keyframes pulse-corner-kf {
+      0% {
+        opacity: 0.70;
+        transform: scale(0.97);
+      }
+      100% {
+        opacity: 1.0;
+        transform: scale(1.03);
+      }
+    }
+
+    @keyframes blink-rec-kf {
+      0% {
+        opacity: 0.25;
+        transform: scale(0.85);
+      }
+      100% {
+        opacity: 1.0;
+        transform: scale(1.15);
+      }
+    }
+
+    @keyframes spin-radar-kf {
+      0% {
+        transform: rotate(0deg);
+      }
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+
+    @keyframes audio-bounce-kf1 {
+      0% { transform: scaleY(0.35); }
+      100% { transform: scaleY(1.0); }
+    }
+
+    @keyframes audio-bounce-kf2 {
+      0% { transform: scaleY(0.75); }
+      100% { transform: scaleY(0.30); }
+    }
+
+    @keyframes audio-bounce-kf3 {
+      0% { transform: scaleY(0.25); }
+      100% { transform: scaleY(0.90); }
+    }
+  </style>
+
+  <!-- Layer 1: Background Framing (Outside Camera Viewport Only) -->
+  <g inkscape:groupmode="layer" id="layer-background" inkscape:label="Background Framing">
+    <!-- Top Header Chassis Plate -->
+    <path d="M 140,16 L 1780,16 L 1756,86 L 164,86 Z"
+          fill="url(#grad-chassis-top)" stroke="#142542" stroke-width="1.5" />
+
+    <!-- Bottom Docking Chassis Plate -->
+    <path d="M 164,994 L 1756,994 L 1780,1064 L 140,1064 Z"
+          fill="url(#grad-chassis-bottom)" stroke="#142542" stroke-width="1.5" />
+
+    <!-- Left Lateral Tech Wing -->
+    <path d="M 32,106 L 156,106 L 156,974 L 32,974 L 18,944 L 18,136 Z"
+          fill="url(#grad-chassis-wing)" stroke="#142542" stroke-width="1.5" />
+
+    <!-- Right Lateral Tech Wing -->
+    <path d="M 1764,106 L 1888,106 L 1902,136 L 1902,944 L 1888,974 L 1764,974 Z"
+          fill="url(#grad-chassis-wing)" stroke="#142542" stroke-width="1.5" />
+
+    <!-- Lateral Technical Grid Ticks (Left Wing) -->
+    <path d="M 40,200 L 70,200 M 40,240 L 60,240 M 40,280 L 60,280 M 40,320 L 75,320
+             M 40,360 L 60,360 M 40,400 L 60,400 M 40,440 L 70,440
+             M 40,640 L 70,640 M 40,680 L 60,680 M 40,720 L 60,720 M 40,760 L 75,760
+             M 40,800 L 60,800 M 40,840 L 60,840 M 40,880 L 70,880"
+          stroke="#142542" stroke-width="1" />
+
+    <!-- Lateral Technical Grid Ticks (Right Wing) -->
+    <path d="M 1880,200 L 1850,200 M 1880,240 L 1860,240 M 1880,280 L 1860,280 M 1880,320 L 1845,320
+             M 1880,360 L 1860,360 M 1880,400 L 1860,400 M 1880,440 L 1850,440
+             M 1880,640 L 1850,640 M 1880,680 L 1860,680 M 1880,720 L 1860,720 M 1880,760 L 1845,760
+             M 1880,800 L 1860,800 M 1880,840 L 1860,840 M 1880,880 L 1850,880"
+          stroke="#142542" stroke-width="1" />
+  </g>
+
+  <!-- Layer 2: Frame Chassis & Bevel Rails -->
+  <g inkscape:groupmode="layer" id="layer-frame" inkscape:label="Frame Chassis">
+    <!-- Main Outer Aperture Neon Rail (Chamfered 16:9 Border) -->
+    <path d="M 188,86 L 1732,86 L 1764,118 L 1764,962 L 1732,994 L 188,994 L 156,962 L 156,118 Z"
+          fill="none" stroke="url(#grad-cyber-primary)" stroke-width="3.5" filter="url(#filter-primary-glow)" />
+
+    <!-- Inner Aperture Precision Hairline -->
+    <path d="M 188,90 L 1732,90 L 1760,118 L 1760,962 L 1732,990 L 188,990 L 160,962 L 160,118 Z"
+          fill="none" stroke="#00f0ff" stroke-width="1" stroke-opacity="0.45" />
+
+    <!-- Top Structural Bridge Rail -->
+    <path d="M 140,22 L 1780,22" fill="none" stroke="#ff007f" stroke-width="2" filter="url(#filter-secondary-glow)" />
+
+    <!-- Bottom Structural Docking Rail -->
+    <path d="M 140,1058 L 1780,1058" fill="none" stroke="#00f0ff" stroke-width="2" filter="url(#filter-primary-glow)" />
+
+    <!-- Left & Right Accent Chevrons -->
+    <path d="M 70,480 L 90,500 L 70,520 M 70,560 L 90,580 L 70,600"
+          fill="none" stroke="#00f0ff" stroke-width="2" />
+    <path d="M 1850,480 L 1830,500 L 1850,520 M 1850,560 L 1830,580 L 1850,600"
+          fill="none" stroke="#00f0ff" stroke-width="2" />
+  </g>
+
+  <!-- Layer 3: Accents & Lighting (Animated via Wrapper Pattern) -->
+  <g inkscape:groupmode="layer" id="layer-accents" inkscape:label="Accents and Lighting">
+    <!-- Top-Left Animated Corner Bracket -->
+    <g class="anim-corner-pulse" id="wrapper-corner-tl">
+      <g id="geom-corner-tl" inkscape:label="Corner TL Bracket">
+        <path d="M 120,136 L 120,54 L 224,54" fill="none" stroke="#00f0ff" stroke-width="5" filter="url(#filter-primary-glow)" />
+        <polygon points="120,54 148,54 120,82" fill="#00f0ff" />
+        <circle cx="120" cy="54" r="4.5" fill="#ff007f" />
+        <circle cx="224" cy="54" r="3.5" fill="#ffb703" />
+        <circle cx="120" cy="136" r="3.5" fill="#ffb703" />
+      </g>
+    </g>
+
+    <!-- Top-Right Animated Corner Bracket -->
+    <g class="anim-corner-pulse" id="wrapper-corner-tr">
+      <g id="geom-corner-tr" inkscape:label="Corner TR Bracket">
+        <path d="M 1800,136 L 1800,54 L 1696,54" fill="none" stroke="#00f0ff" stroke-width="5" filter="url(#filter-primary-glow)" />
+        <polygon points="1800,54 1772,54 1800,82" fill="#00f0ff" />
+        <circle cx="1800" cy="54" r="4.5" fill="#ff007f" />
+        <circle cx="1696" cy="54" r="3.5" fill="#ffb703" />
+        <circle cx="1800" cy="136" r="3.5" fill="#ffb703" />
+      </g>
+    </g>
+
+    <!-- Bottom-Left Animated Corner Bracket -->
+    <g class="anim-corner-pulse" id="wrapper-corner-bl">
+      <g id="geom-corner-bl" inkscape:label="Corner BL Bracket">
+        <path d="M 120,944 L 120,1026 L 224,1026" fill="none" stroke="#ff007f" stroke-width="5" filter="url(#filter-secondary-glow)" />
+        <polygon points="120,1026 148,1026 120,998" fill="#ff007f" />
+        <circle cx="120" cy="1026" r="4.5" fill="#00f0ff" />
+        <circle cx="224" cy="1026" r="3.5" fill="#ffb703" />
+        <circle cx="120" cy="944" r="3.5" fill="#ffb703" />
+      </g>
+    </g>
+
+    <!-- Bottom-Right Animated Corner Bracket -->
+    <g class="anim-corner-pulse" id="wrapper-corner-br">
+      <g id="geom-corner-br" inkscape:label="Corner BR Bracket">
+        <path d="M 1800,944 L 1800,1026 L 1696,1026" fill="none" stroke="#ff007f" stroke-width="5" filter="url(#filter-secondary-glow)" />
+        <polygon points="1800,1026 1772,1026 1800,998" fill="#ff007f" />
+        <circle cx="1800" cy="1026" r="4.5" fill="#00f0ff" />
+        <circle cx="1696" cy="1026" r="3.5" fill="#ffb703" />
+        <circle cx="1800" cy="944" r="3.5" fill="#ffb703" />
+      </g>
+    </g>
+
+    <!-- Animated REC Indicator Beacon -->
+    <g class="anim-rec-beacon" id="wrapper-rec-beacon">
+      <g id="geom-rec-beacon" inkscape:label="REC Indicator">
+        <circle cx="1636" cy="52" r="8.5" fill="#ff007f" filter="url(#filter-secondary-glow)" />
+        <circle cx="1636" cy="52" r="4" fill="#ffffff" />
+      </g>
+    </g>
+
+    <!-- Animated Left Wing Radar Reticle -->
+    <g class="anim-radar-spin" id="wrapper-radar-widget">
+      <g id="geom-radar-widget" inkscape:label="Radar Scanner">
+        <circle cx="86" cy="540" r="28" fill="none" stroke="#00f0ff" stroke-width="1.5" stroke-dasharray="10 6" />
+        <line x1="86" y1="510" x2="86" y2="570" stroke="#00f0ff" stroke-width="1" />
+        <line x1="56" y1="540" x2="116" y2="540" stroke="#00f0ff" stroke-width="1" />
+        <circle cx="86" cy="540" r="10" fill="none" stroke="#ffb703" stroke-width="1.5" />
+      </g>
+    </g>
+
+    <!-- Animated Audio Visualizer Meter Bars (Bottom Docking Bar) -->
+    <g id="cluster-audio-meter">
+      <g class="anim-audio-bar-1" id="wrapper-audio-1">
+        <g id="geom-audio-1" inkscape:label="Audio Bar 1">
+          <rect x="910" y="1020" width="5" height="24" rx="2" fill="#00f0ff" filter="url(#filter-hud-glow)" />
+        </g>
+      </g>
+      <g class="anim-audio-bar-2" id="wrapper-audio-2">
+        <g id="geom-audio-2" inkscape:label="Audio Bar 2">
+          <rect x="922" y="1020" width="5" height="24" rx="2" fill="#00f0ff" filter="url(#filter-hud-glow)" />
+        </g>
+      </g>
+      <g class="anim-audio-bar-3" id="wrapper-audio-3">
+        <g id="geom-audio-3" inkscape:label="Audio Bar 3">
+          <rect x="934" y="1020" width="5" height="24" rx="2" fill="#ffb703" filter="url(#filter-hud-glow)" />
+        </g>
+      </g>
+      <g class="anim-audio-bar-1" id="wrapper-audio-4">
+        <g id="geom-audio-4" inkscape:label="Audio Bar 4">
+          <rect x="946" y="1020" width="5" height="24" rx="2" fill="#ffb703" filter="url(#filter-hud-glow)" />
+        </g>
+      </g>
+      <g class="anim-audio-bar-2" id="wrapper-audio-5">
+        <g id="geom-audio-5" inkscape:label="Audio Bar 5">
+          <rect x="958" y="1020" width="5" height="24" rx="2" fill="#ff007f" filter="url(#filter-hud-glow)" />
+        </g>
+      </g>
+      <g class="anim-audio-bar-3" id="wrapper-audio-6">
+        <g id="geom-audio-6" inkscape:label="Audio Bar 6">
+          <rect x="970" y="1020" width="5" height="24" rx="2" fill="#ff007f" filter="url(#filter-hud-glow)" />
+        </g>
+      </g>
+      <g class="anim-audio-bar-1" id="wrapper-audio-7">
+        <g id="geom-audio-7" inkscape:label="Audio Bar 7">
+          <rect x="982" y="1020" width="5" height="24" rx="2" fill="#00f0ff" filter="url(#filter-hud-glow)" />
+        </g>
+      </g>
+      <g class="anim-audio-bar-2" id="wrapper-audio-8">
+        <g id="geom-audio-8" inkscape:label="Audio Bar 8">
+          <rect x="994" y="1020" width="5" height="24" rx="2" fill="#00f0ff" filter="url(#filter-hud-glow)" />
+        </g>
+      </g>
+      <g class="anim-audio-bar-3" id="wrapper-audio-9">
+        <g id="geom-audio-9" inkscape:label="Audio Bar 9">
+          <rect x="1006" y="1020" width="5" height="24" rx="2" fill="#ffb703" filter="url(#filter-hud-glow)" />
+        </g>
+      </g>
+    </g>
+
+    <!-- Viewport Edge Alignment Crosshairs -->
+    <path d="M 960,82 L 960,98 M 952,90 L 968,90" stroke="#00f0ff" stroke-width="1.5" />
+    <path d="M 960,982 L 960,998 M 952,990 L 968,990" stroke="#00f0ff" stroke-width="1.5" />
+    <path d="M 152,540 L 168,540 M 160,532 L 160,548" stroke="#00f0ff" stroke-width="1.5" />
+    <path d="M 1752,540 L 1768,540 M 1760,532 L 1760,548" stroke="#00f0ff" stroke-width="1.5" />
+  </g>
+
+  <!-- Layer 4: Typography & HUD Labels (Decoupled Semantic Text) -->
+  <g inkscape:groupmode="layer" id="layer-typography" inkscape:label="Typography and Labels">
+    <!-- Camera Channel / Feed Label -->
+    <text x="250" y="58" fill="#00f0ff" font-family="'JetBrains Mono', 'Segoe UI', monospace" font-size="18" font-weight="700" letter-spacing="3">CAM 01 // LIVE FEED</text>
+
+    <!-- REC Indicator & Format Readout -->
+    <text x="1656" y="58" fill="#ffffff" font-family="'JetBrains Mono', 'Segoe UI', monospace" font-size="16" font-weight="600" letter-spacing="2">REC ● 1080P 60FPS</text>
+
+    <!-- Audio Telemetry Readout (Bottom Left) -->
+    <text x="250" y="1038" fill="#8ca0be" font-family="'JetBrains Mono', 'Segoe UI', monospace" font-size="14" font-weight="500" letter-spacing="2">AUDIO: CH 1/2 NOMINAL [48kHz 24-bit]</text>
+
+    <!-- Network / Bitrate Readout (Bottom Right) -->
+    <text x="1410" y="1038" fill="#00f0ff" font-family="'JetBrains Mono', 'Segoe UI', monospace" font-size="14" font-weight="600" letter-spacing="2">LATENCY: 14ms // BITRATE: 8500kbps</text>
+
+    <!-- Left Wing Calibration Readout -->
+    <text x="86" y="240" fill="#142542" font-family="'JetBrains Mono', monospace" font-size="11" text-anchor="middle" letter-spacing="1">HUD.V-01</text>
+    <text x="86" y="850" fill="#142542" font-family="'JetBrains Mono', monospace" font-size="11" text-anchor="middle" letter-spacing="1">OPT.SYNC</text>
+
+    <!-- Right Wing Calibration Readout -->
+    <text x="1834" y="240" fill="#142542" font-family="'JetBrains Mono', monospace" font-size="11" text-anchor="middle" letter-spacing="1">CH.DATA</text>
+    <text x="1834" y="850" fill="#142542" font-family="'JetBrains Mono', monospace" font-size="11" text-anchor="middle" letter-spacing="1">STABLE</text>
+  </g>
+</svg>

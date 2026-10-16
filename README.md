@@ -73,6 +73,32 @@ python scripts/briefing.py create \
 python scripts/briefing.py validate BRIEF.md --json
 ```
 
+### 🎥 OBS Streaming Overlays Pipeline (`scripts/obs_pipeline.py`)
+
+Generate production-ready, transparent-viewport OBS streaming overlays in `Experience` mode:
+
+```bash
+# Generate complete overlay kit (16:9 webcam frame + alert banner)
+python scripts/obs_pipeline.py generate-all --output-dir examples/obs/ --theme cyan_magenta
+
+# Generate customized webcam frame
+python scripts/obs_pipeline.py webcam \
+  --output examples/obs/webcam_frame_16_9.svg \
+  --theme cyan_magenta \
+  --cam-label "CAM 01 // LIVE FEED" \
+  --status-label "REC ● 1080P 60FPS"
+
+# Generate customized alert notification banner
+python scripts/obs_pipeline.py alert \
+  --output examples/obs/alert_banner.svg \
+  --theme cyan_magenta \
+  --type "NEW SUBSCRIBER" \
+  --user "CYBER_PHANTOM" \
+  --detail "TIER 3 // 12 MONTH STREAK"
+```
+
+Available visual themes: `cyan_magenta`, `amber_gold`, `matrix_green`, and `crimson_hazard`.
+
 ---
 
 ## 🚀 Autonomous Closed-Loop Validation
@@ -128,7 +154,13 @@ svg-maestro/
 ├── CONTRIBUTING.md             # Community contribution guide
 ├── LICENSE                     # Permissive MIT License
 ├── scripts/
+│   ├── briefing.py             # Interactive briefing and elicitation engine
+│   ├── obs_pipeline.py         # OBS streaming overlays generator & pipeline
 │   └── validate_svg.py         # Zero-dependency Python validation linter
+├── examples/
+│   └── obs/                    # Production-ready streaming overlays
+│       ├── webcam_frame_16_9.svg
+│       └── alert_banner.svg
 ├── docs/
 │   ├── SPEC.md                 # System specification
 │   ├── tickets/                # Executable tracer-bullet tickets
@@ -140,6 +172,10 @@ svg-maestro/
 │   │   └── 06-multilingual-typography-and-i18n.md
 │   └── adr/                    # Architectural Decision Records (ADRs 0001 - 0008)
 └── tests/
+    ├── fixtures/               # Comprehensive validation test fixtures
+    ├── test_briefing.py        # Briefing engine test suite
+    ├── test_linter.py          # Core linter test suite
+    ├── test_obs_overlays.py    # OBS overlays test suite
     └── test_card.svg           # Canonical test fixture
 ```
 

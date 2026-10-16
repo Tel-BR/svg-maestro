@@ -226,6 +226,8 @@ svg-maestro/
 │   └── obs/                    # Overlays de streaming prontos para produção
 │       ├── webcam_frame_16_9.svg
 │       └── alert_banner.svg
+├── templates/
+│   └── BRIEF.template.md       # Modelo canônico de briefing
 ├── docs/
 │   ├── SPEC.md                 # Especificação técnica do sistema
 │   ├── tickets/                # Tickets verticais executáveis (ready-for-agent)

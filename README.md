@@ -225,6 +225,8 @@ svg-maestro/
 │   └── obs/                    # Production-ready streaming overlays
 │       ├── webcam_frame_16_9.svg
 │       └── alert_banner.svg
+├── templates/
+│   └── BRIEF.template.md       # Canonical briefing template
 ├── docs/
 │   ├── SPEC.md                 # System specification
 │   ├── tickets/                # Executable tracer-bullet tickets

@@ -178,8 +178,8 @@ HANDOFF_TARGETS: Dict[str, HandoffSpec] = {
     "obs_browser_source": HandoffSpec(
         key="obs_browser_source",
         name="OBS Studio Browser Source",
-        description_en="Self-contained animated vector visual running at 60fps in OBS Browser",
-        description_pt="Visual vetorial animado autocontido rodando a 60fps no navegador do OBS",
+        description_en="Self-contained animated vector visual for OBS Studio Browser Source",
+        description_pt="Visual vetorial animado autocontido para navegador do OBS Studio",
     ),
     "inkscape_manual": HandoffSpec(
         key="inkscape_manual",
@@ -196,8 +196,8 @@ HANDOFF_TARGETS: Dict[str, HandoffSpec] = {
     "powerbi_dax": HandoffSpec(
         key="powerbi_dax",
         name="Power BI DAX String",
-        description_en="URL-encoded data:image/svg+xml;utf8 measure string for Power BI visuals",
-        description_pt="String data:image/svg+xml;utf8 codificada para medidas DAX no Power BI",
+        description_en="Power BI Data URI measure string (data:image/svg+xml;utf8,... with %23 escaping)",
+        description_pt="String Data URI (data:image/svg+xml;utf8,... com escape %23) para medidas no Power BI",
     ),
 }
 
@@ -449,7 +449,7 @@ def generate_brief_markdown(
 - **Background Tone**: `{background_tone}` (Dark Slate / Midnight Base)
 - **Primary Accent**: `{accent_color}` (Luminous Neon Cyan / Primary Accent)
 - **Secondary Accent**: `{secondary_accent}` (High-contrast Violet / Amber Complement)
-- **Contrast & Contrast Safety**: WCAG AAA for text readouts against dark surfaces.
+- **Contrast & Contrast Safety**: High visual contrast for text readouts against dark surfaces.
 
 {geom_header}
 - **Canvas Width**: `{v_spec.width}px`

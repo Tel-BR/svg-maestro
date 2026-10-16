@@ -3,7 +3,7 @@
 [English](README.md) | **Português (Brasil)**
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
-[![Python: 3.9+](https://img.shields.io/badge/python-3.9+-blue.svg)](scripts/validate_svg.py)
+[![Python: 3.9+](https://img.shields.io/badge/python-3.9+-blue.svg)](.github/workflows/ci.yml)
 [![Inkscape: Compatível com Camadas](https://img.shields.io/badge/Inkscape-Camadas%20Compat%C3%ADveis-brightgreen.svg)](docs/SPEC.md)
 [![Status: Beta v0.1.0-beta.1](https://img.shields.io/badge/status-v0.1.0--beta.1-orange.svg)](https://github.com/Tel-BR/svg-maestro/releases)
 

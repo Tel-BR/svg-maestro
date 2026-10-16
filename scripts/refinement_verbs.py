@@ -997,36 +997,49 @@ def apply_verb(verb: str, svg_content: str, **kwargs) -> str:
     return refined_svg
 
 
+def resolve_destination_path(
+    input_path: str,
+    verb: str,
+    output_path: Optional[str] = None,
+    in_place: bool = False
+) -> str:
+    """Resolve destination path for a refinement verb output.
+
+    Safety contract:
+    - If output_path is provided, use output_path.
+    - If in_place is True, overwrite input_path.
+    - Otherwise, default to safe derived path: <input_stem>_<verb>.svg.
+    """
+    if output_path:
+        return output_path
+    if in_place:
+        return input_path
+    base, ext = os.path.splitext(input_path)
+    return f"{base}_{verb}{ext}"
+
+
 def apply_verb_file(
     verb: str,
     input_path: str,
     output_path: Optional[str] = None,
     in_place: bool = False,
     **kwargs
-) -> str:
+) -> Tuple[str, str]:
     """Apply a refinement verb to an SVG file and write the result.
 
-    Safety:
-    - If output_path is provided, writes to output_path.
-    - If in_place is True, overwrites input_path directly.
-    - Otherwise, writes to a safe derived path: <input_stem>_<verb>.svg.
+    Returns:
+        Tuple[str, str]: (refined_svg_content, destination_path)
     """
     with open(input_path, "r", encoding="utf-8") as f:
         content = f.read()
 
     refined = apply_verb(verb, content, **kwargs)
-    if output_path:
-        dest_path = output_path
-    elif in_place:
-        dest_path = input_path
-    else:
-        base, ext = os.path.splitext(input_path)
-        dest_path = f"{base}_{verb}{ext}"
+    dest_path = resolve_destination_path(input_path, verb, output_path=output_path, in_place=in_place)
 
     with open(dest_path, "w", encoding="utf-8") as f:
         f.write(refined)
 
-    return refined
+    return refined, dest_path
 
 
 # =============================================================================
@@ -1063,8 +1076,11 @@ Examples:
     parser.add_argument("verb", choices=["bolder", "quieter", "distill", "delight", "animate", "critique"],
                         help="Creative refinement verb to execute")
     parser.add_argument("-i", "--input", required=True, help="Input SVG file path")
-    parser.add_argument("-o", "--output", help="Output SVG file path (default: <input>_<verb>.svg)")
-    parser.add_argument("--in-place", action="store_true", help="Overwrite the input SVG file directly instead of creating a derived file")
+
+    dest_group = parser.add_mutually_exclusive_group()
+    dest_group.add_argument("-o", "--output", help="Output SVG file path (default: <input>_<verb>.svg)")
+    dest_group.add_argument("--in-place", action="store_true", help="Overwrite the input SVG file directly instead of creating a derived file")
+
     parser.add_argument("--json", action="store_true", help="Output critique results as JSON")
     parser.add_argument("--factor", type=float, help="Scale factor for bolder or quieter verbs")
 
@@ -1088,15 +1104,13 @@ Examples:
         kwargs["factor"] = args.factor
 
     try:
-        if args.output:
-            dest_path = args.output
-        elif args.in_place:
-            dest_path = args.input
-        else:
-            base, ext = os.path.splitext(args.input)
-            dest_path = f"{base}_{args.verb}{ext}"
-
-        apply_verb_file(args.verb, args.input, output_path=dest_path, in_place=args.in_place, **kwargs)
+        _, dest_path = apply_verb_file(
+            args.verb,
+            args.input,
+            output_path=args.output,
+            in_place=args.in_place,
+            **kwargs
+        )
         print(f"[OK] Refinement verb '{args.verb}' successfully applied.")
         print(f"     Output saved to: {dest_path}")
         sys.exit(0)

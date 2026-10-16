@@ -433,6 +433,35 @@ class TestRefinementVerbs(unittest.TestCase):
             modified_content = f.read()
         self.assertNotEqual(modified_content, STATIC_SVG_TEMPLATE, "File was not modified in-place")
 
+    def test_in_place_and_output_are_mutually_exclusive(self):
+        """Passing both --output and --in-place must be rejected by argparse."""
+        test_file = os.path.join(self.temp_dir, "conflict_card.svg")
+        with open(test_file, "w", encoding="utf-8") as f:
+            f.write(STATIC_SVG_TEMPLATE)
+
+        cmd = [
+            sys.executable,
+            os.path.join(SCRIPTS_DIR, "refinement_verbs.py"),
+            "bolder",
+            "--input", test_file,
+            "--output", os.path.join(self.temp_dir, "custom.svg"),
+            "--in-place"
+        ]
+        proc = subprocess.run(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, encoding="utf-8")
+        self.assertNotEqual(proc.returncode, 0, "CLI should reject simultaneous --output and --in-place")
+        self.assertIn("not allowed with argument", proc.stderr)
+
+    def test_apply_verb_file_python_api(self):
+        """apply_verb_file Python API must return a tuple (content, dest_path)."""
+        test_file = os.path.join(self.temp_dir, "py_api_card.svg")
+        with open(test_file, "w", encoding="utf-8") as f:
+            f.write(STATIC_SVG_TEMPLATE)
+
+        content, dest_path = apply_verb_file("bolder", test_file)
+        self.assertTrue(os.path.exists(dest_path))
+        self.assertIn("py_api_card_bolder.svg", dest_path)
+        self.assertIn("<svg", content)
+
 
 if __name__ == "__main__":
     unittest.main()

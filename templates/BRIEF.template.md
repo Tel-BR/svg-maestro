@@ -5,13 +5,13 @@
   * Finalidade: OBS Studio stream frame with transparent center and corner brackets
 - **Surface Mode**: `Experience` — Vibrant cyber neon illumination, high contrast, and ambient motion for OBS/streaming
 - **Motion Profile**: `Ambient Radar Spin / Breathing Pulse` (Tier 1 CSS) — Subtle continuous rotation or breathing scale with transform-box: fill-box
-- **Handoff Target**: `OBS Studio Browser Source` — Self-contained animated vector visual running at 60fps in OBS Browser
+- **Handoff Target**: `OBS Studio Browser Source` — Self-contained animated vector visual for OBS Studio Browser Source
 
 ## 2. Color Palette & Lighting
 - **Background Tone**: `#0a0e17` (Dark Slate / Midnight Base)
 - **Primary Accent**: `#00f0ff` (Luminous Neon Cyan / Primary Accent)
 - **Secondary Accent**: `#8a2be2` (High-contrast Violet / Amber Complement)
-- **Contrast & Contrast Safety**: WCAG AAA for text readouts against dark surfaces.
+- **Contrast & Contrast Safety**: High visual contrast for text readouts against dark surfaces.
 
 ## 3. Geometric Proportions & Grid
 - **Canvas Width**: `1920px`

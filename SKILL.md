@@ -97,16 +97,23 @@ Separate animation groups from static content groups:
    - Conduct the interactive briefing (`ask_question`), design critique, and feedback in the user's preferred language (e.g. Portuguese, English, Spanish).
    - Internal XML tags, CSS classes, gradient IDs, and `inkscape:label` attributes are ALWAYS authored in canonical English for global interoperability.
 2. **Decoupled Typography (Never Outline Text)**:
-   - Text elements must ALWAYS be semantic `<text>` tags, never converted to paths.
-   - Text resides in a dedicated `layer-typography` layer for effortless translation.
-   - For multilingual assets, leverage SVG native `<switch>` and `systemLanguage`:
+   - Text elements must ALWAYS be semantic `<text>` tags, never converted to static vector paths (`path` or `polygon`).
+   - Text resides in a dedicated `layer-typography` layer (`inkscape:label="Typography & Labels"` or similar) for effortless human translation in Inkscape's text tool.
+   - Any typography layer containing geometric paths but zero `<text>` or `<switch>` nodes will be flagged with `OUTLINED_TEXT_WARNING` by `validate_svg.py`.
+   - Always retain editable typography attributes: `font-family`, `font-size`, `font-weight`, and explicit `x`, `y` coordinates.
+3. **Native Multilingual `<switch>` Contract**:
+   - For multi-locale graphics, leverage SVG native `<switch>` and `systemLanguage`.
+   - **Sequential Evaluation Contract**: Child elements intended for specific locales MUST declare `systemLanguage` (e.g. `systemLanguage="pt"`, `systemLanguage="es"`).
+   - **Default Fallback Position**: The final child inside `<switch>` MUST omit `systemLanguage` to serve as the global fallback (typically English). Intermediate children must never omit `systemLanguage`, as SVG engines evaluate in document order and will stop prematurely.
+   - Canonical structure:
      ```xml
      <switch>
-       <text systemLanguage="pt" x="50" y="80">TELEMETRIA AO VIVO</text>
-       <text systemLanguage="es" x="50" y="80">TELEMETRÍA EN VIVO</text>
-       <text x="50" y="80">LIVE TELEMETRY</text>
+       <text systemLanguage="pt" x="50" y="80" font-family="sans-serif" font-size="14">TELEMETRIA AO VIVO</text>
+       <text systemLanguage="es" x="50" y="80" font-family="sans-serif" font-size="14">TELEMETRÍA EN VIVO</text>
+       <text x="50" y="80" font-family="sans-serif" font-size="14">LIVE TELEMETRY</text>
      </switch>
      ```
+   - Reference implementation: Inspect `examples/i18n/multilingual_card.svg` for a production-ready telemetry card supporting Portuguese, Spanish, and English fallback.
 
 ---
 

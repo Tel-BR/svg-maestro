@@ -29,7 +29,9 @@ class ValidationResult:
             'animated_elements_count': 0,
             'defs_count': 0,
             'has_viewbox': False,
-            'has_inkscape_ns': False
+            'has_inkscape_ns': False,
+            'text_nodes_count': 0,
+            'switch_nodes_count': 0
         }
 
     def error(self, code, message, element=None):
@@ -137,6 +139,34 @@ def validate_svg_file(filepath):
             if not label:
                 result.warning("UNLABELED_LAYER", "Layer has inkscape:groupmode='layer' but missing inkscape:label", g)
 
+            # Check for Typography Layer & Outlined Text
+            label_lower = (label or '').lower()
+            layer_id_lower = (g.attrib.get('id') or '').lower()
+            is_typo_layer = any(term in label_lower for term in ('typography', 'text', 'label')) or \
+                            any(term in layer_id_lower for term in ('typography', 'text', 'label'))
+
+            if is_typo_layer:
+                layer_texts = 0
+                layer_switches = 0
+                layer_shapes = 0
+                shape_tags = {'path', 'rect', 'circle', 'ellipse', 'line', 'polyline', 'polygon'}
+                for child in g.iter():
+                    if child is g:
+                        continue
+                    ctag = child.tag.split('}')[-1] if '}' in child.tag else child.tag
+                    if ctag == 'text':
+                        layer_texts += 1
+                    elif ctag == 'switch':
+                        layer_switches += 1
+                    elif ctag in shape_tags:
+                        layer_shapes += 1
+
+                if layer_shapes > 0 and layer_texts == 0 and layer_switches == 0:
+                    result.warning("OUTLINED_TEXT_WARNING",
+                        f"Typography layer '{label or layer_id_lower}' contains vector paths/shapes but zero semantic <text> or <switch> nodes. "
+                        f"Ensure text is authored as editable <text> tags rather than outlined vector paths.",
+                        g)
+
     result.stats['layers_count'] = len(layers_found)
     if len(layers_found) == 0:
         result.error("NO_INKSCAPE_LAYERS", "No semantic Inkscape layers found. Main groups must use inkscape:groupmode='layer' and inkscape:label='...'")
@@ -200,6 +230,49 @@ def validate_svg_file(filepath):
                                 f"Element <{tag} class='{cls_attr}'> uses transform animation '{anim_name}'. "
                                 f"Wrap it in a dedicated '<g class=\"anim-wrapper-...\">' to prevent Inkscape transforms from breaking motion.", elem)
 
+    # 6. Typography & Internationalization (i18n) Verification
+    switch_nodes = []
+    text_count = 0
+    for elem in root.iter():
+        tag = elem.tag.split('}')[-1] if '}' in elem.tag else elem.tag
+        if tag == 'text':
+            text_count += 1
+        elif tag == 'switch':
+            switch_nodes.append(elem)
+
+    result.stats['text_nodes_count'] = text_count
+    result.stats['switch_nodes_count'] = len(switch_nodes)
+
+    for sw in switch_nodes:
+        children = list(sw)
+        if len(children) == 0:
+            result.warning("SWITCH_EMPTY", "<switch> element has no child alternatives", sw)
+            continue
+
+        if len(children) == 1:
+            child = children[0]
+            if child.attrib.get('systemLanguage'):
+                result.warning("SWITCH_MISSING_FALLBACK",
+                    "<switch> with a language alternative should provide a fallback element without systemLanguage as its last child", sw)
+            continue
+
+        # Check that non-final children have systemLanguage
+        for idx, child in enumerate(children[:-1]):
+            sys_lang = child.attrib.get('systemLanguage')
+            if not sys_lang or not sys_lang.strip():
+                ctag = child.tag.split('}')[-1] if '}' in child.tag else child.tag
+                result.warning("SWITCH_FALLBACK_ORDER",
+                    f"Child {idx + 1} (<{ctag}>) inside <switch> lacks 'systemLanguage' attribute. "
+                    f"Fallback elements must be positioned as the last child of <switch> to avoid intercepting language alternatives.",
+                    child)
+
+        # Check that the last child is a fallback without systemLanguage
+        last_child = children[-1]
+        last_sys_lang = last_child.attrib.get('systemLanguage')
+        if last_sys_lang and last_sys_lang.strip():
+            result.warning("SWITCH_MISSING_FALLBACK",
+                "<switch> element should provide a default fallback child without 'systemLanguage' as its last element",
+                sw)
 
     return result
 

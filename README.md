@@ -148,6 +148,14 @@ python scripts/refinement_verbs.py critique --input card.svg
 python scripts/refinement_verbs.py critique --input card.svg --json
 ```
 
+### 🌐 Multilingual Typography & Internationalization (`<switch>`)
+
+SVG Maestro enforces strict typography decoupling, preventing destructive text-to-path conversion and enabling native, browser-evaluated multilingual graphics via SVG `<switch>` and `systemLanguage`:
+
+- **Decoupled Typography**: Text elements reside strictly as semantic `<text>` tags in `layer-typography`, remaining 100% editable inside Inkscape's text tool. Converted vector paths in typography layers are flagged with `OUTLINED_TEXT_WARNING`.
+- **Sequential `<switch>` Contract**: Specific language alternatives (e.g. `systemLanguage="pt"`, `systemLanguage="es"`) are authored first, followed by an unconditioned default fallback element (English) as the final child.
+- **Reference Asset**: See `examples/i18n/multilingual_card.svg` for a production-grade telemetry card demonstrating automated locale switching across Portuguese, Spanish, and fallback English.
+
 ---
 
 ## 🚀 Autonomous Closed-Loop Validation
@@ -206,11 +214,14 @@ svg-maestro/
 │   ├── briefing.py             # Interactive briefing and elicitation engine
 │   ├── dashboard_pipeline.py   # Dashboard telemetry cards & Power BI DAX pipeline
 │   ├── obs_pipeline.py         # OBS streaming overlays generator & pipeline
+│   ├── refinement_verbs.py     # Creative refinement verbs & design critique engine
 │   └── validate_svg.py         # Zero-dependency Python validation linter
 ├── examples/
 │   ├── dashboard/              # Production-ready metric cards & DAX snippet
 │   │   ├── telemetry_card.svg
 │   │   └── telemetry_card.dax
+│   ├── i18n/                   # Multilingual vector assets (<switch> + systemLanguage)
+│   │   └── multilingual_card.svg
 │   └── obs/                    # Production-ready streaming overlays
 │       ├── webcam_frame_16_9.svg
 │       └── alert_banner.svg
@@ -228,8 +239,10 @@ svg-maestro/
     ├── fixtures/               # Comprehensive validation test fixtures
     ├── test_briefing.py        # Briefing engine test suite
     ├── test_dashboard_pipeline.py # Dashboard & DAX pipeline test suite
+    ├── test_i18n.py            # Multilingual typography & <switch> test suite
     ├── test_linter.py          # Core linter test suite
     ├── test_obs_overlays.py    # OBS overlays test suite
+    ├── test_refinement_verbs.py # Refinement verbs & critique test suite
     └── test_card.svg           # Canonical test fixture
 ```
 

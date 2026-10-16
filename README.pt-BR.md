@@ -149,6 +149,14 @@ python scripts/refinement_verbs.py critique --input card.svg
 python scripts/refinement_verbs.py critique --input card.svg --json
 ```
 
+### 🌐 Tipografia Multilíngue e Internacionalização (`<switch>`)
+
+O SVG Maestro impõe desacoplamento estrito de tipografia, impedindo a conversão destrutiva de texto em curvas/vetores estáticos (`path`) e habilitando gráficos vetoriais multilíngues nativos avaliados diretamente pelo navegador através de `<switch>` e `systemLanguage`:
+
+- **Tipografia Desacoplada**: Textos residem estritamente como nós semânticos `<text>` na camada `layer-typography`, permanecendo 100% editáveis com a ferramenta de texto do Inkscape. Traçados ou caminhos vetoriais em camadas de tipografia disparam o aviso `OUTLINED_TEXT_WARNING`.
+- **Contrato Sequencial de `<switch>`**: Alternativas para idiomas específicos (como `systemLanguage="pt"`, `systemLanguage="es"`) são declaradas no início, seguidas de um elemento de fallback incondicionado (inglês) como último filho.
+- **Ativo de Referência**: Veja `examples/i18n/multilingual_card.svg` para um cartão de telemetria em produção demonstrando troca automática de idioma entre português, espanhol e inglês como fallback.
+
 ---
 
 ## 🚀 Validação Autônoma em Loop Fechado
@@ -207,11 +215,14 @@ svg-maestro/
 │   ├── briefing.py             # Motor de briefing interativo e elicitação
 │   ├── dashboard_pipeline.py   # Pipeline de cartões de telemetria e Power BI DAX
 │   ├── obs_pipeline.py         # Gerador e pipeline de overlays para OBS
+│   ├── refinement_verbs.py     # Verbos de refinamento de arte e motor de crítica
 │   └── validate_svg.py         # Linter autônomo zero-dependency em Python
 ├── examples/
 │   ├── dashboard/              # Cartões de métricas prontos e snippet DAX
 │   │   ├── telemetry_card.svg
 │   │   └── telemetry_card.dax
+│   ├── i18n/                   # Ativos vetoriais multilíngues (<switch> + systemLanguage)
+│   │   └── multilingual_card.svg
 │   └── obs/                    # Overlays de streaming prontos para produção
 │       ├── webcam_frame_16_9.svg
 │       └── alert_banner.svg
@@ -229,8 +240,10 @@ svg-maestro/
     ├── fixtures/               # Fixtures abrangentes para validação de linter
     ├── test_briefing.py        # Suíte de testes do motor de briefing
     ├── test_dashboard_pipeline.py # Suíte de testes do dashboard e pipeline DAX
+    ├── test_i18n.py            # Suíte de testes de tipografia multilíngue e <switch>
     ├── test_linter.py          # Suíte de testes do linter
     ├── test_obs_overlays.py    # Suíte de testes dos overlays de OBS
+    ├── test_refinement_verbs.py # Suíte de testes dos verbos de refinamento e crítica
     └── test_card.svg           # Fixture de teste canônica
 ```
 

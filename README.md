@@ -1,6 +1,10 @@
 # SVG Maestro 🎨✨
 
-**SVG Maestro** é uma solução e skill reutilizável projetada para agentes de inteligência artificial (Antigravity, Claude, Codex) para concepção e engenharia de layouts, widgets de dashboards, overlays para streaming (OBS Studio) e ilustrações vetoriais geométricas avançadas em formato `.svg`, unindo direção de arte matemática, animação nativa e compatibilidade total com o Inkscape.
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+[![Python: 3.8+](https://img.shields.io/badge/python-3.8+-blue.svg)](scripts/validate_svg.py)
+[![Inkscape: Fully Compatible](https://img.shields.io/badge/Inkscape-Compatible-brightgreen.svg)](docs/SPEC.md)
+
+**SVG Maestro** é uma solução e skill reutilizável de código aberto projetada para agentes de inteligência artificial (Antigravity, Claude, Codex) para concepção e engenharia de layouts, widgets de dashboards, overlays para streaming (OBS Studio) e ilustrações vetoriais geométricas avançadas em formato `.svg`, unindo direção de arte matemática, animação nativa e compatibilidade total com o Inkscape.
 
 ---
 
@@ -37,6 +41,25 @@ python scripts/validate_svg.py caminho/para/arquivo.svg --json
 
 ---
 
+## 📦 Como Instalar e Usar em Qualquer Agente de IA
+
+### No Antigravity (Google)
+Clone ou copie a pasta da skill para o seu diretório global de skills:
+```bash
+git clone https://github.com/Tel-BR/svg-maestro.git ~/.gemini/config/skills/svg-maestro
+```
+
+### No Claude Code (Anthropic)
+Clone para o diretório de skills do Claude:
+```bash
+git clone https://github.com/Tel-BR/svg-maestro.git ~/.claude/skills/svg-maestro
+```
+
+### No Codex, Cursor ou Outros Ambientes
+Basta apontar o arquivo [`SKILL.md`](SKILL.md) como especificação para o agente ou adicionar suas instruções de arquitetura vetorial ao contexto da IA.
+
+---
+
 ## 📂 Estrutura do Repositório
 
 ```
@@ -44,6 +67,8 @@ svg-maestro/
 ├── CONTEXT.md                  # Glossário formal de termos e conceitos de domínio
 ├── SKILL.md                    # Especificação da Skill interoperável para IAs
 ├── README.md                   # Documentação geral e guia rápido
+├── CONTRIBUTING.md             # Guia de contribuição da comunidade
+├── LICENSE                     # Licença MIT permissiva e livre
 ├── scripts/
 │   └── validate_svg.py         # Linter autônomo zero-dependency (Inkscape + CSS + Wrapper)
 ├── docs/
@@ -67,7 +92,12 @@ svg-maestro/
 
 ---
 
-## 🛠️ Como Utilizar com IAs
+## 🙏 Inspiração e Reconhecimento (Credits & Acknowledgments)
 
-A skill está espelhada e ativa em `C:\Users\Admin\.gemini\config\skills\svg-maestro\SKILL.md`.
-Qualquer agente (Antigravity, Claude ou Codex) instruído com `/svg-maestro` ou que acesse o repositório seguirá o contrato arquitetural, gerará o SVG e executará a validação fechada antes da entrega.
+O **SVG Maestro** foi concebido e enriquecido a partir dos princípios estéticos de excelência em design estabelecidos pelo ecossistema da skill **Impeccable** (`impeccable`). Estendemos essa filosofia de alta direção de arte (*"out-of-distribution craft"* sem clichês genéricos de IA) para a engenharia vetorial matemática do SVG e do Inkscape.
+
+---
+
+## 📜 Licença
+
+Distribuído sob a licença **MIT**. Veja o arquivo [LICENSE](LICENSE) para mais detalhes. O uso é totalmente livre para fins pessoais, acadêmicos ou comerciais.

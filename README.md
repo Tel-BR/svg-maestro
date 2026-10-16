@@ -12,7 +12,8 @@
 
 1. **Direção de Arte & Geometria Matemática (Dual-Engine)**:
    - **Zero-Bias Policy**: Sem blueprints ou clipart fixos que enviesem a criatividade do modelo. A arte é gerada do zero a partir de princípios matemáticos puros (Proporção Áurea $\phi \approx 1.618$, sequências de Fibonacci, malhas isométricas de $30^\circ$ e tangências euclidianas).
-   - **Impeccable Bridge**: Herda automaticamente tokens de cores, tipografia e diretrizes de design do `DESIGN.md` ou `PRODUCT.md` gerados pela skill `impeccable` quando presentes no projeto.
+   - **Autonomia Total**: O SVG Maestro possui seu próprio motor de geometria matemática e paletas harmônicas; não depende de nenhuma outra skill ou ferramenta externa instalada.
+   - **Impeccable Bridge (Opcional)**: Caso o projeto onde o agente estiver atuando já possua arquivos `DESIGN.md` ou `PRODUCT.md` (da skill `impeccable`), ele detecta e herda automaticamente esses tokens de cores e tipografia. Se não existirem, segue em modo autônomo sem qualquer prejuízo estético.
 2. **Compatibilidade Total com Inkscape**:
    - Declaração estrita de namespaces (`xmlns:inkscape`, `xmlns:sodipodi`).
    - Camadas semânticas nativas do Inkscape (`inkscape:groupmode="layer"` e `inkscape:label`).
@@ -41,6 +42,15 @@ python scripts/validate_svg.py caminho/para/arquivo.svg --json
 
 ---
 
+## ❓ Preciso ter a skill Impeccable instalada?
+
+**Não! O SVG Maestro é 100% autônomo e não possui dependências obrigatórias.**
+
+* **Modo Autônomo (Padrão):** Se você nunca instalou o Impeccable, o SVG Maestro funciona perfeitamente do zero. Ele calcula proporções áureas, sequências de Fibonacci, malhas isométricas de $30^\circ$ e gera paletas cromáticas com alto contraste (WCAG AAA) com base unicamente no seu prompt. Não é necessário instalar nenhuma outra skill ou pacote externo.
+* **Modo Integrado (Ponte Opcional):** Se o seu repositório já utiliza o Impeccable (ou se você já gerou um `DESIGN.md`), o SVG Maestro simplesmente lê essas diretrizes existentes para que o SVG compartilhe as mesmas cores e tipografia da sua aplicação web.
+
+---
+
 ## 📦 Como Instalar e Usar em Qualquer Agente de IA
 
 ### No Antigravity (Google)
@@ -57,6 +67,7 @@ git clone https://github.com/Tel-BR/svg-maestro.git ~/.claude/skills/svg-maestro
 
 ### No Codex, Cursor ou Outros Ambientes
 Basta apontar o arquivo [`SKILL.md`](SKILL.md) como especificação para o agente ou adicionar suas instruções de arquitetura vetorial ao contexto da IA.
+
 
 ---
 

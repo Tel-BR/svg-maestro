@@ -1,6 +1,6 @@
-# SVG Maestro (Vector Orchestration System)
+# SVG Maestro (Vector Craft & Motion Orchestration System)
 
-A reusable design and vector engineering system for AI agents (Antigravity, Claude, Codex) to orchestrate high-end geometric SVG layouts, dashboard components, OBS streaming overlays, and standalone vector illustrations with native animation and full Inkscape editability.
+A reusable design and vector engineering system for AI agents (Antigravity, Claude, Codex) fusing Matt Pocock's architectural discipline with Impeccable's radical art direction to orchestrate high-end geometric SVG layouts, dashboard components, OBS streaming overlays, and standalone vector illustrations with native animation, mutation-proof Inkscape compatibility, and internationalization.
 
 ## Language
 
@@ -30,40 +30,37 @@ _Avoid_: Generic group, raw `<g>` tag
 An SVG sizing architecture where every asset (dashboard widget, webcam frame, alert banner) is authored within its own tight, aspect-ratio-accurate `viewBox`, ensuring flexible positioning and scaling.
 _Avoid_: Monolithic canvas, full-screen canvas
 
-### Aesthetics & Geometry
+### Aesthetics & Art Direction (The Impeccable Fusion)
 
-**Dual-Engine Aesthetics**:
-A design protocol combining built-in mathematical proportions (Golden Ratio, Fibonacci scales, isometric axes, Euclidean tangencies) with the ability to consume project-level design tokens (`DESIGN.md`, `PRODUCT.md`) when available.
-_Avoid_: Hardcoded aesthetics, unconstrained styling
+**Surface Mode**:
+The experiential intent defining visual density, contrast, and motion behavior for a given vector artifact:
+- `Operate`: Prioritizes data density, scanability, and crisp legibility for dashboard cards and Power BI visuals.
+- `Experience`: Prioritizes immersion, high-contrast neon illumination, and ambient motion for OBS streaming overlays.
+- `Persuade`: Prioritizes grand Euclidean geometric scale and emotional resonance for hero banners and brand art.
+_Avoid_: Generic style, one-size-fits-all aesthetic
+
+**Craft Floor**:
+The non-negotiable floor of visual excellence that forbids generic "AI slop", muddy three-color gradients, broken vector tangencies, and unanchored clipart.
+_Avoid_: Safe design, timid vector, generic clipart
+
+**Art Direction Verbs**:
+A suite of expressive command verbs (`bolder`, `quieter`, `distill`, `delight`, `animate`, `critique`) allowing users to sculpt vector aesthetics through high-level creative direction rather than micromanaging coordinates.
+_Avoid_: Coordinate tweaking, manual path dragging
 
 **Zero-Bias Specification**:
 An architectural rule stating that skills must convey geometric logic, math formulas, and abstract syntactic schemas rather than pre-drawn visual templates, preventing the agent from overfitting or copying fixed graphics.
 _Avoid_: Boilerplate drawing, template clipart
 
-**Vector Filter FX**:
-Advanced native SVG filter pipelines (`feTurbulence`, `feDisplacementMap`, `feGaussianBlur`, `feColorMatrix`) configured to produce organic, electric, or neon effects for streaming and high-impact UI.
-_Avoid_: CSS backdrop filter, raster image overlay
+### Discovery & Internationalization
 
-### Animation Tiers
+**Interactive Briefing Protocol**:
+A rapid multi-round elicitation process executed via the interactive `ask_question` tool, extracting constraints across 4 core dimensions (Surface, Mood, Motion, Handoff) before emitting any SVG code.
+_Avoid_: Open-ended interview, guessing prompt
 
-**Tier 1 Animation (Universal CSS)**:
-Native declarative animation using CSS `@keyframes` embedded in the SVG `<style>` tag, utilizing `transform-box: fill-box` and `transform-origin: center`, compatible with all browsers, OBS, `<img>` tags, and fully non-destructive in Inkscape.
-_Avoid_: Basic CSS, inline transitions
+**Decoupled Typography**:
+The architectural requirement that all textual labels and metrics remain editable SVG `<text>` elements isolated in a dedicated Inkscape layer, supporting native multilingual `<switch>` selection and easy human translation.
+_Avoid_: Text-to-path, outlined text, baked typography
 
-**Tier 2 Animation (SMIL Vector Motion)**:
-Declarative vector morphing and path-following animation using native SVG `<animate>`, `<animateTransform>`, and `<animateMotion>` elements, self-contained without external scripts.
-_Avoid_: JS vector animation, canvas animation
-
-**Tier 3 Animation (Scripted Interactive)**:
-Advanced dynamic animation or reactive behavior driven by embedded JavaScript or external animation APIs, intended strictly for browser contexts and OBS Browser Sources.
-_Avoid_: Incompatible SVG, broken vector
-
-### Domain Surfaces
-
-**Streaming Overlay**:
-A modular vector component designed for OBS Studio broadcasting (such as webcam frames, chat boxes, alert containers, and lower-thirds) with dedicated aspect ratios and transparent backdrops.
-_Avoid_: Video asset, OBS plugin
-
-**Dashboard Widget**:
-A modular vector component designed to embed seamlessly within web application cards, grid containers, or Power BI visual measures.
-_Avoid_: Full page SVG, static icon
+**Polyglot Agent**:
+An agent behavior where all user-facing interactions, questions, and critique reports occur in the user's conversational language, while internal XML markup, classes, and IDs remain in canonical English.
+_Avoid_: English-only interaction, localized XML tags

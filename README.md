@@ -1,114 +1,137 @@
 # SVG Maestro 🎨✨
 
+🌐 **English** | [Português (Brasil)](README.pt-BR.md)
+
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![Python: 3.8+](https://img.shields.io/badge/python-3.8+-blue.svg)](scripts/validate_svg.py)
 [![Inkscape: Fully Compatible](https://img.shields.io/badge/Inkscape-Compatible-brightgreen.svg)](docs/SPEC.md)
 
-**SVG Maestro** é uma solução e skill reutilizável de código aberto projetada para agentes de inteligência artificial (Antigravity, Claude, Codex) para concepção e engenharia de layouts, widgets de dashboards, overlays para streaming (OBS Studio) e ilustrações vetoriais geométricas avançadas em formato `.svg`, unindo direção de arte matemática, animação nativa e compatibilidade total com o Inkscape.
+**SVG Maestro** is an open-source vector design and motion orchestration system for AI coding agents (Antigravity, Claude, Codex). It fuses **Matt Pocock's architectural discipline** (stateful elicitation, vertical slicing, mechanical validation loops) with **Impeccable's radical art direction** (surface modes, creative refinement verbs, Craft Floor quality standards) to generate high-end, mathematical SVG layouts, dashboard data-viz cards, and OBS Studio streaming overlays that are 100% editable in Inkscape.
 
 ---
 
-## 🏛️ Os Três Pilares Fundamentais
+## 🏛️ The Three Foundational Pillars
 
-1. **Direção de Arte & Geometria Matemática (Dual-Engine)**:
-   - **Zero-Bias Policy**: Sem blueprints ou clipart fixos que enviesem a criatividade do modelo. A arte é gerada do zero a partir de princípios matemáticos puros (Proporção Áurea $\phi \approx 1.618$, sequências de Fibonacci, malhas isométricas de $30^\circ$ e tangências euclidianas).
-   - **Autonomia Total**: O SVG Maestro possui seu próprio motor de geometria matemática e paletas harmônicas; não depende de nenhuma outra skill ou ferramenta externa instalada.
-   - **Impeccable Bridge (Opcional)**: Caso o projeto onde o agente estiver atuando já possua arquivos `DESIGN.md` ou `PRODUCT.md` (da skill `impeccable`), ele detecta e herda automaticamente esses tokens de cores e tipografia. Se não existirem, segue em modo autônomo sem qualquer prejuízo estético.
-2. **Compatibilidade Total com Inkscape**:
-   - Declaração estrita de namespaces (`xmlns:inkscape`, `xmlns:sodipodi`).
-   - Camadas semânticas nativas do Inkscape (`inkscape:groupmode="layer"` e `inkscape:label`).
-   - Higiene estrita de `<defs>` com gradientes e filtros bem nomeados.
-3. **Animação Vetorial Nativa e à Prova de Mutação (Wrapper Pattern)**:
-   - **Wrapper Pattern**: Isola elementos animados em grupos dedicados (`<g class="anim-wrapper-...">`) separados dos grupos de geometria estática editados no Inkscape (`<g inkscape:label="...">`). Isso garante que edições humanas no Inkscape nunca quebrem ou sobrescrevam as animações.
-   - **Tier 1 (Universal CSS)**: `@keyframes` puramente declarativos embutidos na tag `<style>` do próprio SVG, com uso obrigatório de `transform-box: fill-box` e `transform-origin: center`. Roda em navegadores, OBS Studio, Power BI e tags `<img>`.
-   - **Tier 2 (SMIL Vector Motion)**: Animações de morphing de caminhos vetoriais (`attributeName="d"`) e trajetórias com `<animateMotion>`.
-   - **Vector Filter FX**: Filtros nativos (`feTurbulence`, `feDisplacementMap`, `feDropShadow`) para efeitos de néon, líquidos ou aberração cibernética.
+### 1. Aesthetic Direction & Mathematical Geometry (Dual-Engine)
+- **Zero-Bias Policy**: Never copies boilerplate clipart. All artwork is generated bespoke using Fibonacci sequences, the Golden Ratio ($\phi \approx 1.618$), $30^\circ$ isometric grids, and Euclidean curvature.
+- **Surface Modes**:
+  - `Operate`: High data density and scanability for web dashboards and Power BI cards.
+  - `Experience`: Vibrant neon glow, high contrast, and 60fps ambient motion loops for OBS Studio streaming overlays.
+  - `Persuade`: Monumental Euclidean scale and harmonic proportions for hero illustrations and brand art.
+- **Craft Floor**: Non-negotiable quality floor strictly banning generic "AI clipart", muddy gradients, and unanchored bezier paths.
+- **Zero External Dependencies**: Operates 100% autonomously out of the box. Optionally bridges to `DESIGN.md` or `PRODUCT.md` tokens if the project already uses `impeccable`.
+
+### 2. Total Inkscape Compatibility
+- Full namespace compliance (`xmlns:inkscape`, `xmlns:sodipodi`).
+- Native semantic Inkscape layers (`inkscape:groupmode="layer"` and `inkscape:label`).
+- Clean `<defs>` hygiene with descriptive, human-readable IDs.
+
+### 3. Native Animation & Mutation-Proofing (Wrapper Pattern)
+- **Wrapper Pattern**: Encapsulates animated nodes inside dedicated wrappers (`<g class="anim-wrapper-...">`) protecting static geometry groups (`<g inkscape:label="...">`) from transform collisions during manual Inkscape edits.
+- **Tier 1 (Universal CSS)**: Embedded `@keyframes` strictly enforcing `transform-box: fill-box` and `transform-origin: center` for rock-solid cross-browser and OBS rendering.
+- **Tier 2 (SMIL Vector Motion)**: Native path morphing and guide motion.
+- **Vector Filter FX**: Hardware-accelerated SVG filters (`feTurbulence`, `feDisplacementMap`, `feDropShadow`) for cyber/neon/liquid effects.
 
 ---
 
-## 🚀 Loop Autônomo de Validação (Linter Python)
+## 🌐 Internationalization (i18n)
 
-O sistema inclui um validador autônomo sem dependências externas (`validate_svg.py`, baseado apenas na biblioteca padrão do Python):
+- **Polyglot Agent**: The agent conducts interactive briefings and critiques in the user's conversational language, while generating standard English XML tokens for universal team interoperability.
+- **Decoupled Typography**: Text is never outlined to vector paths. All labels remain editable `<text>` elements in a dedicated `layer-typography` layer, supporting native browser multilingual `<switch>` selection.
+
+---
+
+## ⚡ Creative Refinement Verbs
+
+Iterate on generated vectors using expressive creative verbs:
+- `/svg-maestro brief`: Triggers the interactive elicitation interview via `ask_question`.
+- `/svg-maestro bolder`: Intensifies stroke weights, gradient saturation, and neon contrast.
+- `/svg-maestro quieter`: Softens luminescence, reduces saturation, and refines lines for an understated look.
+- `/svg-maestro distill`: Strips secondary clutter, keeping only essential geometric lines and data readouts.
+- `/svg-maestro delight`: Adds micro-motion touches (orbital radar sweeps, edge glows, pulsing rings).
+- `/svg-maestro animate`: Converts static Inkscape SVGs into motion-enabled assets using the Wrapper Pattern.
+- `/svg-maestro critique`: Two-axis review evaluating Technical Standards (Inkscape/linter) and Aesthetic Craft.
+
+---
+
+## 🚀 Autonomous Closed-Loop Validation
+
+SVG Maestro includes a zero-dependency validation engine (`validate_svg.py`) based exclusively on the Python standard library:
 
 ```bash
-python scripts/validate_svg.py caminho/para/arquivo.svg
+python scripts/validate_svg.py path/to/vector.svg
 ```
 
-Para inspeção automatizada por agentes em formato JSON:
+For programmatic agent consumption:
 
 ```bash
-python scripts/validate_svg.py caminho/para/arquivo.svg --json
+python scripts/validate_svg.py path/to/vector.svg --json
 ```
 
 ---
 
-## ❓ Preciso ter a skill Impeccable instalada?
+## ❓ Do I need the Impeccable skill installed?
 
-**Não! O SVG Maestro é 100% autônomo e não possui dependências obrigatórias.**
+**No! SVG Maestro is completely self-contained.**
 
-* **Modo Autônomo (Padrão):** Se você nunca instalou o Impeccable, o SVG Maestro funciona perfeitamente do zero. Ele calcula proporções áureas, sequências de Fibonacci, malhas isométricas de $30^\circ$ e gera paletas cromáticas com alto contraste (WCAG AAA) com base unicamente no seu prompt. Não é necessário instalar nenhuma outra skill ou pacote externo.
-* **Modo Integrado (Ponte Opcional):** Se o seu repositório já utiliza o Impeccable (ou se você já gerou um `DESIGN.md`), o SVG Maestro simplesmente lê essas diretrizes existentes para que o SVG compartilhe as mesmas cores e tipografia da sua aplicação web.
+- **Autonomous Mode (Default):** Generates all mathematical proportions, Euclidean geometries, and harmonious WCAG AAA color palettes natively from first principles.
+- **Integrated Mode (Optional):** If your workspace already contains `DESIGN.md` or `PRODUCT.md`, SVG Maestro automatically inherits those tokens to match your app's existing visual identity.
 
 ---
 
-## 📦 Como Instalar e Usar em Qualquer Agente de IA
+## 📦 Installation & Agent Usage
 
-### No Antigravity (Google)
-Clone ou copie a pasta da skill para o seu diretório global de skills:
+### Antigravity (Google)
 ```bash
 git clone https://github.com/Tel-BR/svg-maestro.git ~/.gemini/config/skills/svg-maestro
 ```
 
-### No Claude Code (Anthropic)
-Clone para o diretório de skills do Claude:
+### Claude Code (Anthropic)
 ```bash
 git clone https://github.com/Tel-BR/svg-maestro.git ~/.claude/skills/svg-maestro
 ```
 
-### No Codex, Cursor ou Outros Ambientes
-Basta apontar o arquivo [`SKILL.md`](SKILL.md) como especificação para o agente ou adicionar suas instruções de arquitetura vetorial ao contexto da IA.
-
+### Codex, Cursor, or Custom Agents
+Reference [`SKILL.md`](SKILL.md) directly in your agent's system prompt or workspace skills.
 
 ---
 
-## 📂 Estrutura do Repositório
+## 📂 Repository Layout
 
 ```
 svg-maestro/
-├── CONTEXT.md                  # Glossário formal de termos e conceitos de domínio
-├── SKILL.md                    # Especificação da Skill interoperável para IAs
-├── README.md                   # Documentação geral e guia rápido
-├── CONTRIBUTING.md             # Guia de contribuição da comunidade
-├── LICENSE                     # Licença MIT permissiva e livre
+├── CONTEXT.md                  # Formal domain glossary
+├── SKILL.md                    # Agent skill specification
+├── README.md                   # Canonical English documentation
+├── README.pt-BR.md             # Localized Portuguese documentation
+├── CONTRIBUTING.md             # Community contribution guide
+├── LICENSE                     # Permissive MIT License
 ├── scripts/
-│   └── validate_svg.py         # Linter autônomo zero-dependency (Inkscape + CSS + Wrapper)
+│   └── validate_svg.py         # Zero-dependency Python validation linter
 ├── docs/
-│   ├── SPEC.md                 # Especificação técnica completa do sistema
-│   ├── tickets/                # Tickets verticais executáveis (ready-for-agent)
+│   ├── SPEC.md                 # System specification
+│   ├── tickets/                # Executable tracer-bullet tickets
 │   │   ├── 01-core-linter-test-suite.md
-│   │   ├── 02-obs-streaming-overlays-pipeline.md
-│   │   ├── 03-dashboard-widgets-and-powerbi-dax-pipeline.md
-│   │   └── 04-impeccable-bridge-design-tokens.md
-│   └── adr/                    # Registros de Decisões de Arquitetura (ADRs)
-│       ├── 0001-skill-packaging-and-validation-linter.md
-│       ├── 0002-wrapper-pattern-for-animation-isolation.md
-│       ├── 0003-modular-viewports-over-monolithic-scenes.md
-│       ├── 0004-dual-engine-aesthetics-and-impeccable-bridge.md
-│       ├── 0005-autonomous-closed-loop-linter-validation.md
-│       ├── 0006-zero-visual-blueprints-anti-bias-policy.md
-│       └── 0007-zero-dependency-python-linter.md
+│   │   ├── 02-interactive-briefing-module.md
+│   │   ├── 03-obs-streaming-overlays-pipeline.md
+│   │   ├── 04-dashboard-widgets-and-powerbi-dax-pipeline.md
+│   │   ├── 05-art-direction-refinement-verbs.md
+│   │   └── 06-multilingual-typography-and-i18n.md
+│   └── adr/                    # Architectural Decision Records (ADRs 0001 - 0008)
 └── tests/
-    └── test_card.svg           # Arquivo SVG de teste canônico validado com sucesso
+    └── test_card.svg           # Canonical test fixture
 ```
 
 ---
 
-## 🙏 Inspiração e Reconhecimento (Credits & Acknowledgments)
+## 🙏 Credits & Acknowledgments
 
-O **SVG Maestro** foi concebido e enriquecido a partir dos princípios estéticos de excelência em design estabelecidos pelo ecossistema da skill **Impeccable** (`impeccable`). Estendemos essa filosofia de alta direção de arte (*"out-of-distribution craft"* sem clichês genéricos de IA) para a engenharia vetorial matemática do SVG e do Inkscape.
+**SVG Maestro** stands on the shoulders of giants:
+- Inspired by **Matt Pocock's** agentic workflow ecosystem (`grilling`, `domain-modeling`, `to-spec`, `to-tickets`, `tdd`).
+- Inspired by the **Impeccable** design skill for its radical philosophy of out-of-distribution craft, surface modes, and creative refinement verbs.
 
 ---
 
-## 📜 Licença
+## 📜 License
 
-Distribuído sob a licença **MIT**. Veja o arquivo [LICENSE](LICENSE) para mais detalhes. O uso é totalmente livre para fins pessoais, acadêmicos ou comerciais.
+Distributed under the **MIT License**. See [LICENSE](LICENSE) for details. Free for personal, academic, and commercial use.

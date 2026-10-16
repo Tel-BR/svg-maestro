@@ -1,8 +1,8 @@
-# 03: Dashboard Widgets and Power BI DAX Pipeline
+# 04: Dashboard Widgets and Power BI DAX Pipeline (Operate Mode)
 
-**What to build:** The capability for an agent to engineer modular telemetry and metric cards with golden ratio proportions, pulsing radar rings, and clean data typography, supporting both standalone SVG export for web apps and URL-encoded DAX measure string generation for Power BI visuals.
+**What to build:** The capability for an agent to engineer modular telemetry and metric cards in `Operate` mode with golden ratio proportions, pulsing radar rings, and clean data typography, supporting both standalone SVG export for web apps and URL-encoded DAX measure string generation for Power BI visuals.
 
-**Blocked by:** 01: Core Linter Test Suite & Fixture Matrix.
+**Blocked by:** 01: Core Linter Test Suite & Fixture Matrix, 02: Interactive Briefing Module (`ask_question` Protocol).
 
 **Status:** ready-for-agent
 

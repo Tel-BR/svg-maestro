@@ -1,8 +1,8 @@
-# 02: OBS Streaming Overlays Pipeline
+# 03: OBS Streaming Overlays Pipeline (Experience Mode)
 
-**What to build:** The capability for an agent to generate modular, transparent-viewport streaming overlays (such as a 16:9 webcam frame and an alert notification banner) featuring pulsing neon borders, animated stroke-tracing, and full Inkscape editability, verified autonomously by the linter before delivery.
+**What to build:** The capability for an agent to generate modular, transparent-viewport streaming overlays in `Experience` mode (such as a 16:9 webcam frame and an alert notification banner) featuring pulsing neon borders, animated stroke-tracing, and full Inkscape editability, verified autonomously by the linter before delivery.
 
-**Blocked by:** 01: Core Linter Test Suite & Fixture Matrix.
+**Blocked by:** 01: Core Linter Test Suite & Fixture Matrix, 02: Interactive Briefing Module (`ask_question` Protocol).
 
 **Status:** ready-for-agent
 

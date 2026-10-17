@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg"
+     viewBox="0 0 800 600">
+  <defs>
+    <filter id="glow-legacy">
+      <feGaussianBlur stdDeviation="3.0" />
+    </filter>
+  </defs>
+  <style>
+    @keyframes radar-sweep {
+      0% {
+        transform: rotate(0deg);
+      }
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+    .radar-spinner {
+      animation: radar-sweep 6s linear infinite;
+    }
+  </style>
+  <rect id="bg" width="800" height="600" fill="#0c1017" />
+  <circle id="radar-ring" class="radar-spinner" cx="400" cy="300" r="100" stroke="#00f0ff" stroke-width="2.5" fill="none" filter="url(#glow-legacy)" />
+  <circle id="core-point" cx="400" cy="300" r="4.0" fill="#00f0ff" />
+  <text id="radar-title" x="400" y="80" fill="#ffffff" font-size="22" font-family="monospace" text-anchor="middle">UNWRAPPED MOTION RADAR</text>
+</svg>

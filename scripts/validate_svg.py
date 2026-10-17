@@ -20,10 +20,17 @@ NAMESPACES = {
     'xlink': 'http://www.w3.org/1999/xlink'
 }
 
+def get_tag(elem):
+    """Safely return tag name without namespace, handling comments or non-string tags."""
+    if not hasattr(elem, 'tag') or not isinstance(elem.tag, str):
+        return ''
+    return elem.tag.split('}')[-1] if '}' in elem.tag else elem.tag
+
 class ValidationResult:
     def __init__(self):
         self.errors = []
         self.warnings = []
+        self.hints = []
         self.stats = {
             'layers_count': 0,
             'animated_elements_count': 0,
@@ -34,19 +41,39 @@ class ValidationResult:
             'switch_nodes_count': 0
         }
 
-    def error(self, code, message, element=None):
+    def error(self, code, message, element=None, hint=None):
         entry = {'code': code, 'message': message}
         if element is not None:
-            entry['tag'] = element.tag.split('}')[-1] if '}' in element.tag else element.tag
-            entry['id'] = element.attrib.get('id', 'unnamed')
+            entry['tag'] = get_tag(element)
+            entry['id'] = element.attrib.get('id', 'unnamed') if hasattr(element, 'attrib') else 'unnamed'
+        if hint is not None:
+            entry['hint'] = hint
+            self.hint(f"UPGRADE_{code}", hint, element)
         self.errors.append(entry)
 
-    def warning(self, code, message, element=None):
+    def warning(self, code, message, element=None, hint=None):
         entry = {'code': code, 'message': message}
         if element is not None:
-            entry['tag'] = element.tag.split('}')[-1] if '}' in element.tag else element.tag
-            entry['id'] = element.attrib.get('id', 'unnamed')
+            tag = get_tag(element)
+            if tag:
+                entry['tag'] = tag
+            if hasattr(element, 'attrib'):
+                entry['id'] = element.attrib.get('id', 'unnamed')
+        if hint is not None:
+            entry['hint'] = hint
+            self.hint(f"UPGRADE_{code}", hint, element)
         self.warnings.append(entry)
+
+    def hint(self, code, message, element=None):
+        entry = {'code': code, 'message': message}
+        if element is not None:
+            tag = get_tag(element)
+            if tag:
+                entry['tag'] = tag
+            if hasattr(element, 'attrib'):
+                entry['id'] = element.attrib.get('id', 'unnamed')
+        if not any(h['code'] == entry['code'] and h['message'] == entry['message'] for h in self.hints):
+            self.hints.append(entry)
 
     @property
     def is_valid(self):
@@ -57,8 +84,10 @@ class ValidationResult:
             'valid': self.is_valid,
             'errors_count': len(self.errors),
             'warnings_count': len(self.warnings),
+            'hints_count': len(self.hints),
             'errors': self.errors,
             'warnings': self.warnings,
+            'hints': self.hints,
             'stats': self.stats
         }
 
@@ -83,13 +112,33 @@ def validate_svg_file(filepath):
             ET.register_namespace(prefix, uri)
         root = ET.fromstring(raw_content)
     except ET.ParseError as e:
-        result.error("XML_PARSE_ERROR", f"Malformed XML: {str(e)}")
-        return result
+        err_msg = str(e)
+        if "unbound prefix" in err_msg.lower():
+            pfx = "inkscape"
+            for p in NAMESPACES.keys():
+                if f"<{p}:" in raw_content or f" {p}:" in raw_content:
+                    pfx = p
+                    break
+            result.error("MISSING_INKSCAPE_NS" if pfx == "inkscape" else "XML_PARSE_ERROR",
+                         f"Undeclared XML namespace prefix '{pfx}'. Root <svg> must declare xmlns:{pfx}='...'",
+                         hint=f"Add xmlns:{pfx}='{NAMESPACES.get(pfx, '...')}' to root <svg> or run SVG Maestro refinement verbs to auto-upgrade.")
+            try:
+                fixed_content = raw_content
+                for p, uri in NAMESPACES.items():
+                    if f"xmlns:{p}=" not in fixed_content:
+                        fixed_content = re.sub(r'<svg\b', f'<svg xmlns:{p}="{uri}"', fixed_content, count=1)
+                root = ET.fromstring(fixed_content)
+            except Exception:
+                return result
+        else:
+            result.error("XML_PARSE_ERROR", f"Malformed XML: {str(e)}")
+            return result
 
     # 2. Root Element and Namespace Verification
-    root_tag = root.tag.split('}')[-1] if '}' in root.tag else root.tag
+    root_tag = get_tag(root)
     if root_tag != 'svg':
-        result.error("ROOT_NOT_SVG", f"Root element must be <svg>, got <{root_tag}>")
+        result.error("ROOT_NOT_SVG", f"Root element must be <svg>, got <{root_tag}>",
+                     hint="Wrap artwork in a root <svg xmlns='http://www.w3.org/2000/svg' ...> document.")
         return result
 
     # Check xmlns:inkscape in raw content (ElementTree strips or abstracts raw xmlns attributes)
@@ -97,17 +146,20 @@ def validate_svg_file(filepath):
                       "xmlns:inkscape='http://www.inkscape.org/namespaces/inkscape'" in raw_content
     result.stats['has_inkscape_ns'] = has_inkscape_ns
     if not has_inkscape_ns:
-        result.error("MISSING_INKSCAPE_NS", "Root <svg> must declare xmlns:inkscape='http://www.inkscape.org/namespaces/inkscape'")
+        result.error("MISSING_INKSCAPE_NS", "Root <svg> must declare xmlns:inkscape='http://www.inkscape.org/namespaces/inkscape'",
+                     hint="Declare xmlns:inkscape='http://www.inkscape.org/namespaces/inkscape' on root <svg> or run SVG Maestro refinement verbs to auto-upgrade.")
 
     # Check viewBox
     viewbox = root.attrib.get('viewBox')
     if not viewbox:
-        result.error("MISSING_VIEWBOX", "Root <svg> must define a 'viewBox' attribute")
+        result.error("MISSING_VIEWBOX", "Root <svg> must define a 'viewBox' attribute",
+                     hint="Add a viewBox attribute (e.g. viewBox='0 0 width height') to enable responsive vector scaling.")
     else:
         result.stats['has_viewbox'] = True
-        parts = viewbox.strip().split()
+        parts = [p for p in re.split(r'[\s,]+', viewbox.strip()) if p]
         if len(parts) != 4:
-            result.error("INVALID_VIEWBOX", f"viewBox must contain 4 space-delimited values (minX minY width height), got '{viewbox}'")
+            result.error("INVALID_VIEWBOX", f"viewBox must contain 4 space-delimited values (minX minY width height), got '{viewbox}'",
+                         hint="Provide 4 space-delimited numerical values for viewBox='minX minY width height'.")
 
     # 3. Defs Hygiene and ID Naming
     defs_nodes = root.findall('{http://www.inkscape.org/namespaces/inkscape}defs') + \
@@ -117,13 +169,15 @@ def validate_svg_file(filepath):
 
     # Search for gradients/filters declared outside <defs>
     for elem in root.iter():
-        tag = elem.tag.split('}')[-1] if '}' in elem.tag else elem.tag
+        tag = get_tag(elem)
         if tag in ('linearGradient', 'radialGradient', 'filter', 'pattern', 'clipPath'):
             elem_id = elem.attrib.get('id', '')
             if not elem_id:
-                result.warning("MISSING_DEF_ID", f"<{tag}> element should have a descriptive id", elem)
+                result.warning("MISSING_DEF_ID", f"<{tag}> element should have a descriptive id", elem,
+                               hint="Assign a descriptive id attribute (e.g. id='grad-primary') to definition elements.")
             elif re.match(r'^(linearGradient|radialGradient|filter)\d+$', elem_id):
-                result.warning("GENERIC_DEF_ID", f"Descriptive id recommended for <{tag}>, avoid generic '{elem_id}'", elem)
+                result.warning("GENERIC_DEF_ID", f"Descriptive id recommended for <{tag}>, avoid generic '{elem_id}'", elem,
+                               hint="Rename generic IDs like 'linearGradient1' to descriptive names (e.g. 'grad-accent-core').")
 
     # 4. Semantic Inkscape Layers Verification
     inkscape_groupmode_key = '{http://www.inkscape.org/namespaces/inkscape}groupmode'
@@ -137,7 +191,8 @@ def validate_svg_file(filepath):
         if groupmode == 'layer':
             layers_found.append(label or 'unnamed-layer')
             if not label:
-                result.warning("UNLABELED_LAYER", "Layer has inkscape:groupmode='layer' but missing inkscape:label", g)
+                result.warning("UNLABELED_LAYER", "Layer has inkscape:groupmode='layer' but missing inkscape:label", g,
+                               hint="Add inkscape:label='Layer Name' attribute to the layer group.")
 
             # Check for Typography Layer & Outlined Text
             label_lower = (label or '').lower()
@@ -153,7 +208,7 @@ def validate_svg_file(filepath):
                 for child in g.iter():
                     if child is g:
                         continue
-                    ctag = child.tag.split('}')[-1] if '}' in child.tag else child.tag
+                    ctag = get_tag(child)
                     if ctag == 'text':
                         layer_texts += 1
                     elif ctag == 'switch':
@@ -165,11 +220,13 @@ def validate_svg_file(filepath):
                     result.warning("OUTLINED_TEXT_WARNING",
                         f"Typography layer '{label or layer_id_lower}' contains vector paths/shapes but zero semantic <text> or <switch> nodes. "
                         f"Ensure text is authored as editable <text> tags rather than outlined vector paths.",
-                        g)
+                        g,
+                        hint="Author text as editable <text> tags rather than outlined vector paths for i18n.")
 
     result.stats['layers_count'] = len(layers_found)
     if len(layers_found) == 0:
-        result.error("NO_INKSCAPE_LAYERS", "No semantic Inkscape layers found. Main groups must use inkscape:groupmode='layer' and inkscape:label='...'")
+        result.error("NO_INKSCAPE_LAYERS", "No semantic Inkscape layers found. Main groups must use inkscape:groupmode='layer' and inkscape:label='...'",
+                     hint="Wrap artwork in semantic layer groups with inkscape:groupmode='layer' and inkscape:label='...' (e.g. Background, Geometry, Typography).")
 
     # 5. Animation Verification & Mutation-Proof Wrapper Pattern
     style_nodes = root.findall('.//{http://www.w3.org/2000/svg}style') + root.findall('.//style')
@@ -185,7 +242,7 @@ def validate_svg_file(filepath):
     smil_tags = {'animate', 'animateTransform', 'animateMotion'}
     smil_nodes = []
     for elem in root.iter():
-        tag = elem.tag.split('}')[-1] if '}' in elem.tag else elem.tag
+        tag = get_tag(elem)
         if tag in smil_tags:
             smil_nodes.append(elem)
 
@@ -196,9 +253,11 @@ def validate_svg_file(filepath):
         # Check if transform animations exist without transform-box: fill-box
         if 'transform:' in css_content or 'rotate(' in css_content or 'scale(' in css_content:
             if 'transform-box' not in css_content or 'fill-box' not in css_content:
-                result.error("MISSING_TRANSFORM_BOX", "CSS animations using transforms must specify 'transform-box: fill-box;' to ensure reliable rotation/scaling across browsers and preserve Inkscape positioning")
+                result.error("MISSING_TRANSFORM_BOX", "CSS animations using transforms must specify 'transform-box: fill-box;' to ensure reliable rotation/scaling across browsers and preserve Inkscape positioning",
+                             hint="Add 'transform-box: fill-box;' to CSS rules animating transforms to preserve element origin in Inkscape.")
             if 'transform-origin' not in css_content:
-                result.warning("MISSING_TRANSFORM_ORIGIN", "CSS transform animations should explicitly specify 'transform-origin' (e.g. 'transform-origin: center;')")
+                result.warning("MISSING_TRANSFORM_ORIGIN", "CSS transform animations should explicitly specify 'transform-origin' (e.g. 'transform-origin: center;')",
+                               hint="Add 'transform-origin: center;' to CSS transform classes to ensure uniform rotation/scaling across SVG renderers.")
 
     # Validate Wrapper Pattern (Isolation of Motion vs Content)
     if has_css_animation:
@@ -224,17 +283,18 @@ def validate_svg_file(filepath):
                 for elem in root.findall(".//*[@class]"):
                     cls_attr = elem.attrib.get('class', '')
                     if cls_name in cls_attr.split():
-                        tag = elem.tag.split('}')[-1] if '}' in elem.tag else elem.tag
+                        tag = get_tag(elem)
                         if tag not in ('g',):
                             result.warning("WRAPPER_PATTERN_COLLISION",
                                 f"Element <{tag} class='{cls_attr}'> uses transform animation '{anim_name}'. "
-                                f"Wrap it in a dedicated '<g class=\"anim-wrapper-...\">' to prevent Inkscape transforms from breaking motion.", elem)
+                                f"Wrap it in a dedicated '<g class=\"anim-wrapper-...\">' to prevent Inkscape transforms from breaking motion.", elem,
+                                hint="Wrap animated element inside a dedicated '<g class=\"anim-wrapper-...\">' to isolate motion from Inkscape element coordinates.")
 
     # 6. Typography & Internationalization (i18n) Verification
     switch_nodes = []
     text_count = 0
     for elem in root.iter():
-        tag = elem.tag.split('}')[-1] if '}' in elem.tag else elem.tag
+        tag = get_tag(elem)
         if tag == 'text':
             text_count += 1
         elif tag == 'switch':
@@ -246,25 +306,28 @@ def validate_svg_file(filepath):
     for sw in switch_nodes:
         children = list(sw)
         if len(children) == 0:
-            result.warning("SWITCH_EMPTY", "<switch> element has no child alternatives", sw)
+            result.warning("SWITCH_EMPTY", "<switch> element has no child alternatives", sw,
+                           hint="Add language-specific text alternatives inside <switch>.")
             continue
 
         if len(children) == 1:
             child = children[0]
             if child.attrib.get('systemLanguage'):
                 result.warning("SWITCH_MISSING_FALLBACK",
-                    "<switch> with a language alternative should provide a fallback element without systemLanguage as its last child", sw)
+                    "<switch> with a language alternative should provide a fallback element without systemLanguage as its last child", sw,
+                    hint="Provide a default fallback element without systemLanguage as the last child of <switch>.")
             continue
 
         # Check that non-final children have systemLanguage
         for idx, child in enumerate(children[:-1]):
             sys_lang = child.attrib.get('systemLanguage')
             if not sys_lang or not sys_lang.strip():
-                ctag = child.tag.split('}')[-1] if '}' in child.tag else child.tag
+                ctag = get_tag(child)
                 result.warning("SWITCH_FALLBACK_ORDER",
                     f"Child {idx + 1} (<{ctag}>) inside <switch> lacks 'systemLanguage' attribute. "
                     f"Fallback elements must be positioned as the last child of <switch> to avoid intercepting language alternatives.",
-                    child)
+                    child,
+                    hint="Move the default fallback element to be the last child of <switch>.")
 
         # Check that the last child is a fallback without systemLanguage
         last_child = children[-1]
@@ -272,7 +335,8 @@ def validate_svg_file(filepath):
         if last_sys_lang and last_sys_lang.strip():
             result.warning("SWITCH_MISSING_FALLBACK",
                 "<switch> element should provide a default fallback child without 'systemLanguage' as its last element",
-                sw)
+                sw,
+                hint="Provide a default fallback element without systemLanguage as the last child of <switch>.")
 
     return result
 
@@ -327,6 +391,12 @@ def main():
             print(f"[*] WARNINGS ({len(result.warnings)}):")
             for warn in result.warnings:
                 print(f"  * [{warn['code']}] {warn['message']}")
+            print()
+
+        if result.hints:
+            print(f"[i] ACTIONABLE UPGRADE HINTS ({len(result.hints)}):")
+            for h in result.hints:
+                print(f"  -> [{h['code']}] {h['message']}")
             print()
 
         if result.is_valid and not result.warnings:

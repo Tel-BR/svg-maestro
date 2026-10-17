@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg"
+     viewBox="0, 0, 800, 500"
+     width="800" height="500">
+  <defs>
+    <linearGradient id="linearGradient1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0e1726" />
+      <stop offset="100%" stop-color="#002b4d" />
+    </linearGradient>
+    <filter id="filter1">
+      <feGaussianBlur stdDeviation="2.0" />
+    </filter>
+  </defs>
+  <g id="group-bg">
+    <rect width="800" height="500" fill="url(#linearGradient1)" />
+  </g>
+  <g id="group-content">
+    <circle id="core-gauge" cx="400" cy="250" r="85" fill="none" stroke="#00f0ff" stroke-width="2.0" filter="url(#filter1)" />
+    <path id="core-cross" d="M 370,250 L 430,250 M 400,220 L 400,280" stroke="#00f0ff" stroke-width="1.8" />
+    <text id="version-label" x="400" y="80" fill="#ffffff" font-size="20" font-family="sans-serif" text-anchor="middle">EARLY BETA V0.1.0 ASSET</text>
+  </g>
+</svg>

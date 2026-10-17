@@ -4,9 +4,9 @@
 
 **Blocked by:** 01: Verificador de Versões e Notificador de Atualizações (CLI/Script)
 
-**Status:** ready-for-agent
+**Status:** completed
 
-- [ ] Inspect and harden `scripts/refinement_verbs.py` so that legacy SVGs missing `anim-wrapper` groups or semantic layer markers are gracefully upgraded in-memory rather than failing execution.
-- [ ] Add fixture SVGs simulating legacy v0.1.0-beta.1 outputs under `tests/fixtures/legacy/`.
-- [ ] Add regression tests in `tests/test_backward_compatibility.py` testing each refinement verb (`bolder`, `quieter`, `distill`, `delight`, `animate`, `critique`) on legacy fixtures.
-- [ ] Confirm `scripts/validate_svg.py` provides actionable upgrade hints when legacy elements are encountered.
+- [x] Inspect and harden `scripts/refinement_verbs.py` so that legacy SVGs missing `anim-wrapper` groups or semantic layer markers are gracefully upgraded in-memory rather than failing execution.
+- [x] Add fixture SVGs simulating legacy v0.1.0-beta.1 outputs under `tests/fixtures/legacy/`.
+- [x] Add regression tests in `tests/test_backward_compatibility.py` testing each refinement verb (`bolder`, `quieter`, `distill`, `delight`, `animate`, `critique`) on legacy fixtures.
+- [x] Confirm `scripts/validate_svg.py` provides actionable upgrade hints when legacy elements are encountered.

@@ -1,0 +1,39 @@
+{
+  "$schema": "https://skills.sh/schemas/skills.json",
+  "name": "svg-maestro",
+  "version": "0.1.0-beta.1",
+  "description": "Orchestrates and engineers geometric SVG layouts, dashboard widgets, OBS streaming overlays, and standalone vector illustrations. Fuses Matt Pocock's architectural discipline with Impeccable's radical art direction, featuring interactive briefing, creative refinement verbs, Inkscape compatibility, autonomous python linting, and full internationalization.",
+  "author": {
+    "name": "Tel",
+    "url": "https://github.com/Tel-BR"
+  },
+  "homepage": "https://github.com/Tel-BR/svg-maestro",
+  "repository": "https://github.com/Tel-BR/svg-maestro",
+  "license": "MIT",
+  "keywords": [
+    "svg",
+    "vector",
+    "inkscape",
+    "obs",
+    "dashboard",
+    "power-bi",
+    "skills",
+    "claude-code",
+    "geometry",
+    "data-viz"
+  ],
+  "skills": [
+    {
+      "name": "svg-maestro",
+      "version": "0.1.0-beta.1",
+      "description": "Orchestrates and engineers geometric SVG layouts, dashboard widgets, OBS streaming overlays, and standalone vector illustrations.",
+      "path": "./SKILL.md"
+    },
+    {
+      "name": "ask-maestro",
+      "version": "0.1.0-beta.1",
+      "description": "Ask which vector craft skill, flow, or refinement fits your situation. A router and architectural navigator over the SVG Maestro ecosystem.",
+      "path": "./skills/ask-maestro/SKILL.md"
+    }
+  ]
+}

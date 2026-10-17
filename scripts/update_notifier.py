@@ -42,8 +42,33 @@ def get_default_cache_path() -> str:
     return os.path.join(user_cache, ".update_cache.json")
 
 
+def get_manifest_version(manifest_path: Optional[str] = None) -> Optional[str]:
+    """Extract version from a JSON manifest (plugin.json or skills.json)."""
+    if manifest_path is None:
+        for candidate in [
+            os.path.join(REPO_ROOT, ".claude-plugin", "plugin.json"),
+            os.path.join(REPO_ROOT, "plugin.json"),
+            os.path.join(REPO_ROOT, "skills.json"),
+        ]:
+            if os.path.exists(candidate):
+                manifest_path = candidate
+                break
+
+    if manifest_path and os.path.exists(manifest_path):
+        try:
+            with open(manifest_path, "r", encoding="utf-8") as f:
+                data = json.load(f)
+                val = data.get("version")
+                if val:
+                    return str(val).strip()
+        except Exception:
+            pass
+    return None
+
+
 def get_current_version(skill_path: Optional[str] = None) -> str:
-    """Extract current semver from SKILL.md frontmatter with fallback."""
+    """Extract current semver from SKILL.md frontmatter or distribution manifests with fallback."""
+    explicit_path = skill_path is not None
     if skill_path is None:
         skill_path = os.path.join(REPO_ROOT, "SKILL.md")
 
@@ -56,6 +81,11 @@ def get_current_version(skill_path: Optional[str] = None) -> str:
                 return match.group(1).strip()
         except Exception:
             pass
+
+    if not explicit_path:
+        manifest_ver = get_manifest_version()
+        if manifest_ver:
+            return manifest_ver
 
     return DEFAULT_VERSION
 

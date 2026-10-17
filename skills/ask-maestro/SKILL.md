@@ -172,6 +172,7 @@ Foundational concepts that inform all skills:
 
 SVG Maestro maintains version awareness across host environments (Antigravity, Claude Code, Codex):
 - **Autonomous Version Check**: Agents verify toolchain currency using `python scripts/update_notifier.py --check-update --json`.
+- **Distribution Manifests**: Packaged with `.claude-plugin/plugin.json` (Claude Code) and `skills.json` (`npx skills`) locked at parity (`0.1.0-beta.1`).
 - **24-Hour Local Cache**: Avoids GitHub API rate limiting by caching release status in `.update_cache.json`.
 - **Cordial Notification**: When a new release is detected, notify the user cordially with copy-paste upgrade commands (`git -C <path-to-skill> pull`).
 - **Unbroken Workflow Guarantee**: Never block or halt active vector drafting, briefing, or linting loops.

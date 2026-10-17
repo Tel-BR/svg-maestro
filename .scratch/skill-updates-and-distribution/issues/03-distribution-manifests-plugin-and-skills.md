@@ -4,9 +4,9 @@
 
 **Blocked by:** 01: Verificador de Versões e Notificador de Atualizações (CLI/Script)
 
-**Status:** ready-for-agent
+**Status:** completed
 
-- [ ] Create `.claude-plugin/plugin.json` (or root `plugin.json`) with plugin metadata, name, version (`0.1.0-beta.1`), author, description, and repository schema matching Claude Code marketplace conventions.
-- [ ] Create `skills.json` (or package configuration) adhering to the `npx skills` registry specification.
-- [ ] Ensure version fields across `SKILL.md`, `plugin.json`, and Python scripts are centralized or documented in synchronization.
-- [ ] Automated validation test checking JSON schema compliance and version parity across manifests.
+- [x] Create `.claude-plugin/plugin.json` (or root `plugin.json`) with plugin metadata, name, version (`0.1.0-beta.1`), author, description, and repository schema matching Claude Code marketplace conventions.
+- [x] Create `skills.json` (or package configuration) adhering to the `npx skills` registry specification.
+- [x] Ensure version fields across `SKILL.md`, `plugin.json`, and Python scripts are centralized or documented in synchronization.
+- [x] Automated validation test checking JSON schema compliance and version parity across manifests.

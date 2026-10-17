@@ -226,3 +226,16 @@ When `update_available` is `true`:
    ```
    *(e.g., `git -C ~/.gemini/config/skills/svg-maestro pull` or `git pull` if inside the repository).*
 3. **Preserve User Workspace**: Remind the user that pulling updates updates only the core skills, linters, and verbs—workspace files (`BRIEF.md`, tickets, custom generated SVGs) remain untouched.
+
+### 3. Distribution Manifests & Ecosystem Parity
+SVG Maestro publishes native manifests for standard agent package managers, guaranteeing discovery, automated installation, and zero-drift version parity (`0.1.0-beta.1`):
+- **Claude Code Marketplace**: `.claude-plugin/plugin.json` (and root `plugin.json`) enables one-line installation:
+  ```bash
+  /plugin marketplace add Tel-BR/svg-maestro
+  ```
+- **Agent Skills Registry (`npx skills`)**: `skills.json` enables multi-agent installation:
+  ```bash
+  npx skills add Tel-BR/svg-maestro
+  ```
+Version metadata across `SKILL.md`, `skills/ask-maestro/SKILL.md`, `.claude-plugin/plugin.json`, `plugin.json`, `skills.json`, and Python scripts (`DEFAULT_VERSION` in `scripts/update_notifier.py`) is centrally validated and maintained in strict synchronization.
+

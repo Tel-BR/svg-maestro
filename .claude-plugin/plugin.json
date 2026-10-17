@@ -1,0 +1,38 @@
+{
+  "$schema": "https://anthropic.com/claude-code/plugin.schema.json",
+  "name": "svg-maestro",
+  "version": "0.1.0-beta.1",
+  "description": "Orchestrates and engineers geometric SVG layouts, dashboard widgets, OBS streaming overlays, and standalone vector illustrations. Fuses Matt Pocock's architectural discipline with Impeccable's radical art direction, featuring interactive briefing, creative refinement verbs, Inkscape compatibility, autonomous python linting, and full internationalization.",
+  "author": {
+    "name": "Tel",
+    "url": "https://github.com/Tel-BR"
+  },
+  "homepage": "https://github.com/Tel-BR/svg-maestro",
+  "repository": "https://github.com/Tel-BR/svg-maestro",
+  "license": "MIT",
+  "keywords": [
+    "svg",
+    "vector",
+    "inkscape",
+    "obs",
+    "dashboard",
+    "power-bi",
+    "skills",
+    "claude-code",
+    "geometry",
+    "data-viz"
+  ],
+  "entrypoint": "./SKILL.md",
+  "skills": [
+    {
+      "name": "svg-maestro",
+      "path": "./SKILL.md",
+      "description": "Orchestrates and engineers geometric SVG layouts, dashboard widgets, OBS streaming overlays, and standalone vector illustrations."
+    },
+    {
+      "name": "ask-maestro",
+      "path": "./skills/ask-maestro/SKILL.md",
+      "description": "Ask which vector craft skill, flow, or refinement fits your situation. A router and architectural navigator over the SVG Maestro ecosystem."
+    }
+  ]
+}

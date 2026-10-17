@@ -2,6 +2,8 @@
 name: ask-maestro
 description: Ask which vector craft skill, flow, or refinement fits your situation. A router and architectural navigator over the SVG Maestro ecosystem.
 disable-model-invocation: true
+metadata:
+  version: 0.1.0-beta.1
 ---
 
 # Ask Maestro
@@ -106,6 +108,14 @@ For tough mutation bugs:
 - Route directly to `scripts/dashboard_pipeline.py`.
 - Forces `Operate` mode (high scanability and data density), wraps metrics in dynamic DAX variables, and outputs ready-to-paste `data:image/svg+xml;utf8,...` code.
 
+### 5. "I want to check toolchain health or update SVG Maestro to the latest release"
+- The router checks version status via `python scripts/update_notifier.py --check-update`.
+- If an update is available, provide copy-paste update instructions:
+  ```bash
+  git -C <path-to-skill> pull
+  ```
+- Toolchain updates never halt creative momentum: inform the user cordially and proceed immediately with the design task.
+
 ---
 
 ## Context Hygiene: The Smart Zone in Vector Engineering
@@ -142,6 +152,7 @@ Foundational concepts that inform all skills:
 - **The Wrapper Pattern**: The structural firewall separating machine animations from human edits. The outer `<g class="anim-wrapper-...">` is animated; the inner `<g inkscape:label="...">` is edited by humans. Neither overrides the other.
 - **Decoupled Typography**: Text is strictly authored as semantic `<text>` nodes in `layer-typography`. Never outline fonts into static `<path>` shapes. Multi-locale graphics use native `<switch>` and `systemLanguage`.
 - **The Craft Floor**: Non-negotiable quality baseline. Absolute bans on generic AI clipart, muddy 3-stop gradients, and broken curve tangencies.
+- **Lifecycle & Version Management**: Autonomous background verification (`scripts/update_notifier.py`) that checks for upstream releases with 24-hour caching and zero interruption to active vector design flows.
 
 ---
 
@@ -154,3 +165,13 @@ Foundational concepts that inform all skills:
 2. **Native Multilingual Graphics**:
    - When the user requires multi-language assets, leverage SVG `<switch>` with `systemLanguage="pt"`, `systemLanguage="es"`, and an unadorned English fallback.
    - Text elements remain 100% editable in Inkscape's text tool for translators.
+
+---
+
+## Lifecycle & Version Management
+
+SVG Maestro maintains version awareness across host environments (Antigravity, Claude Code, Codex):
+- **Autonomous Version Check**: Agents verify toolchain currency using `python scripts/update_notifier.py --check-update --json`.
+- **24-Hour Local Cache**: Avoids GitHub API rate limiting by caching release status in `.update_cache.json`.
+- **Cordial Notification**: When a new release is detected, notify the user cordially with copy-paste upgrade commands (`git -C <path-to-skill> pull`).
+- **Unbroken Workflow Guarantee**: Never block or halt active vector drafting, briefing, or linting loops.

@@ -201,3 +201,28 @@ python <path-to-skill>/scripts/validate_svg.py <path-to-generated-file.svg> --js
    - Edit the SVG file to resolve all errors.
    - Re-run `validate_svg.py` until it exits with code 0 (`valid: true`).
 4. Deliver the completed SVG along with a concise summary of its layer structure, surface mode, and animation tier.
+
+---
+
+## Lifecycle & Version Management
+
+As an autonomous vector engineering system, SVG Maestro includes self-diagnostic version awareness to ensure agents and human architects always operate with up-to-date geometric algorithms, linter rules, and refinement verbs.
+
+### 1. Update Check Protocol
+At the initiation of a vector engagement or session, the agent can check for toolchain updates in the background:
+```bash
+python <path-to-skill>/scripts/update_notifier.py --check-update --json
+```
+- **24-Hour Cache**: The check reads `.update_cache.json` locally; remote GitHub queries occur at most once every 24 hours. Checks execute in $<50\text{ms}$ when cached.
+- **Offline & Network Resilience**: If offline, experiencing network latency, or hitting rate limits, `update_notifier.py` degrades gracefully without throwing exceptions.
+- **Non-Blocking Rule**: An update check must **NEVER** halt, block, or delay the user's creative workflow. The agent must proceed immediately with the requested design task (briefing, generation, or refinement).
+
+### 2. Cordial Notification & Upgrade Protocol
+When `update_available` is `true`:
+1. **Polyglot Courtesy**: Inform the user cordially in their conversational language (e.g. Portuguese, English) alongside the requested deliverable or briefing step.
+2. **Copy-Paste Upgrade Commands**: Supply ready-to-run terminal commands indicating the target directory:
+   ```bash
+   git -C "<path-to-skill>" pull
+   ```
+   *(e.g., `git -C ~/.gemini/config/skills/svg-maestro pull` or `git pull` if inside the repository).*
+3. **Preserve User Workspace**: Remind the user that pulling updates updates only the core skills, linters, and verbs—workspace files (`BRIEF.md`, tickets, custom generated SVGs) remain untouched.

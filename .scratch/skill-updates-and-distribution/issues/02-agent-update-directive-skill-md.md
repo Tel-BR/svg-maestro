@@ -4,9 +4,9 @@
 
 **Blocked by:** 01: Verificador de Versões e Notificador de Atualizações (CLI/Script)
 
-**Status:** ready-for-agent
+**Status:** completed
 
-- [ ] `SKILL.md` updated with an explicit "Lifecycle & Version Management" section instructing the agent how and when to check for updates (`scripts/update_notifier.py`).
-- [ ] Clear agent guidelines on informing the user cordially if a newer release exists, supplying copy-paste update commands (`git -C <path> pull`).
-- [ ] Child skill `skills/ask-maestro/SKILL.md` aligned with the same versioning and discovery protocol.
-- [ ] Integration validation verifying that the agent protocol instructions adhere to project craft floor standards and CONTEXT.md architectural rules.
+- [x] `SKILL.md` updated with an explicit "Lifecycle & Version Management" section instructing the agent how and when to check for updates (`scripts/update_notifier.py`).
+- [x] Clear agent guidelines on informing the user cordially if a newer release exists, supplying copy-paste update commands (`git -C <path> pull`).
+- [x] Child skill `skills/ask-maestro/SKILL.md` aligned with the same versioning and discovery protocol.
+- [x] Integration validation verifying that the agent protocol instructions adhere to project craft floor standards and CONTEXT.md architectural rules.

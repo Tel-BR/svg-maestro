@@ -107,6 +107,62 @@ class TestAskMaestroSkill(unittest.TestCase):
                 "Global skill must be an exact mirror of repository skill",
             )
 
+    def test_version_metadata_and_consistency(self):
+        """Verifies metadata version exists in both ask-maestro and root SKILL.md and are consistent."""
+        root_skill_path = os.path.join(REPO_ROOT, "SKILL.md")
+        with open(root_skill_path, "r", encoding="utf-8") as f:
+            root_content = f.read()
+
+        match_child = re.search(r"version:\s*([0-9a-zA-Z\.\-]+)", self.content)
+        self.assertIsNotNone(match_child, "ask-maestro must define metadata.version")
+        child_version = match_child.group(1).strip()
+
+        match_root = re.search(r"version:\s*([0-9a-zA-Z\.\-]+)", root_content)
+        self.assertIsNotNone(match_root, "root SKILL.md must define metadata.version")
+        root_version = match_root.group(1).strip()
+
+        self.assertEqual(child_version, root_version, "Versions between root and child skill must be identical")
+
+    def test_lifecycle_and_version_management_present(self):
+        """Verifies Lifecycle & Version Management sections, update_notifier.py, and git -C pull commands."""
+        root_skill_path = os.path.join(REPO_ROOT, "SKILL.md")
+        with open(root_skill_path, "r", encoding="utf-8") as f:
+            root_content = f.read()
+
+        for content, name in [(root_content, "root SKILL.md"), (self.content, "ask-maestro SKILL.md")]:
+            self.assertIn(
+                "Lifecycle & Version Management",
+                content,
+                f"{name} must contain Lifecycle & Version Management section",
+            )
+            self.assertIn("update_notifier.py", content, f"{name} must reference update_notifier.py")
+            self.assertIn("git -C", content, f"{name} must provide copy-paste git -C pull command")
+
+        # Root skill must explicitly forbid halting the user's creative workflow
+        self.assertTrue(
+            re.search(r"(never halt|non-blocking)", root_content, re.IGNORECASE),
+            "root SKILL.md must mandate non-blocking update checks that never halt creative flow",
+        )
+
+    def test_global_root_skill_mirrored(self):
+        """Verifies that the global root skill directory in ~/.gemini/config/skills/svg-maestro is mirrored."""
+        global_root_path = os.path.expanduser(r"~\.gemini\config\skills\svg-maestro\SKILL.md")
+        if os.path.exists(os.path.dirname(global_root_path)):
+            self.assertTrue(
+                os.path.exists(global_root_path),
+                f"Global root skill must exist at {global_root_path}",
+            )
+            root_skill_path = os.path.join(REPO_ROOT, "SKILL.md")
+            with open(root_skill_path, "r", encoding="utf-8") as f:
+                root_content = f.read()
+            with open(global_root_path, "r", encoding="utf-8") as f:
+                global_content = f.read()
+            self.assertEqual(
+                root_content,
+                global_content,
+                "Global root skill must be an exact mirror of repository SKILL.md",
+            )
+
 
 if __name__ == "__main__":
     unittest.main()

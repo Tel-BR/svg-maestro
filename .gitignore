@@ -15,3 +15,4 @@ Thumbs.db
 *.log
 tmp/
 .agents/
+.update_cache.json

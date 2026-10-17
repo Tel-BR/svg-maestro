@@ -278,10 +278,28 @@ def validate_svg_file(filepath):
 
 def main():
     parser = argparse.ArgumentParser(description="SVG Maestro - SVG Validation Engine")
-    parser.add_argument("file", help="Path to SVG file to validate")
+    parser.add_argument("file", nargs="?", default=None, help="Path to SVG file to validate")
+    parser.add_argument("--check-update", action="store_true", help="Check for SVG Maestro updates")
     parser.add_argument("--json", action="store_true", help="Output results in JSON format")
     parser.add_argument("--strict", action="store_true", help="Fail on warnings as well as errors")
     args = parser.parse_args()
+
+    if args.check_update:
+        try:
+            from update_notifier import check_for_updates, print_update_banner
+            up_res = check_for_updates()
+            if up_res and up_res.get("update_available"):
+                print_update_banner(up_res, stream=sys.stderr)
+            elif not args.file and not args.json:
+                print(f"[OK] SVG Maestro is up to date (v{up_res.get('current_version', '') if up_res else ''}).")
+        except Exception:
+            pass
+        if not args.file:
+            sys.exit(0)
+
+    if not args.file:
+        parser.print_help(sys.stderr)
+        sys.exit(2)
 
     result = validate_svg_file(args.file)
 

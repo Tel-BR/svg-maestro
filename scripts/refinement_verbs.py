@@ -1073,18 +1073,36 @@ Examples:
 """
     )
 
-    parser.add_argument("verb", choices=["bolder", "quieter", "distill", "delight", "animate", "critique"],
+    parser.add_argument("verb", nargs="?", choices=["bolder", "quieter", "distill", "delight", "animate", "critique"],
                         help="Creative refinement verb to execute")
-    parser.add_argument("-i", "--input", required=True, help="Input SVG file path")
+    parser.add_argument("-i", "--input", required=False, help="Input SVG file path")
 
     dest_group = parser.add_mutually_exclusive_group()
     dest_group.add_argument("-o", "--output", help="Output SVG file path (default: <input>_<verb>.svg)")
     dest_group.add_argument("--in-place", action="store_true", help="Overwrite the input SVG file directly instead of creating a derived file")
 
+    parser.add_argument("--check-update", action="store_true", help="Check for SVG Maestro updates")
     parser.add_argument("--json", action="store_true", help="Output critique results as JSON")
     parser.add_argument("--factor", type=float, help="Scale factor for bolder or quieter verbs")
 
     args = parser.parse_args()
+
+    if args.check_update:
+        try:
+            from update_notifier import check_for_updates, print_update_banner
+            up_res = check_for_updates()
+            if up_res and up_res.get("update_available"):
+                print_update_banner(up_res, stream=sys.stderr)
+            elif not args.input and not args.verb:
+                print(f"[OK] SVG Maestro is up to date (v{up_res.get('current_version', '') if up_res else ''}).")
+        except Exception:
+            pass
+        if not args.input or not args.verb:
+            sys.exit(0)
+
+    if not args.verb or not args.input:
+        parser.print_help(sys.stderr)
+        sys.exit(2)
 
     if not os.path.exists(args.input):
         print(f"Error: Input file does not exist: {args.input}", file=sys.stderr)

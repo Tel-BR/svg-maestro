@@ -34,17 +34,33 @@ python scripts/refinement_verbs.py bolder --input card.svg
 
 ## Instalação e Uso em Agentes
 
-### Antigravity (Google)
+O SVG Maestro pode ser instalado através de múltiplos canais de distribuição de acordo com o ambiente do seu agente:
+
+### 1. Marketplace de Plugins do Claude Code (Recomendado para Claude Code)
+Instalação nativa em comando único no Claude Code:
+```bash
+/plugin marketplace add Tel-BR/svg-maestro
+```
+
+### 2. Registro de Skills para Agentes (`npx skills`)
+Instalação universal em múltiplos agentes de programação via CLI:
+```bash
+npx skills add Tel-BR/svg-maestro
+```
+
+### 3. Clone Direto via Git
+
+#### Antigravity (Google)
 ```bash
 git clone https://github.com/Tel-BR/svg-maestro.git ~/.gemini/config/skills/svg-maestro
 ```
 
-### Claude Code (Anthropic)
+#### Claude Code (Clone Manual de Skill)
 ```bash
 git clone https://github.com/Tel-BR/svg-maestro.git ~/.claude/skills/svg-maestro
 ```
 
-### Codex, Cursor ou Agentes Customizados
+### 4. Codex, Cursor ou Agentes Customizados
 Referencie [`SKILL.md`](SKILL.md) diretamente no prompt de sistema do seu agente ou conjunto de skills do workspace.
 
 ---
@@ -81,6 +97,7 @@ Direcione vetores existentes com comandos expressivos de design sem manipulaçã
 - **`distill`**: Remove detalhes decorativos secundários preservando hierarquia geométrica e métricas.
 - **`delight`**: Adiciona micro-movimentos sutis (varreduras de radar, anéis orbitais) encapsulados em Wrappers.
 - **`animate`**: Converte SVGs estáticos em ativos animados envolvendo elementos centrais em grupos de animação e injetando regras CSS `@keyframes`.
+- **`upgrade`**: Atualiza e migra automaticamente SVGs legados ou sem versão para conformidade total com camadas do Inkscape, IDs limpos em `<defs>`, coordenadas do `viewBox` e contratos universais de transformação CSS (`transform-box: fill-box; transform-origin: center;`).
 - **`critique`**: Emite relatório estruturado em dois eixos avaliando Padrões Técnicos (linter, camadas, higiene de defs) e Excelência Estética (proporções, harmonia de cores, desacoplamento tipográfico).
 
 ```bash
@@ -92,6 +109,9 @@ python scripts/refinement_verbs.py quieter --input card.svg --output card_minima
 
 # Sobrescrita in-place explícita
 python scripts/refinement_verbs.py distill --input card.svg --in-place
+
+# Atualizar automaticamente um SVG legado ou de terceiros
+python scripts/refinement_verbs.py upgrade --input card_legado.svg
 
 # Executar crítica de design em dois eixos
 python scripts/refinement_verbs.py critique --input card.svg
@@ -194,23 +214,83 @@ python scripts/validate_svg.py caminho/do/vetor.svg --json
 
 ---
 
+## Atualizações e Versionamento
+
+O SVG Maestro segue estritamente o **Versionamento Semântico (`MAJOR.MINOR.PATCH`)** com detecção não-intrusiva de novas versões e garantias abrangentes de retrocompatibilidade.
+
+### Canais de Distribuição e Atualização
+
+Mantenha sua suíte do SVG Maestro atualizada utilizando seu canal de instalação preferido:
+
+| Canal | Comando de Instalação | Comando de Atualização |
+| :--- | :--- | :--- |
+| **Plugin Claude Code** | `/plugin marketplace add Tel-BR/svg-maestro` | `/plugin update svg-maestro` |
+| **CLI do Skills (Agentes)** | `npx skills add Tel-BR/svg-maestro` | `npx skills update svg-maestro` |
+| **Clone Git (Antigravity)** | `git clone https://github.com/Tel-BR/svg-maestro.git ~/.gemini/config/skills/svg-maestro` | `git -C ~/.gemini/config/skills/svg-maestro pull` |
+| **Clone Git (Claude Code)** | `git clone https://github.com/Tel-BR/svg-maestro.git ~/.claude/skills/svg-maestro` | `git -C ~/.claude/skills/svg-maestro pull` |
+| **Git no Repositório** | `git clone https://github.com/Tel-BR/svg-maestro.git` | `git pull` |
+
+### Verificador de Atualizações Standalone (`scripts/update_notifier.py`)
+
+Verifique releases remotas no GitHub programaticamente ou via terminal sem modificar nenhum arquivo:
+
+```bash
+# Verificação amigável para humanos
+python scripts/update_notifier.py --check-update
+
+# Forçar verificação ignorando o cache local de 24 horas
+python scripts/update_notifier.py --check-update --force
+
+# Saída em JSON para agentes e automações
+python scripts/update_notifier.py --check-update --json
+```
+
+- **Cache de 24 Horas**: As consultas a releases remotas do GitHub são cacheadas localmente em `.update_cache.json` por 24 horas (tempo de resposta $<50\text{ms}$).
+- **Resiliência Offline e de Rede**: A checagem de atualizações falha silenciosamente e nunca bloqueia, atrasa ou interrompe a geração de vetores caso não haja acesso à internet.
+- **Isolamento do Workspace**: Atualizar o repositório atualiza unicamente os scripts, linters e skills centrais—arquivos de projeto do usuário (`BRIEF.md`, tickets, SVGs criados) nunca são sobrescritos.
+
+### Retrocompatibilidade e Atualização Automática de SVGs Legados
+
+O SVG Maestro assegura retrocompatibilidade contínua entre versões:
+
+1. **Ingestão Segura e Sem Falhas**: SVGs antigos ou sem versão (como aqueles sem camadas nativas do Inkscape, com IDs legados na tag `<defs>` ou sem atributos `transform-box`) são processados com segurança por `validate_svg.py` e `refinement_verbs.py` sem lançar exceções não tratadas.
+2. **Dicas Acionáveis de Correção**: Ao validar arquivos legados, o `validate_svg.py` emite dicas estruturadas de migração (com prefixo `UPGRADE_`) indicando exatamente o ajuste necessário.
+3. **O Verbo `upgrade`**: Atualize qualquer SVG legado ou de terceiros diretamente para os padrões vigentes:
+   ```bash
+   # Cria uma cópia moderna e atualizada (<nome>_upgrade.svg)
+   python scripts/refinement_verbs.py upgrade --input card_legado.svg
+
+   # Sobrescreve o arquivo legado diretamente (in-place)
+   python scripts/refinement_verbs.py upgrade --input card_legado.svg --in-place
+   ```
+
+---
+
 ## Estrutura do Repositório
 
 ```
 svg-maestro/
+├── .claude-plugin/
+│   └── plugin.json             # Manifesto de plugin para o Claude Code
 ├── .github/workflows/ci.yml    # Workflow de integração contínua (CI)
 ├── CONTEXT.md                  # Glossário formal de domínio
-├── SKILL.md                    # Especificação da skill para agentes
+├── CONTRIBUTING.md             # Guia de contribuição da comunidade e protocolo de release
+├── LICENSE                     # Licença permissiva MIT
 ├── README.md                   # Documentação canônica em inglês
 ├── README.pt-BR.md             # Documentação localizada em português
-├── CONTRIBUTING.md             # Guia de contribuição da comunidade
-├── LICENSE                     # Licença permissiva MIT
+├── SKILL.md                    # Especificação da skill para agentes
+├── plugin.json                 # Manifesto de distribuição raiz (paridade síncrona)
+├── skills.json                 # Catálogo de registro para npx skills
 ├── scripts/
 │   ├── briefing.py             # Motor de briefing interativo e eliciação
 │   ├── dashboard_pipeline.py   # Cartões de telemetria e pipeline DAX
 │   ├── obs_pipeline.py         # Gerador de overlays para OBS Studio
 │   ├── refinement_verbs.py     # Verbos de refinamento e motor de crítica
+│   ├── update_notifier.py      # Verificador de versões e notificações de atualização
 │   └── validate_svg.py         # Linter de validação vetorial em Python puro
+├── skills/
+│   └── ask-maestro/
+│       └── SKILL.md            # Skill do roteador navegador
 ├── examples/
 │   ├── dashboard/              # Cartões de telemetria e trecho DAX
 │   │   ├── telemetry_card.svg
@@ -227,13 +307,17 @@ svg-maestro/
 │   ├── tickets/                # Tickets executáveis (01 - 06)
 │   └── adr/                    # Registros de decisões de arquitetura (ADRs 0001 - 0008)
 └── tests/
-    ├── fixtures/               # Matriz de fixtures para validação
+    ├── fixtures/               # Matriz de fixtures para validação (modernas e legadas)
+    ├── test_ask_maestro.py     # Suite de testes do roteador Ask Maestro
+    ├── test_backward_compatibility.py # Suite de tolerância a SVGs legados e auto-upgrade
     ├── test_briefing.py        # Suite de testes do motor de briefing
     ├── test_dashboard_pipeline.py # Suite de testes do pipeline de dashboards e DAX
+    ├── test_distribution_manifests.py # Suite de paridade e schemas de manifestos
     ├── test_i18n.py            # Suite de testes de tipografia e i18n
     ├── test_linter.py          # Suite de testes do linter central
     ├── test_obs_overlays.py    # Suite de testes de overlays do OBS
     ├── test_refinement_verbs.py # Suite de testes de verbos e crítica
+    ├── test_update_notifier.py # Suite de testes do notificador e cache de versão
     └── test_card.svg           # Fixture canônica de cartão
 ```
 

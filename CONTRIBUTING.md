@@ -20,6 +20,62 @@ Obrigado pelo interesse em contribuir com o **SVG Maestro**! Este projeto é de 
 3. Valide o SVG e rode o linter: `python scripts/validate_svg.py tests/test_card.svg`.
 4. Envie suas alterações via Pull Request detalhando o impacto no Inkscape e nos navegadores.
 
+## Protocolo de Release e Bump de Versão (Release & Version Bumping Protocol)
+
+O SVG Maestro utiliza **Versionamento Semântico (`MAJOR.MINOR.PATCH`)** (e.g., `0.1.0-beta.1`). Para garantir a integridade do ecossistema distribuído em múltiplos marketplaces e agentes de IA, todas as versões devem permanecer em estrita sincronia (**Zero-Drift Parity**).
+
+### 1. Arquivos com Versionamento Centralizado
+Ao incrementar uma versão (patch, minor ou major), o mantenedor deve atualizar os seguintes arquivos:
+
+1. **`SKILL.md`**: Campo `metadata.version` no frontmatter YAML do cabeçalho.
+2. **`skills/ask-maestro/SKILL.md`**: Campo `metadata.version` no frontmatter YAML.
+3. **`.claude-plugin/plugin.json`**: Campo `"version"`.
+4. **`plugin.json`**: Campo `"version"` (deve permanecer 100% idêntico a `.claude-plugin/plugin.json`).
+5. **`skills.json`**:
+   - Campo raiz `"version"`.
+   - Campo `"version"` em cada entrada do array `"skills"` (`svg-maestro`, `ask-maestro`, etc.).
+6. **`scripts/update_notifier.py`**: Constante `DEFAULT_VERSION`.
+7. **`README.md` e `README.pt-BR.md`**: Badges de status no topo dos documentos (`[![Status: ...](...)]`).
+
+### 2. Validação Obrigatória Pré-Release
+Antes de submeter o commit de release, execute a suíte de testes de manifestos para comprovar que não há divergência de versão (*version drift*) nem quebra de schema:
+
+```bash
+# Validar conformidade de schemas e paridade de versão em todos os manifestos
+pytest tests/test_distribution_manifests.py -v
+
+# Executar a suíte de testes completa do repositório (170+ testes)
+pytest
+```
+
+Nenhum release deve ser publicado se algum teste de paridade ou retrocompatibilidade falhar.
+
+### 3. Publicação e Tagging no Git
+Após a validação bem-sucedida de todos os testes:
+
+```bash
+# 1. Comitar as alterações sincronizadas
+git add SKILL.md skills/ask-maestro/SKILL.md .claude-plugin/plugin.json plugin.json skills.json scripts/update_notifier.py README.md README.pt-BR.md
+git commit -m "chore(release): bump version to v0.X.Y"
+
+# 2. Criar a tag semântica anotada correspondente
+git tag -a v0.X.Y -m "Release v0.X.Y"
+
+# 3. Enviar branches e tags para o repositório remoto
+git push origin main --tags
+```
+
+### 4. Publicação da Release no GitHub
+1. Acesse [Releases no GitHub](https://github.com/Tel-BR/svg-maestro/releases) e clique em **Draft a new release**.
+2. Selecione a tag recém-criada (`v0.X.Y`).
+3. Documente o changelog com foco em:
+   - Novos verbos de refinamento ou pipelines.
+   - Melhorias de compatibilidade e camadas do Inkscape.
+   - Novas regras do linter ou dicas de upgrade (`UPGRADE_*`).
+   - Breaking changes (se houver, com guia de migração).
+
+---
+
 ## Código de Conduta
 
 Seja respeitoso, construtivo e colaborativo em todas as interações.

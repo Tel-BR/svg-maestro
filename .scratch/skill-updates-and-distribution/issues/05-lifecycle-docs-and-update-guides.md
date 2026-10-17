@@ -4,9 +4,9 @@
 
 **Blocked by:** 02: Diretiva de Atualização e Autodiagnóstico no SKILL.md, 03: Manifestos de Distribuição para Registros de Skills (plugin.json e skills.json), 04: Suíte de Retrocompatibilidade e Tolerância a SVGs Legados
 
-**Status:** ready-for-agent
+**Status:** completed
 
-- [ ] Update `README.md` and `README.pt-BR.md` with a new dedicated "Updates & Versioning" section.
-- [ ] Document one-line update commands for Git (`git -C <path> pull`), `npx skills update`, and `/plugin update`.
-- [ ] Update `CONTRIBUTING.md` with the release protocol (how to bump version in `SKILL.md`, `plugin.json`, `update_notifier.py`, and draft GitHub release).
-- [ ] Verify all docs links and formatting across both English and Portuguese versions.
+- [x] Update `README.md` and `README.pt-BR.md` with a new dedicated "Updates & Versioning" section.
+- [x] Document one-line update commands for Git (`git -C <path> pull`), `npx skills update`, and `/plugin update`.
+- [x] Update `CONTRIBUTING.md` with the release protocol (how to bump version in `SKILL.md`, `plugin.json`, `update_notifier.py`, and draft GitHub release).
+- [x] Verify all docs links and formatting across both English and Portuguese versions.

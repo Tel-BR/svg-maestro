@@ -34,17 +34,33 @@ python scripts/refinement_verbs.py bolder --input card.svg
 
 ## Installation & Agent Setup
 
-### Antigravity (Google)
+SVG Maestro can be installed through multiple distribution channels depending on your agent runtime:
+
+### 1. Claude Code Plugin Marketplace (Recommended for Claude Code)
+Install directly inside Claude Code:
+```bash
+/plugin marketplace add Tel-BR/svg-maestro
+```
+
+### 2. Agent Skills Registry (`npx skills`)
+Install across multiple coding agents via the skills CLI:
+```bash
+npx skills add Tel-BR/svg-maestro
+```
+
+### 3. Git Clone
+
+#### Antigravity (Google)
 ```bash
 git clone https://github.com/Tel-BR/svg-maestro.git ~/.gemini/config/skills/svg-maestro
 ```
 
-### Claude Code (Anthropic)
+#### Claude Code (Manual Skill Clone)
 ```bash
 git clone https://github.com/Tel-BR/svg-maestro.git ~/.claude/skills/svg-maestro
 ```
 
-### Codex, Cursor, or Custom Agents
+### 4. Codex, Cursor, or Custom Agents
 Reference [`SKILL.md`](SKILL.md) directly in your agent's system prompt or workspace instruction set.
 
 ---
@@ -81,6 +97,7 @@ Iteratively steer existing vector graphics through expressive commands without m
 - **`distill`**: Strips secondary decorative shapes while preserving core Euclidean hierarchy and metrics.
 - **`delight`**: Injects micro-motion accents (orbital radar rings or breathing pulses) encapsulated in Wrapper groups.
 - **`animate`**: Converts static SVGs into motion assets by wrapping key elements in animation groups and injecting CSS `@keyframes`.
+- **`upgrade`**: Automatically migrates legacy or un-versioned SVGs into compliance with Inkscape semantic layers, clean `<defs>` IDs, `viewBox` coordinates, and universal CSS transform contracts (`transform-box: fill-box; transform-origin: center;`).
 - **`critique`**: Emits a structured two-axis report scoring Technical Standards (linter compliance, layers, defs hygiene) and Aesthetic Craft (proportions, color harmony, typography decoupling).
 
 ```bash
@@ -92,6 +109,9 @@ python scripts/refinement_verbs.py quieter --input card.svg --output card_minima
 
 # Explicit in-place modification
 python scripts/refinement_verbs.py distill --input card.svg --in-place
+
+# Auto-upgrade a legacy or third-party SVG
+python scripts/refinement_verbs.py upgrade --input legacy_card.svg
 
 # Run two-axis critique
 python scripts/refinement_verbs.py critique --input card.svg
@@ -193,23 +213,83 @@ python scripts/validate_svg.py path/to/vector.svg --json
 
 ---
 
+## Updates & Versioning
+
+SVG Maestro adheres to strict **Semantic Versioning (`MAJOR.MINOR.PATCH`)** with non-intrusive update detection and comprehensive backward compatibility guarantees.
+
+### Distribution & Update Channels
+
+Keep your SVG Maestro toolchain up to date using your preferred installation channel:
+
+| Channel | Install Command | Update Command |
+| :--- | :--- | :--- |
+| **Claude Code Plugin** | `/plugin marketplace add Tel-BR/svg-maestro` | `/plugin update svg-maestro` |
+| **Agent Skills CLI** | `npx skills add Tel-BR/svg-maestro` | `npx skills update svg-maestro` |
+| **Git Clone (Antigravity)** | `git clone https://github.com/Tel-BR/svg-maestro.git ~/.gemini/config/skills/svg-maestro` | `git -C ~/.gemini/config/skills/svg-maestro pull` |
+| **Git Clone (Claude Code)** | `git clone https://github.com/Tel-BR/svg-maestro.git ~/.claude/skills/svg-maestro` | `git -C ~/.claude/skills/svg-maestro pull` |
+| **In-Repo Git** | `git clone https://github.com/Tel-BR/svg-maestro.git` | `git pull` |
+
+### Standalone Update Checker (`scripts/update_notifier.py`)
+
+Check for remote GitHub releases programmatically or via CLI without modifying files:
+
+```bash
+# Human-readable status check
+python scripts/update_notifier.py --check-update
+
+# Force check ignoring the local 24-hour cache
+python scripts/update_notifier.py --check-update --force
+
+# JSON output for agent consumption
+python scripts/update_notifier.py --check-update --json
+```
+
+- **24-Hour Cache**: Remote GitHub release checks are cached locally in `.update_cache.json` for 24 hours ($<50\text{ms}$ query time).
+- **Offline & Network Resilience**: Update checks fail silently and never block, halt, or delay vector generation if network access is unavailable.
+- **Workspace Isolation**: Pulling updates only refreshes core scripts, linters, and skills—user project files (`BRIEF.md`, tickets, custom SVGs) remain untouched.
+
+### Backward Compatibility & Legacy SVG Auto-Upgrade
+
+SVG Maestro guarantees continuous backward compatibility across versions:
+
+1. **Non-Breaking Ingestion**: Older or un-versioned SVGs (such as those lacking Inkscape layers, using legacy `<defs>` IDs, or missing `transform-box` attributes) are safely ingested by `validate_svg.py` and `refinement_verbs.py` without throwing unhandled exceptions.
+2. **Actionable Remediation Hints**: When validating legacy assets, `validate_svg.py` emits structured upgrade hints (prefixed with `UPGRADE_`) detailing exact corrective actions.
+3. **The `upgrade` Verb**: Automatically upgrade any legacy or third-party SVG to current standards:
+   ```bash
+   # Create a modern upgraded copy (<name>_upgrade.svg)
+   python scripts/refinement_verbs.py upgrade --input legacy_asset.svg
+
+   # Overwrite the legacy file in-place
+   python scripts/refinement_verbs.py upgrade --input legacy_asset.svg --in-place
+   ```
+
+---
+
 ## Repository Layout
 
 ```
 svg-maestro/
+├── .claude-plugin/
+│   └── plugin.json             # Claude Code plugin manifest
 ├── .github/workflows/ci.yml    # Continuous integration workflow
 ├── CONTEXT.md                  # Formal domain glossary
-├── SKILL.md                    # Agent skill specification
+├── CONTRIBUTING.md             # Community contribution & release protocol
+├── LICENSE                     # Permissive MIT License
 ├── README.md                   # Canonical English documentation
 ├── README.pt-BR.md             # Localized Portuguese documentation
-├── CONTRIBUTING.md             # Community contribution guide
-├── LICENSE                     # Permissive MIT License
+├── SKILL.md                    # Agent skill specification
+├── plugin.json                 # Distribution manifest (sync parity)
+├── skills.json                 # npx skills registry catalog manifest
 ├── scripts/
 │   ├── briefing.py             # Interactive briefing and elicitation engine
 │   ├── dashboard_pipeline.py   # Dashboard telemetry cards & Power BI DAX pipeline
 │   ├── obs_pipeline.py         # OBS streaming overlays generator & pipeline
 │   ├── refinement_verbs.py     # Creative refinement verbs & design critique engine
+│   ├── update_notifier.py      # Version checker & update notifier
 │   └── validate_svg.py         # Zero-dependency Python validation linter
+├── skills/
+│   └── ask-maestro/
+│       └── SKILL.md            # Navigator router skill
 ├── examples/
 │   ├── dashboard/              # Metric cards & DAX snippet
 │   │   ├── telemetry_card.svg
@@ -226,13 +306,17 @@ svg-maestro/
 │   ├── tickets/                # Executable tracer-bullet tickets (01 - 06)
 │   └── adr/                    # Architectural Decision Records (ADRs 0001 - 0008)
 └── tests/
-    ├── fixtures/               # Comprehensive validation test fixtures
+    ├── fixtures/               # Validation fixtures (modern and legacy)
+    ├── test_ask_maestro.py     # Ask Maestro router test suite
+    ├── test_backward_compatibility.py # Legacy SVG tolerance & auto-upgrade test suite
     ├── test_briefing.py        # Briefing engine test suite
     ├── test_dashboard_pipeline.py # Dashboard & DAX pipeline test suite
+    ├── test_distribution_manifests.py # Manifest schema & zero-drift parity test suite
     ├── test_i18n.py            # Multilingual typography & <switch> test suite
     ├── test_linter.py          # Core linter test suite
     ├── test_obs_overlays.py    # OBS overlays test suite
     ├── test_refinement_verbs.py # Refinement verbs & critique test suite
+    ├── test_update_notifier.py # Update notifier & cache test suite
     └── test_card.svg           # Canonical test fixture
 ```
 
